@@ -3,7 +3,7 @@
 /**
  * @author Ivan Torres Marcos 
  * @version V2.0
- * 
+ * @description Primer proyecto que se basa en hacer una pagina para resumir nuestros datos, skills, hobbies y trabajos hechos.
  */ ?>
 <!DOCTYPE html>
 <html lang="es">

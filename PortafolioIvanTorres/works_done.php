@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+
+/**
+ * @author Ivan Torres Marcos 
+ * @version V2.0
+ * 
+ */ ?>
 
 <head>
     <?php include_once(__DIR__ . '/INC PHPs/header.inc.php'); ?>
