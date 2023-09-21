@@ -58,7 +58,7 @@
             }
         }
 
-        echo (' <br> <b>Array organizado (metodo burbuja)checklin: </b>');
+        echo (' <br> <b>Array organizado (metodo burbuja)checklinnnnn: </b>');
         for ($i = 0; $i < 10; $i++) {
             echo $arr[$i] . ' ▪ ';
         }
