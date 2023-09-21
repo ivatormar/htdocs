@@ -33,7 +33,7 @@
         }
 
 
-        echo ('<br><br> <b>Extra burbuja: </b>');
+        echo ('<br><br> <b>Extra burbuja: </b><br>');
         $arr = [];
 
         // Llenamos el array con números aleatorios
