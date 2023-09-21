@@ -34,30 +34,30 @@
 
 
         echo ('<br><br> <b>Extra burbuja: </b><br>');
-        $arr = [];
+        $burbuja = [];
 
         // Llenamos el array con números aleatorios
         for ($i = 0; $i < 10; $i++) {
-            $arr[] = rand(1, 1000);
+            $burbuja[] = rand(1, 1000);
         }
 
         echo ('<b>Array desorganizado: </b>');
         for ($i = 0; $i < 10; $i++) {
-            echo $arr[$i] . ' ▪ ';
+            echo $burbuja[$i] . ' ▪ ';
         }
 
-        // Algoritmo método burbuja, lo tengo explicado en el notes del movil, donde pone server.
-        for ($i = 0; $i < count($arr) - 1; $i++) {
-            for ($j = 0; $j < count($arr) - $i - 1; $j++) {
-                if ($arr[$j] > $arr[$j + 1]) {
-                    $aux = $arr[$j];
-                    $arr[$j] = $arr[$j + 1];
-                    $arr[$j + 1] = $aux;
+        // Algoritmo método burbuja, lo tengo explicado en el notes del móvil, donde pone server.
+        for ($i = 0; $i < count($burbuja) - 1; $i++) {
+            for ($j = 0; $j < count($burbuja) - $i - 1; $j++) {
+                if ($burbuja[$j] > $burbuja[$j + 1]) {
+                    $aux = $burbuja[$j];
+                    $burbuja[$j] = $burbuja[$j + 1];
+                    $burbuja[$j + 1] = $aux;
                 }
             }
         }
 
         echo (' <br> <b>Array organizado (metodo burbuja): </b>');
         for ($i = 0; $i < 10; $i++) {
-            echo $arr[$i] . ' ▪ ';
+            echo $burbuja[$i] . ' ▪ ';
         }
