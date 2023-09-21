@@ -1,0 +1,97 @@
+body {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  background: rgb(249, 171, 85);
+  background: linear-gradient(
+    90deg,
+    rgba(249, 171, 85, 1) 0%,
+    rgba(245, 138, 7, 1) 77%,
+    rgba(247, 245, 251, 1) 100%
+  );
+  font-family: "Mooli", sans-serif;
+}
+.nav {
+  margin: 0px;
+  padding: 0px;
+  background: rgb(249, 171, 85);
+  background: linear-gradient(
+    90deg,
+    rgba(249, 171, 85, 1) 0%,
+    rgba(245, 138, 7, 1) 77%,
+    rgba(247, 245, 251, 1) 100%
+  );
+}
+.nav ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+.nav li {
+  float: left;
+}
+.nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.nav li i {
+  text-align: center;
+  margin-top: 30px;
+}
+.nav li a:hover {
+  background-color: #111;
+}
+
+h1 {
+  font-size: 50px;
+  text-align: center;
+  color: #084887;
+}
+.data {
+  font-size: 45px;
+  color: #084887;
+  display: flex;
+  margin-left: 20px;
+}
+.data ul {
+  flex: 1;
+  list-style: none;
+}
+.data li {
+  margin-top: 5px;
+}
+
+img {
+  border: 3px solid #f9ab55;
+  margin-right: 100px;
+  float: right;
+  width: 550px;
+  height: 400px;
+}
+footer {
+  margin-top: 200px;
+  text-align: center;
+  position: fixed;
+  padding: 7px;
+  width: 100%;
+  bottom: 0px;
+}
+.hobbies {
+  font-size: 25px;
+  color: #084887;
+  margin-left: 20px;
+}
+.skills ul {
+  font-size: 25px;
+  color: #084887;
+  margin-left: 20px;
+}
+.works {
+  font-size: 25px;
+  color: #084887;
+  margin-left: 20px;
+}
