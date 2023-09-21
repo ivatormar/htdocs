@@ -46,7 +46,7 @@
             echo $arr[$i] . ' ▪ ';
         }
 
-        // Algoritmo método burbuja, lo tengo explicado en el notes del movil.
+        // Algoritmo método burbuja, lo tengo explicado en el notes del movil, donde pone server.
         for ($i = 0; $i < count($arr) - 1; $i++) {
             for ($j = 0; $j < count($arr) - $i - 1; $j++) {
                 if ($arr[$j] > $arr[$j + 1]) {
