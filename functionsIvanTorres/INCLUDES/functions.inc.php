@@ -2,7 +2,9 @@
 
 
 
-
+/**
+ * No he comentado mucho las funciones porque son bastantes autexplicativas
+ */
 function numbComparison(int $random1, int $random2)
 {
     if ($random1 > $random2) {
@@ -50,6 +52,11 @@ function moduleOperation(int $random1, int $random2)
     return 'Módulo de: ' . $random1 . ' % ' . $random2 . ' = <b>' . $random1 % $random2 . '</b>';
 }
 
+
+/**
+ * He decidido "complicarlo" un poquito simplemente con tal de utilizar la funcion bcpow para poder representar
+ * el INF, ya que he metido números random comprendidos entre 1 y 1000
+ */
 function powOperation(int $random1, int $random2)
 {
     $resultado = $random1 ** $random2;

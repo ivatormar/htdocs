@@ -12,6 +12,12 @@
 
 <body>
     <?php
+    /**
+     * @author Ivan Torres Marcos
+     * @version V1.2
+     * @description Esta app permite averiguar si un numero es par, impar, sumar,restar,
+     * multiplicar,dividir a partir de numeros aleatorios generados
+     */
     require_once(__DIR__ . '/INCLUDES/functions.inc.php');
 
     // Genera números aleatorios

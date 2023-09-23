@@ -3,6 +3,7 @@
 body {
   background-color: azure;
   text-align: center;
+  /* la fuente por defecto es una castaÑa */
   font-family: "Roboto", sans-serif;
 }
 h3 {
@@ -17,6 +18,7 @@ article {
 .first {
   font-size: 30px;
   text-align: center;
+  /* colores sacados de https://coolors.co/  */
   color: #0fff95;
 }
 .second {
