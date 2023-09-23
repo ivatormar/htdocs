@@ -46,11 +46,7 @@
             echo $burbuja[$i] . ' ▪ ';
         }
 
-<<<<<<< HEAD
         // Algoritmo método burbuja, lo tengo explicado en el notes del móvil, donde pone server.
-=======
-        // Algoritmo método burbuja, lo tengo explicado en el notes del movil, donde pone server.
->>>>>>> 9eea09701dc3eb8047f541ccda068781cdfef4e9
         for ($i = 0; $i < count($burbuja) - 1; $i++) {
             for ($j = 0; $j < count($burbuja) - $i - 1; $j++) {
                 if ($burbuja[$j] > $burbuja[$j + 1]) {
