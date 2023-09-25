@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+/*
+    Prueba para un commit
+    */
+?>
 
 <head>
     <meta charset="UTF-8">
