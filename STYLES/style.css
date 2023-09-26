@@ -1,2 +1,58 @@
+body {
+  margin: 0;
+  background-color: #00796b;
+  font-family: "Mooli", sans-serif;
+}
+/* Estilos para el navbar */
+.navbar {
+  background-color: #00796b;
+  color: #ffffff;
+  padding: 5px;
+  text-align: center;
+}
 
+/* Estilos para la lista de enlaces */
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
 
+/* Estilos para los elementos de la lista */
+.navbar ul li {
+  display: inline;
+}
+
+/* Estilos para los botones */
+.navbar ul li a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.932);
+  background-color: rgb(233, 68, 68); /* Color de fondo del botón */
+  padding: 8px 16px; /* Espaciado interno del botón */
+  border-radius: 4px; /* Bordes redondeados del botón */
+  margin-right: 20px;
+  transition: background-color 0.3s; /* Transición de color de fondo */
+}
+
+/* Estilos para cambiar el color de fondo al pasar el mouse sobre el botón */
+.navbar ul li a:hover {
+  color: rgb(233, 68, 68);
+  background-color: rgba(0, 0, 0, 0.767);
+}
+.imgIvan {
+  display: block;
+  text-align: center;
+}
+.imgCards {
+  display: block;
+
+  text-align: center;
+}
+#cards {
+  margin-top: 50px;
+  width: 400px;
+  height: 600px;
+}
+h1 {
+  text-align: center;
+}

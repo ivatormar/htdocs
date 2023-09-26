@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ivan Torres Marcos</title>
+    <title>Carta mas alta</title>
 </head>
 
 <body>
-    <h1>Juego de carta mas alta</h1>
+
 
     <?php
     /**
@@ -17,6 +17,10 @@
      * @description  En este php lo que haremos será implementar todas las funciones necesarias para 
      * poder jugar al juego de carta mas alta
      */
+
+    require_once(__DIR__ . '/header.inc.php'); ?>
+    <h1>Juego de carta mas alta</h1>
+    <?php
     $deck = [
         ["suit" => "corazones", "value" => "1", "image" => "cor_1.png"],
         ["suit" => "corazones", "value" => "2", "image" => "cor_2.png"],
@@ -44,19 +48,19 @@
         ["suit" => "rombos", "value" => "j", "image" => "rom_j.png"],
         ["suit" => "rombos", "value" => "q", "image" => "rom_q.png"],
         ["suit" => "rombos", "value" => "k", "image" => "rom_k.png"],
-        ["suit" => "espadas", "value" => "1", "image" => "esp_1.png"],
-        ["suit" => "espadas", "value" => "2", "image" => "esp_2.png"],
-        ["suit" => "espadas", "value" => "3", "image" => "esp_3.png"],
-        ["suit" => "espadas", "value" => "4", "image" => "esp_4.png"],
-        ["suit" => "espadas", "value" => "5", "image" => "esp_5.png"],
-        ["suit" => "espadas", "value" => "6", "image" => "esp_6.png"],
-        ["suit" => "espadas", "value" => "7", "image" => "esp_7.png"],
-        ["suit" => "espadas", "value" => "8", "image" => "esp_8.png"],
-        ["suit" => "espadas", "value" => "9", "image" => "esp_9.png"],
-        ["suit" => "espadas", "value" => "10", "image" => "esp_10.png"],
-        ["suit" => "espadas", "value" => "j", "image" => "esp_j.png"],
-        ["suit" => "espadas", "value" => "q", "image" => "esp_q.png"],
-        ["suit" => "espadas", "value" => "k", "image" => "esp_k.png"],
+        ["suit" => "espadas", "value" => "1", "image" => "pic_1.png"],
+        ["suit" => "picadas", "value" => "2", "image" => "pic_2.png"],
+        ["suit" => "picadas", "value" => "3", "image" => "pic_3.png"],
+        ["suit" => "picadas", "value" => "4", "image" => "pic_4.png"],
+        ["suit" => "picadas", "value" => "5", "image" => "pic_5.png"],
+        ["suit" => "picadas", "value" => "6", "image" => "pic_6.png"],
+        ["suit" => "picadas", "value" => "7", "image" => "pic_7.png"],
+        ["suit" => "picadas", "value" => "8", "image" => "pic_8.png"],
+        ["suit" => "picadas", "value" => "9", "image" => "pic_9.png"],
+        ["suit" => "picadas", "value" => "10", "image" => "pic_10.png"],
+        ["suit" => "picadas", "value" => "j", "image" => "pic_j.png"],
+        ["suit" => "picadas", "value" => "q", "image" => "pic_q.png"],
+        ["suit" => "picadas", "value" => "k", "image" => "pic_k.png"],
         ["suit" => "tréboles", "value" => "1", "image" => "tre_1.png"],
         ["suit" => "tréboles", "value" => "2", "image" => "tre_2.png"],
         ["suit" => "tréboles", "value" => "3", "image" => "tre_3.png"],
@@ -73,7 +77,32 @@
     ];
     shuffle($deck);
 
-    $names = ['Ivan', 'Jose', 'Banca', 'Ramón', 'Lluna', '']
+    $names = ['Ivan', 'Jose', 'Pepe', 'Ramón', 'Lluna'];
+    $randomKeys = array_rand($names, 2); //Extraemos dos nombres del array previo
+    $player1Name = [$names[$randomKeys[0]]];
+    $player2Name = [$names[$randomKeys[1]]];
+
+    $player1 = []; //Creamos dos arrays vacios para luego 
+    $player2 = []; //repartir y almacenar las cartas en cada jugador
+
+    for ($index = 0; $index < 10; $index++) { //Sigo sin entender esto
+        if ($index % 2 == 0) {
+            $player1[] = $card; //Si el indice es par le repartimos una carta al player1
+        } else {
+            $player2[] = $card;
+        }
+    }
+    echo '<h3>Cartas de $player1Name:</h3>';
+    foreach ($player1 as $card) {
+        echo "<img src='/IMAGES/baraja/{$card['image']}' alt='{$card['suit']} {$card['value']}'>";
+    }
+
+
+    echo '<h3>Cartas de ' . $player2Name . '</h3>';
+    foreach ($player2 as $card) {
+        echo "<img src='/IMAGES/baraja/{$card['image']}' alt='{$card['suit']} {$card['value']}'>";
+    }
+
 
 
 
