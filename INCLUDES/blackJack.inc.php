@@ -8,7 +8,9 @@
 </head>
 
 <body>
-   
+
+
+
     <?php
     /**
      * @author Ivan Torres Marcos
@@ -16,13 +18,13 @@
      * @description  En este php lo que haremos será implementar todas las funciones necesarias para 
      * poder jugar al blackjack
      */
-    require_once(__DIR__ . '/header.inc.php');?>
-     <h1>Black Jack </h1>
-     <?php
+    require_once(__DIR__ . '/header.inc.php'); ?>
+    <h1>Black Jack </h1>
+    <?php
 
 
 
-     ?>
+    ?>
 </body>
 
 </html>

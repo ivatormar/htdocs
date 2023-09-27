@@ -76,8 +76,26 @@
         ["suit" => "tréboles", "value" => "k", "image" => "tre_k.png"]
     ];
     shuffle($deck);
+    function mostrarCartas($player1, $player2)
+    {
+        foreach ($player1 as $card) {
+
+            if ($card['value'] > $player2[0]['value']) {
+                $claseCarta = 'winner-card';
+            } elseif ($card['value'] < $player2[0]['value']) {
+                $claseCarta = 'looser-card';
+            } elseif ($card['value'] < $player2[0]['value']) {
+                $claseCarta = 'draw-card';
+            }
+
+            echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
+        }
+        echo '</div>';
+    };
+
 
     $names = ['Ivan', 'Jose', 'Pepe', 'Ramón', 'Lluna'];
+
     $randomKeys = array_rand($names, 2); //Extraemos dos nombres del array previo
     $player1Name = $names[$randomKeys[0]];
     $player2Name = $names[$randomKeys[1]];
@@ -93,7 +111,7 @@
         }
     }
 
-    // Inicializar las puntuaciones de los jugadores
+
     $scorePlayer1 = 0;
     $scorePlayer2 = 0;
 
@@ -117,75 +135,15 @@
         }
     }
 
-
-
-
-
     echo '<div class="containerHighestCards">';
     echo '<h3>Cartas de ' . $player1Name . ' :</h3>';
-    foreach ($player1 as $card) {
-        $claseCarta = 'draw-card'; // Por defecto, asumimos que es un empate
-
-        // Comparar las cartas y asignar la clase CSS correspondiente
-        if ($card['value'] > $player2[0]['value']) {
-            $claseCarta = 'winner-card';
-        } elseif ($card['value'] < $player2[0]['value']) {
-            $claseCarta = 'looser-card';
-        }
-
-        echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
-    }
-    echo '</div>';
-
-
-    // echo '<div class="containerHighestCards">';
-    // echo '<h3>Cartas de ' . $player1Name . ' :</h3>';
-    // foreach ($player1 as $card) {
-    //     echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
-    // }
-    // echo '</div>';
+    mostrarCartas($player1, $player2);
 
 
     echo '<div class="containerHighestCards">';
     echo '<h3>Cartas de ' . $player2Name . ' :</h3>';
-    foreach ($player2 as $card) {
-        $claseCarta = 'draw-card'; // Por defecto, asumimos que es un empate
+    mostrarCartas($player2, $player1);
 
-        // Comparar las cartas y asignar la clase CSS correspondiente
-        if ($card['value'] > $player1[0]['value']) {
-            $claseCarta = 'winner-card';
-        } elseif ($card['value'] < $player1[0]['value']) {
-            $claseCarta = 'looser-card';
-        }
-
-        echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
-    }
-    echo '</div>';
-
-
-    //     echo '<div class="containerHighestCards">';
-    // echo '<h3>Cartas de ' . $player1Name . ' vs Cartas de ' . $player2Name . ':</h3>';
-    // for ($i = 0; $i < 10; $i++) {
-    //     $cartaPlayer1 = $player1[$i];
-    //     $cartaPlayer2 = $player2[$i];
-
-    //     $claseCartaPlayer1 = '';
-    //     $claseCartaPlayer2 = '';
-
-    //     if ($cartaPlayer1['value'] > $cartaPlayer2['value']) {
-    //         $claseCartaPlayer1 = 'carta-ganadora';
-    //         $claseCartaPlayer2 = 'carta-perdedora';
-    //     } elseif ($cartaPlayer1['value'] < $cartaPlayer2['value']) {
-    //         $claseCartaPlayer1 = 'carta-perdedora';
-    //         $claseCartaPlayer2 = 'carta-ganadora';
-    //     }
-
-    //     echo '<div class="carta-container">';
-    //     echo '<img class="barajaImg ' . $claseCartaPlayer1 . '" src="/IMAGES/baraja/' . $cartaPlayer1['image'] . '" alt="' . $cartaPlayer1['suit'] . ' ' . $cartaPlayer1['value'] . '">';
-    //     echo '<img class="barajaImg ' . $claseCartaPlayer2 . '" src="/IMAGES/baraja/' . $cartaPlayer2['image'] . '" alt="' . $cartaPlayer2['suit'] . ' ' . $cartaPlayer2['value'] . '">';
-    //     echo '</div>';
-    // }
-    // echo '</div>';
 
 
 
