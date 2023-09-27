@@ -43,11 +43,13 @@ body {
   display: block;
   text-align: center;
 }
-.imgCards {
+/* div imagen carta index  */
+.divCardsIndex {
   display: block;
 
   text-align: center;
 }
+/* Imagen carta index  */
 #cards {
   margin-top: 50px;
   width: 400px;
@@ -55,4 +57,41 @@ body {
 }
 h1 {
   text-align: center;
+}
+.containerHighestCards {
+  margin-top: 20px;
+  width: fit-content; /* Cambiado a "auto" para ajustarse al contenido */
+  display: inline-block;
+  border: 2px solid #000;
+  border-radius: 10px;
+
+  text-align: center;
+  margin-left: 14%;
+}
+.containerHighestCards img {
+  padding: 5px;
+  width: 130px; /* Cambiado el ancho al 100% para que las imágenes se ajusten al contenedor */
+  height: 200px; /* Puedes ajustar la altura según sea necesario */
+}
+.score {
+  text-align: center;
+}
+.winner-card {
+  border: 2px solid green; /* Borde verde para cartas ganadoras */
+  background-color: lightgreen; /* Fondo verde claro para cartas ganadoras */
+  /* Otros estilos para cartas ganadoras */
+}
+
+/* Estilo para cartas perdedoras */
+.looser-card {
+  border: 2px solid red; /* Borde rojo para cartas perdedoras */
+  background-color: salmon; /* Fondo salmón para cartas perdedoras */
+  /* Otros estilos para cartas perdedoras */
+}
+
+/* Estilo para cartas que empatan */
+.draw-card {
+  border: 2px solid yellow; /* Borde amarillo para cartas que empatan */
+  background-color: lightyellow; /* Fondo amarillo claro para cartas que empatan */
+  /* Otros estilos para cartas que empatan */
 }

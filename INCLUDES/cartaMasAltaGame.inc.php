@@ -79,31 +79,128 @@
 
     $names = ['Ivan', 'Jose', 'Pepe', 'Ramón', 'Lluna'];
     $randomKeys = array_rand($names, 2); //Extraemos dos nombres del array previo
-    $player1Name = [$names[$randomKeys[0]]];
-    $player2Name = [$names[$randomKeys[1]]];
+    $player1Name = $names[$randomKeys[0]];
+    $player2Name = $names[$randomKeys[1]];
 
     $player1 = []; //Creamos dos arrays vacios para luego 
     $player2 = []; //repartir y almacenar las cartas en cada jugador
 
-    for ($index = 0; $index < 10; $index++) { //Sigo sin entender esto
+    for ($index = 0; $index < 20; $index++) {
         if ($index % 2 == 0) {
-            $player1[] = $card; //Si el indice es par le repartimos una carta al player1
+            $player1[] = $deck[$index];
         } else {
-            $player2[] = $card;
+            $player2[] = $deck[$index];
         }
     }
-    echo '<h3>Cartas de $player1Name:</h3>';
+
+    // Inicializar las puntuaciones de los jugadores
+    $scorePlayer1 = 0;
+    $scorePlayer2 = 0;
+
+    // Comparar las cartas de cada jugador y calcular las puntuaciones
+    for ($i = 0; $i < 10; $i++) {
+        $cardPlayer1 = $player1[$i];
+        $cardPlayer2 = $player2[$i];
+
+        // Obtener los valores de las cartas
+        $valuePlayer1 = $cardPlayer1['value'];
+        $valuePlayer2 = $cardPlayer2['value'];
+
+        // Comparar las cartas y sumar puntos
+        if ($valuePlayer1 == $valuePlayer2) {
+            $scorePlayer1++;
+            $scorePlayer2++;
+        } elseif ($valuePlayer1 > $valuePlayer2) {
+            $scorePlayer1 += 2;
+        } else {
+            $scorePlayer2 += 2;
+        }
+    }
+
+
+
+
+
+    echo '<div class="containerHighestCards">';
+    echo '<h3>Cartas de ' . $player1Name . ' :</h3>';
     foreach ($player1 as $card) {
-        echo "<img src='/IMAGES/baraja/{$card['image']}' alt='{$card['suit']} {$card['value']}'>";
+        $claseCarta = 'draw-card'; // Por defecto, asumimos que es un empate
+
+        // Comparar las cartas y asignar la clase CSS correspondiente
+        if ($card['value'] > $player2[0]['value']) {
+            $claseCarta = 'winner-card';
+        } elseif ($card['value'] < $player2[0]['value']) {
+            $claseCarta = 'looser-card';
+        }
+
+        echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
     }
+    echo '</div>';
 
 
-    echo '<h3>Cartas de ' . $player2Name . '</h3>';
+    // echo '<div class="containerHighestCards">';
+    // echo '<h3>Cartas de ' . $player1Name . ' :</h3>';
+    // foreach ($player1 as $card) {
+    //     echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
+    // }
+    // echo '</div>';
+
+
+    echo '<div class="containerHighestCards">';
+    echo '<h3>Cartas de ' . $player2Name . ' :</h3>';
     foreach ($player2 as $card) {
-        echo "<img src='/IMAGES/baraja/{$card['image']}' alt='{$card['suit']} {$card['value']}'>";
+        $claseCarta = 'draw-card'; // Por defecto, asumimos que es un empate
+
+        // Comparar las cartas y asignar la clase CSS correspondiente
+        if ($card['value'] > $player1[0]['value']) {
+            $claseCarta = 'winner-card';
+        } elseif ($card['value'] < $player1[0]['value']) {
+            $claseCarta = 'looser-card';
+        }
+
+        echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
     }
+    echo '</div>';
 
 
+    //     echo '<div class="containerHighestCards">';
+    // echo '<h3>Cartas de ' . $player1Name . ' vs Cartas de ' . $player2Name . ':</h3>';
+    // for ($i = 0; $i < 10; $i++) {
+    //     $cartaPlayer1 = $player1[$i];
+    //     $cartaPlayer2 = $player2[$i];
+
+    //     $claseCartaPlayer1 = '';
+    //     $claseCartaPlayer2 = '';
+
+    //     if ($cartaPlayer1['value'] > $cartaPlayer2['value']) {
+    //         $claseCartaPlayer1 = 'carta-ganadora';
+    //         $claseCartaPlayer2 = 'carta-perdedora';
+    //     } elseif ($cartaPlayer1['value'] < $cartaPlayer2['value']) {
+    //         $claseCartaPlayer1 = 'carta-perdedora';
+    //         $claseCartaPlayer2 = 'carta-ganadora';
+    //     }
+
+    //     echo '<div class="carta-container">';
+    //     echo '<img class="barajaImg ' . $claseCartaPlayer1 . '" src="/IMAGES/baraja/' . $cartaPlayer1['image'] . '" alt="' . $cartaPlayer1['suit'] . ' ' . $cartaPlayer1['value'] . '">';
+    //     echo '<img class="barajaImg ' . $claseCartaPlayer2 . '" src="/IMAGES/baraja/' . $cartaPlayer2['image'] . '" alt="' . $cartaPlayer2['suit'] . ' ' . $cartaPlayer2['value'] . '">';
+    //     echo '</div>';
+    // }
+    // echo '</div>';
+
+
+
+    echo '<div class="score">';
+    echo "<h3>Puntuación de $player1Name: $scorePlayer1 puntos</h3>";
+    echo "<h3>Puntuación de $player2Name: $scorePlayer2 puntos</h3>";
+
+    if ($scorePlayer1 > $scorePlayer2) {
+        echo "<h2>$player1Name ha ganado!</h2>";
+    } elseif ($scorePlayer2 > $scorePlayer1) {
+        echo "<h2>$player2Name ha ganado!</h2>";
+    } else {
+        echo "<h2>Es un empate!</h2>";
+    }
+    echo '</div>';
 
 
 
