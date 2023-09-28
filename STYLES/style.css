@@ -62,7 +62,7 @@ h1 {
 .containerHighestCards {
   margin-top: 50px;
   margin: 0 auto;
-  width: fit-content; /* Cambiado a "auto" para ajustarse al contenido */
+  width: fit-content;
   text-align: center;
 }
 .containerHighestCards img {

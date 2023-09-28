@@ -76,23 +76,8 @@
         ["suit" => "tréboles", "value" => "k", "image" => "tre_k.png"]
     ];
     shuffle($deck);
-    // function mostrarCartas($player1, $player2)
-    // {
-    //     foreach ($player1 as $card) {
 
-    //         if ($card['value'] > $player2[0]['value']) {
-    //             $claseCarta = 'winner-card';
-    //         } elseif ($card['value'] < $player2[0]['value']) {
-    //             $claseCarta = 'looser-card';
-    //         } elseif ($card['value'] < $player2[0]['value']) {
-    //             $claseCarta = 'draw-card';
-    //         }
-
-    //         echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
-    //     }
-    //     echo '</div>';
-    // };
-    function mostrarCartas($player1, $player2)
+    function showCards($player1, $player2)
     {
         for ($i = 0; $i < count($player1); $i++) {
             $cartaPlayer1 = $player1[$i];
@@ -137,9 +122,6 @@
         echo '</div>';
     }
 
-
-
-
     $names = ['Ivan', 'Jose', 'Pepe', 'Ramón', 'Lluna'];
 
     $randomKeys = array_rand($names, 2); //Extraemos dos nombres del array previo
@@ -161,7 +143,7 @@
     $scorePlayer1 = 0;
     $scorePlayer2 = 0;
 
-    // Comparar las cartas de cada jugador y calcular las puntuaciones
+    // Comparamos las cartas de cada jugador y calculamos las puntuaciones
     for ($i = 0; $i < 10; $i++) {
         $cardPlayer1 = $player1[$i];
         $cardPlayer2 = $player2[$i];
@@ -183,12 +165,12 @@
 
     echo '<div class="containerHighestCards">';
     echo '<h3>Cartas de ' . $player1Name . ' :</h3>';
-    mostrarCartas($player1, $player2);
+    showCards($player1, $player2);
 
 
     echo '<div class="containerHighestCards">';
     echo '<h3>Cartas de ' . $player2Name . ' :</h3>';
-    mostrarCartas($player2, $player1);
+    showCards($player2, $player1);
 
 
 
@@ -197,6 +179,7 @@
     echo "<h3>Puntuación de $player1Name: $scorePlayer1 puntos</h3>";
     echo "<h3>Puntuación de $player2Name: $scorePlayer2 puntos</h3>";
 
+    //Mostramos quien ha ganado y su puntuación
     if ($scorePlayer1 > $scorePlayer2) {
         echo "<h2>$player1Name ha ganado!</h2>";
     } elseif ($scorePlayer2 > $scorePlayer1) {
