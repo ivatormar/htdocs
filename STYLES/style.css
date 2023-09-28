@@ -1,11 +1,12 @@
 body {
+  background-image: url("/IMAGES/23143.jpg");
+  background-size: cover;
   margin: 0;
-  background-color: #00796b;
   font-family: "Mooli", sans-serif;
+  color: #cfd1d0;
 }
 /* Estilos para el navbar */
 .navbar {
-  background-color: #00796b;
   color: #ffffff;
   padding: 5px;
   text-align: center;
@@ -59,24 +60,30 @@ h1 {
   text-align: center;
 }
 .containerHighestCards {
-  margin-top: 20px;
+  margin-top: 50px;
+  margin: 0 auto;
   width: fit-content; /* Cambiado a "auto" para ajustarse al contenido */
-  display: inline-block;
-  border: 2px solid #000;
-  border-radius: 10px;
-
   text-align: center;
-  margin-left: 14%;
 }
 .containerHighestCards img {
+  margin-left: 10px;
   padding: 5px;
   width: 130px; /* Cambiado el ancho al 100% para que las imágenes se ajusten al contenedor */
-  height: 200px; /* Puedes ajustar la altura según sea necesario */
+  height: 200px;
 }
 .score {
+  color: rgb(255, 255, 255);
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: fit-content;
+  border-radius: 10px;
+  border: 2px solid rgb(210, 212, 210); /* Borde verde para cartas ganadoras */
 }
 .winner-card {
+  border-radius: 10px;
   border: 2px solid green; /* Borde verde para cartas ganadoras */
   background-color: lightgreen; /* Fondo verde claro para cartas ganadoras */
   /* Otros estilos para cartas ganadoras */
@@ -84,6 +91,7 @@ h1 {
 
 /* Estilo para cartas perdedoras */
 .looser-card {
+  border-radius: 10px;
   border: 2px solid red; /* Borde rojo para cartas perdedoras */
   background-color: salmon; /* Fondo salmón para cartas perdedoras */
   /* Otros estilos para cartas perdedoras */
@@ -91,6 +99,7 @@ h1 {
 
 /* Estilo para cartas que empatan */
 .draw-card {
+  border-radius: 10px;
   border: 2px solid yellow; /* Borde amarillo para cartas que empatan */
   background-color: lightyellow; /* Fondo amarillo claro para cartas que empatan */
   /* Otros estilos para cartas que empatan */

@@ -76,22 +76,68 @@
         ["suit" => "tréboles", "value" => "k", "image" => "tre_k.png"]
     ];
     shuffle($deck);
+    // function mostrarCartas($player1, $player2)
+    // {
+    //     foreach ($player1 as $card) {
+
+    //         if ($card['value'] > $player2[0]['value']) {
+    //             $claseCarta = 'winner-card';
+    //         } elseif ($card['value'] < $player2[0]['value']) {
+    //             $claseCarta = 'looser-card';
+    //         } elseif ($card['value'] < $player2[0]['value']) {
+    //             $claseCarta = 'draw-card';
+    //         }
+
+    //         echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
+    //     }
+    //     echo '</div>';
+    // };
     function mostrarCartas($player1, $player2)
     {
-        foreach ($player1 as $card) {
+        for ($i = 0; $i < count($player1); $i++) {
+            $cartaPlayer1 = $player1[$i];
+            $cartaPlayer2 = $player2[$i];
 
-            if ($card['value'] > $player2[0]['value']) {
+            // Obtener los valores de las cartas
+            $valorCartaPlayer1 = $cartaPlayer1['value'];
+            $valorCartaPlayer2 = $cartaPlayer2['value'];
+
+            // Asignar valores numéricos a las cartas "j", "q" y "k"
+            if ($valorCartaPlayer1 == "j") {
+                $valorNumericoPlayer1 = 11;
+            } elseif ($valorCartaPlayer1 == "q") {
+                $valorNumericoPlayer1 = 12;
+            } elseif ($valorCartaPlayer1 == "k") {
+                $valorNumericoPlayer1 = 13;
+            } else {
+                $valorNumericoPlayer1 = intval($valorCartaPlayer1);
+            }
+
+            if ($valorCartaPlayer2 == "j") {
+                $valorNumericoPlayer2 = 11;
+            } elseif ($valorCartaPlayer2 == "q") {
+                $valorNumericoPlayer2 = 12;
+            } elseif ($valorCartaPlayer2 == "k") {
+                $valorNumericoPlayer2 = 13;
+            } else {
+                $valorNumericoPlayer2 = intval($valorCartaPlayer2);
+            }
+
+            // Comparar las cartas y asignar clases CSS
+            if ($valorNumericoPlayer1 > $valorNumericoPlayer2) {
                 $claseCarta = 'winner-card';
-            } elseif ($card['value'] < $player2[0]['value']) {
+            } elseif ($valorNumericoPlayer1 < $valorNumericoPlayer2) {
                 $claseCarta = 'looser-card';
-            } elseif ($card['value'] < $player2[0]['value']) {
+            } else {
                 $claseCarta = 'draw-card';
             }
 
-            echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
+            echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $cartaPlayer1['image'] . '" alt="' . $cartaPlayer1['suit'] . ' ' . $cartaPlayer1['value'] . '">';
         }
         echo '</div>';
-    };
+    }
+
+
 
 
     $names = ['Ivan', 'Jose', 'Pepe', 'Ramón', 'Lluna'];
@@ -103,7 +149,7 @@
     $player1 = []; //Creamos dos arrays vacios para luego 
     $player2 = []; //repartir y almacenar las cartas en cada jugador
 
-    for ($index = 0; $index < 20; $index++) {
+    for ($index = 0; $index < 20; $index++) { //Repartimos 10 cartas a cada jugador
         if ($index % 2 == 0) {
             $player1[] = $deck[$index];
         } else {
