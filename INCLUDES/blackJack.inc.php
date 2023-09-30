@@ -79,35 +79,56 @@
 
     $players = ['Banca', 'Ivan', 'Pablo', 'Pau', 'David', 'Xuan'];
 
-    // for ($i = 0; $i <= 11; $i++) { //Este es para repartir cartas
-
-    //     for ($j = 0; $j <= 5; $j++) { //Este for es para las manos
-    //         if ($j == 0) {
-    //             $banca[] = array_pop($deck);
-    //             $i++;
-    //         } elseif ($j == 1) {
-    //             $playerHand1[] = array_pop($deck);
-    //             $i++;
-    //         } elseif ($j == 2) {
-    //             $playerHand2[] = array_pop($deck);
-    //             $i++;
-    //         } elseif ($j == 3) {
-    //             $playerHand3[] = array_pop($deck);
-    //             $i++;
-    //         } elseif ($j == 4) {
-    //             $playerHand4[] = array_pop($deck);
-    //             $i++;
-    //         } elseif ($j == 5) {
-    //             $playerHand5[] = array_pop($deck);
-    //             $i++;
-    //         }
-    //     }
-    //     echo '<img class="barajaImg " src="/IMAGES/baraja/' . $playerHand1[$i]['image'] . '" alt="' . $playerHand1[$i]['suit'] . ' ' . $playerHand1[$i]['value'] . '">';
-    // }
     $playerHands = [];
     foreach ($players as $player) {
         $playerHands[$player] = []; //Aqui lo que hacemos es rellenar el array playerHands con los nombres de los jugadores
     }
+
+
+
+    function calculateHandValue($hand)
+    {
+        $value = 0;
+        $aceCount = 0;
+
+        foreach ($hand as $card) {
+            $cardValue = $card['value'];
+
+            if ($cardValue === 'j' || $cardValue === 'q' || $cardValue === 'k') {
+                $value += 10;
+            } elseif ($cardValue === '1') {
+                $aceCount++;
+                $value += 11;
+            } else {
+                $value += (int)$cardValue;
+            }
+        }
+
+        // Ajuste para ases si la suma supera 21
+        while ($aceCount > 0 && $value > 21) {
+            $value -= 10;
+            $aceCount--;
+        }
+
+        return $value;
+    }
+
+    // Función para determinar el resultado entre el jugador y la banca
+    function determineResult($playerValue, $bankValue)
+    {
+        if ($playerValue > 21) {
+            return 'perdido';
+        } elseif ($bankValue > 21 || $playerValue > $bankValue) {
+            return 'ganado';
+        } elseif ($playerValue < $bankValue) {
+            return 'perdido';
+        } else {
+            return 'empate';
+        }
+    }
+
+    // Inicializa la matriz de resultados
+    $results = [];
 
     // Reparte 2 cartas a cada jugador y la banca
     for ($i = 0; $i < 2; $i++) {
@@ -116,109 +137,37 @@
         }
     }
 
-    // Muestra las cartas de todos los jugadores y la banca
-    foreach ($players as $player) {
-        echo '<h2>Cartas de ' . $player . ':</h2>';
-        echo '<div class="containerBlackJackCards">';
-        foreach ($playerHands[$player] as $card) {
-            echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
-        }
-        echo '</div>';
+    echo '<div class="banca-cards">';
+    echo '<h2>Cartas de Banca:</h2>';
+    foreach ($playerHands['Banca'] as $card) {
+        echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
     }
 
+    // Calcula y muestra los puntos de la banca
+    $bankValue = calculateHandValue($playerHands['Banca']);
+    echo '<p>Puntos de la Banca: ' . $bankValue . '</p>';
+    echo '</div>';
 
+    echo '<div class="player-cards">';
+    foreach ($players as $player) {
+        if ($player !== 'Banca') { // Excluimos a la banca
+            echo '<div class="player">';
+            echo '<h2>Cartas de ' . $player . ':</h2>';
 
+            // Calcula y muestra los resultados para cada jugador
+            $playerValue = calculateHandValue($playerHands[$player]);
+            $result = determineResult($playerValue, $bankValue);
+            $results[$player] = $result;
+            echo '<p>Puntos de ' . $player . ': ' . $playerValue . ', Resultado: ' . $result . '</p>';
 
+            foreach ($playerHands[$player] as $card) {
+                echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
+            }
+            echo '</div>'; // Cerrar el div del jugador
+        }
+    }
+    echo '</div>';
 
-    // // Función para calcular el valor de una mano de cartas
-    // function calcularValorMano($mano)
-    // {
-    //     $valor = 0;
-    //     $asCount = 0;
-
-
-    //     //Cogemos los valores de la mano de cada jugador, y metemos las condiciones de los valores, si 
-    //     foreach ($mano as $carta) {
-    //         $valorCarta = $carta['value'];
-
-    //         if ($valorCarta === 'j' || $valorCarta === 'q' || $valorCarta === 'k') {
-    //             $valor += 10;
-    //         } elseif ($valorCarta === '1') {
-    //             $asCount++;
-    //             $valor += 1;
-    //         } else {
-    //             $valor += intval($valorCarta);
-    //         }
-    //     }
-
-    //     // Ajustar el valor del AS si es conveniente (si no hace que el jugador se pase de 21)
-    //     while ($asCount > 0 && $valor + 10 <= 21) {
-    //         $valor += 10;
-    //         $asCount--;
-    //     }
-
-    //     return $valor;
-    // }
-
-
-
-    // // Crear un array para representar a cada jugador y la banca
-    // $jugadores = [
-    //     ['nombre' => 'Jugador 1', 'mano' => []],
-    //     ['nombre' => 'Jugador 2', 'mano' => []],
-    //     ['nombre' => 'Jugador 3', 'mano' => []],
-    //     ['nombre' => 'Jugador 4', 'mano' => []],
-    //     ['nombre' => 'Jugador 5', 'mano' => []],
-    //     ['nombre' => 'Banca', 'mano' => []],
-    // ];
-
-    // // Repartir 2 cartas a cada jugador y a la banca
-    // for ($i = 0; $i < 2; $i++) {
-    //     foreach ($jugadores as &$jugador) {
-    //         $jugador['mano'][] = array_shift($deck);
-    //     }
-    // }
-
-    // // Función para mostrar la mano de un jugador
-    // function mostrarMano($jugador)
-    // {
-    //     echo '<h3>' . $jugador['nombre'] . ':</h3>';
-    //     echo '<div>';
-    //     foreach ($jugador['mano'] as $carta) {
-    //         echo '<img src="/IMAGES/baraja/' . $carta['image'] . '" alt="' . $carta['suit'] . ' ' . $carta['value'] . '">';
-    //     }
-    //     echo '</div>';
-    // }
-
-    // // Función para determinar el resultado de un jugador
-    // function determinarResultado($jugador, $banca)
-    // {
-    //     $valorJugador = calcularValorMano($jugador['mano']);
-    //     $valorBanca = calcularValorMano($banca['mano']);
-
-    //     if ($valorJugador > 21) {
-    //         return 'Perdió';
-    //     } elseif ($valorJugador > $valorBanca || $valorBanca > 21) {
-    //         return 'Ganó';
-    //     } elseif ($valorJugador < $valorBanca) {
-    //         return 'Perdió';
-    //     } else {
-    //         return 'Empató';
-    //     }
-    // }
-
-    // // Jugar el juego
-    // foreach ($jugadores as $jugador) {
-    //     while (calcularValorMano($jugador['mano']) < 14) {
-    //         $jugador['mano'][] = array_shift($deck);
-    //     }
-    //     mostrarMano($jugador);
-    //     $resultado = determinarResultado($jugador, $jugadores[5]);
-    //     echo '<p>Resultado: ' . $resultado . '</p>';
-    //     echo '<hr>';
-    // }
-    // 
-    ?>
 
 
 

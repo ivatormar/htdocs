@@ -117,7 +117,7 @@
                 $claseCarta = 'draw-card';
             }
 
-            echo '<img class="barajaImg ' . $claseCarta . '" src="/IMAGES/baraja/' . $cartaPlayer1['image'] . '" alt="' . $cartaPlayer1['suit'] . ' ' . $cartaPlayer1['value'] . '">';
+            echo '<img class="' . $claseCarta . '" src="/IMAGES/baraja/' . $cartaPlayer1['image'] . '" alt="' . $cartaPlayer1['suit'] . ' ' . $cartaPlayer1['value'] . '">';
         }
         echo '</div>';
     }

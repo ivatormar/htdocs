@@ -68,7 +68,7 @@ h1 {
 .containerHighestCards img {
   margin-left: 10px;
   padding: 5px;
-  width: 130px; /* Cambiado el ancho al 100% para que las imágenes se ajusten al contenedor */
+  width: 130px;
   height: 200px;
 }
 .score {
@@ -103,4 +103,36 @@ h1 {
   border: 2px solid yellow; /* Borde amarillo para cartas que empatan */
   background-color: lightyellow; /* Fondo amarillo claro para cartas que empatan */
   /* Otros estilos para cartas que empatan */
+}
+.barajaImg {
+  width: 130px;
+  height: 200px;
+  display: inline-block;
+}
+.banca-cards {
+  margin-bottom: 20px;
+  text-align: center;
+}
+/* .player-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 30px;
+} */
+
+.player-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.player {
+  color: rgb(24, 2, 2);
+  background-color: #cfd1d094;
+  text-align: center;
+  margin: 10px;
+  border-radius: 10px;
 }
