@@ -113,7 +113,6 @@
         return $value;
     }
 
-    // Función para determinar el resultado entre el jugador y la banca
     function determineResult($playerValue, $bankValue)
     {
         if ($playerValue > 21) {
@@ -127,15 +126,40 @@
         }
     }
 
-    // Inicializa la matriz de resultados
     $results = [];
 
-    // Reparte 2 cartas a cada jugador y la banca
-    for ($i = 0; $i < 2; $i++) {
-        foreach ($players as $player) {
-            $playerHands[$player][] = array_pop($deck);
+
+
+    // Repartir dos cartas a cada jugador y a la banca
+    for ($i = 0; $i <= 5; $i++) {
+        $player = $players[$i];
+
+        // Repartir cartas a los jugadores
+        if ($player != 'Banca') {
+            $playerHands[$player][] = array_shift($deck);
+            $playerHands[$player][] = array_shift($deck);
+
+            // Repartir cartas adicionales si el valor es menor que 14
+            while (calculateHandValue($playerHands[$player]) < 14) {
+                $playerHands[$player][] = array_shift($deck);
+            }
+        }
+        // Repartir cartas a la banca
+        else {
+            $playerHands[$player][] = array_shift($deck);
+            $playerHands[$player][] = array_shift($deck);
+
+            // Repartir cartas adicionales a la banca si el valor es menor que 14
+            while (calculateHandValue($playerHands[$player]) < 14) {
+                $playerHands[$player][] = array_shift($deck);
+            }
         }
     }
+
+    // ...
+
+
+
 
     echo '<div class="banca-cards">';
     echo '<h2>Cartas de Banca:</h2>';
@@ -143,18 +167,16 @@
         echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
     }
 
-    // Calcula y muestra los puntos de la banca
     $bankValue = calculateHandValue($playerHands['Banca']);
     echo '<p>Puntos de la Banca: ' . $bankValue . '</p>';
     echo '</div>';
 
     echo '<div class="player-cards">';
     foreach ($players as $player) {
-        if ($player !== 'Banca') { // Excluimos a la banca
+        if ($player !== 'Banca') {
             echo '<div class="player">';
             echo '<h2>Cartas de ' . $player . ':</h2>';
 
-            // Calcula y muestra los resultados para cada jugador
             $playerValue = calculateHandValue($playerHands[$player]);
             $result = determineResult($playerValue, $bankValue);
             $results[$player] = $result;
@@ -163,11 +185,10 @@
             foreach ($playerHands[$player] as $card) {
                 echo '<img class="barajaImg" src="/IMAGES/baraja/' . $card['image'] . '" alt="' . $card['suit'] . ' ' . $card['value'] . '">';
             }
-            echo '</div>'; // Cerrar el div del jugador
+            echo '</div>';
         }
     }
     echo '</div>';
-
 
 
 
