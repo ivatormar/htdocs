@@ -8,9 +8,6 @@
 </head>
 
 <body>
-
-
-
     <?php
     /**
      * @author Ivan Torres Marcos
@@ -20,7 +17,6 @@
      */
     require_once(__DIR__ . '/header.inc.php'); ?>
     <h1>Black Jack </h1>
-
     <?php
     $deck = [
         ["suit" => "corazones", "value" => "1", "image" => "cor_1.png"],
@@ -177,6 +173,9 @@
     echo '<p>Puntos de la Banca: ' . $bankValue . '</p>';
     echo '</div>';
 
+
+
+    // Este foreach lo que hace es recorrer el array de players, si no es banca, calcula su puntuación e indica su resultado y muestra sus cartas
     echo '<div class="player-cards">';
     foreach ($players as $player) {
         if ($player !== 'Banca') {
