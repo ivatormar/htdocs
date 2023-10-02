@@ -28,11 +28,11 @@ body {
 .navbar ul li a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.932);
-  background-color: rgb(233, 68, 68); /* Color de fondo del botón */
-  padding: 8px 16px; /* Espaciado interno del botón */
-  border-radius: 4px; /* Bordes redondeados del botón */
+  background-color: rgb(233, 68, 68);
+  padding: 8px 16px;
+  border-radius: 4px;
   margin-right: 20px;
-  transition: background-color 0.3s; /* Transición de color de fondo */
+  transition: background-color 0.3s;
 }
 
 /* Estilos para cambiar el color de fondo al pasar el mouse sobre el botón */
@@ -59,6 +59,8 @@ body {
 h1 {
   text-align: center;
 }
+
+/*HIGHESTCARD*/
 .containerHighestCards {
   margin-top: 50px;
   margin: 0 auto;
@@ -80,30 +82,31 @@ h1 {
   background-color: rgba(255, 255, 255, 0.5);
   width: fit-content;
   border-radius: 10px;
-  border: 2px solid rgb(210, 212, 210); /* Borde verde para cartas ganadoras */
+  border: 2px solid rgb(210, 212, 210);
 }
+
+/* Borde verde para cartas ganadoras */
 .winner-card {
   border-radius: 10px;
-  border: 2px solid green; /* Borde verde para cartas ganadoras */
-  background-color: lightgreen; /* Fondo verde claro para cartas ganadoras */
-  /* Otros estilos para cartas ganadoras */
+  border: 2px solid green;
+  background-color: lightgreen;
 }
 
 /* Estilo para cartas perdedoras */
 .looser-card {
   border-radius: 10px;
-  border: 2px solid red; /* Borde rojo para cartas perdedoras */
-  background-color: salmon; /* Fondo salmón para cartas perdedoras */
-  /* Otros estilos para cartas perdedoras */
+  border: 2px solid red;
+  background-color: salmon;
 }
 
 /* Estilo para cartas que empatan */
 .draw-card {
   border-radius: 10px;
-  border: 2px solid yellow; /* Borde amarillo para cartas que empatan */
-  background-color: lightyellow; /* Fondo amarillo claro para cartas que empatan */
-  /* Otros estilos para cartas que empatan */
+  border: 2px solid yellow;
+  background-color: lightyellow;
 }
+
+/*BLACKJACK*/
 .barajaImg {
   width: 130px;
   height: 200px;

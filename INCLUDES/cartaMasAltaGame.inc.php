@@ -13,7 +13,7 @@
     <?php
     /**
      * @author Ivan Torres Marcos
-     * @version V1.0
+     * @version V1.2
      * @description  En este php lo que haremos será implementar todas las funciones necesarias para 
      * poder jugar al juego de carta mas alta
      */
@@ -77,6 +77,12 @@
     ];
     shuffle($deck);
 
+
+
+
+    /**
+     * @description Además de mostrar las cartas, asigna los valores pertinentes a la j,q y k, compara las cartas/valores y aÑade la clase css correspondiente
+     */
     function showCards($player1, $player2)
     {
         for ($i = 0; $i < count($player1); $i++) {

@@ -14,12 +14,13 @@
     <?php
     /**
      * @author Ivan Torres Marcos
-     * @version V1.0
+     * @version V1.4
      * @description  En este php lo que haremos será implementar todas las funciones necesarias para 
      * poder jugar al blackjack
      */
     require_once(__DIR__ . '/header.inc.php'); ?>
     <h1>Black Jack </h1>
+
     <?php
     $deck = [
         ["suit" => "corazones", "value" => "1", "image" => "cor_1.png"],
@@ -81,11 +82,13 @@
 
     $playerHands = [];
     foreach ($players as $player) {
-        $playerHands[$player] = []; //Aqui lo que hacemos es rellenar el array playerHands con los nombres de los jugadores
+        $playerHands[$player] = []; //Aquí lo que hacemos es rellenar el array playerHands con los nombres de los jugadores
     }
 
 
-
+    /**
+     * @description Calcula el valor de cada mano, y también cambia a 1 u 11 el AS según mejor convenga
+     */
     function calculateHandValue($hand)
     {
         $value = 0;
@@ -113,6 +116,10 @@
         return $value;
     }
 
+    /**
+     * @description Determinamos los resultados de cada jugador inclusive banca
+     */
+
     function determineResult($playerValue, $bankValue)
     {
         if ($playerValue > 21) {
@@ -130,7 +137,7 @@
 
 
 
-    // Repartir dos cartas a cada jugador y a la banca
+    // Repartimos dos cartas a cada jugador y a la banca
     for ($i = 0; $i <= 5; $i++) {
         $player = $players[$i];
 
@@ -156,11 +163,10 @@
         }
     }
 
-    // ...
 
 
 
-
+    // Mostramas las cartas de banca y calculamos a traves de calculateHandValue
     echo '<div class="banca-cards">';
     echo '<h2>Cartas de Banca:</h2>';
     foreach ($playerHands['Banca'] as $card) {
