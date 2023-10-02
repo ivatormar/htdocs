@@ -8,8 +8,6 @@
 </head>
 
 <body>
-
-
     <?php
     /**
      * @author Ivan Torres Marcos
@@ -199,7 +197,6 @@
 
 
     ?>
-
 </body>
 
 </html>

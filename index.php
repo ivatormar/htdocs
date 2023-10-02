@@ -6,9 +6,6 @@
  * @version V1.1
  * @description
  */
-
-
-
 ?>
 
 <head>
@@ -24,9 +21,6 @@
     <div class="divCardsIndex">
         <img id="cards" src="/IMAGES/angshu-purkait-IU4UKIfPqEQ-unsplash.jpg" alt="cards">
     </div>
-
-
-
 </body>
 
 </html>
