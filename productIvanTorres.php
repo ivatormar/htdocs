@@ -17,11 +17,12 @@ $dateExpr = '/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/';
 
 
 $errorMessages = []; //Creamos un array para almacenar todos los errores que tengamos
+$requiredMessages = []; //Creamos un array para almacenar todos los requires que tengamos
 
 
 if (isset($_POST['name'])) {
-    if (!isset($_POST['code']) || empty($_POST['code'])) {
-        echo 'El campo CODE es obligatorio.<br>';
+    if (!isset($_POST['code']) || empty($_POST['code'])) { //Ponemos el empty para validar que no es un string vacío
+        $requiredMessages[] = 'El campo CODE es obligatorio.<br>';
     } else {
         $_POST['code'] = trim($_POST['code']);
         if (!preg_match($codeExpr, $_POST['code'])) {
@@ -30,9 +31,9 @@ if (isset($_POST['name'])) {
     }
 
     if (!isset($_POST['name']) || empty($_POST['name'])) {
-        echo 'El campo NAME es obligatorio.<br>';
+        $requiredMessages[] = 'El campo NAME es obligatorio.<br>';
     } else {
-        $_POST['name'] = trim($_POST['name']);
+        $_POST['name'] = trim($_POST['name']); //Eliminamos los espacios
         if (!preg_match($nameExpr, $_POST['name'])) {
 
             $errorMessages[] = 'El nombre debe contener solo letras (mínimo 3 y máximo 20).';
@@ -42,7 +43,7 @@ if (isset($_POST['name'])) {
 
 
     if (!isset($_POST['price']) || empty($_POST['price'])) {
-        echo 'El campo PRICE es obligatorio.<br>';
+        $requiredMessages[] = 'El campo PRICE es obligatorio.<br>';
     } else {
         $_POST['price'] = trim($_POST['price']);
         if (!preg_match($priceExpr, $_POST['price'])) {
@@ -52,7 +53,7 @@ if (isset($_POST['name'])) {
 
 
     if (!isset($_POST['description']) || empty($_POST['description'])) {
-        echo 'El campo DESCRIPTION es obligatorio.<br>';
+        $requiredMessages[] = 'El campo DESCRIPTION es obligatorio.<br>';
     } else {
         $_POST['description'] = trim($_POST['description']);
         if (!preg_match($descriptionExpr, $_POST['description'])) {
@@ -62,7 +63,7 @@ if (isset($_POST['name'])) {
 
 
     if (!isset($_POST['manufacturer']) || empty($_POST['manufacturer'])) {
-        echo 'El campo MANUFACTURER es obligatorio.<br>';
+        $requiredMessages[] = 'El campo MANUFACTURER es obligatorio.<br>';
     } else {
         $_POST['manufacturer'] = trim($_POST['manufacturer']);
         if (!preg_match($manufacturerExpr, $_POST['manufacturer'])) {
@@ -71,7 +72,7 @@ if (isset($_POST['name'])) {
     }
 
     if (!isset($_POST['acquisitionDate']) || empty($_POST['acquisitionDate'])) {
-        echo 'El campo  ACQUISITION DTE es obligatorio.<br>';
+        $requiredMessages[] = 'El campo  ACQUISITION DATE es obligatorio.<br>';
     } else {
         $_POST['acquisitionDate'] = trim($_POST['acquisitionDate']);
         if (!preg_match($dateExpr, $_POST['acquisitionDate'])) {
@@ -103,11 +104,15 @@ if (isset($_POST['name'])) {
      * @version V1.2
      * @description En este archivo php hemos introducidos los datos los cuales se verán reflejados en productIvanTorres
      */
+    echo '<div>'; //Mostramos los campos obligatorios
+    foreach ($requiredMessages as $message) {
+        echo $message . '<br>';
+    }
+    echo '</div>';
 
-
-    echo '<div>';
-    foreach ($errorMessages as $errorMessage) {
-        echo $errorMessage . '<br>';
+    echo '<div>'; //Mostramos los errores
+    foreach ($errorMessages as $message) {
+        echo $message . '<br>';
     }
     echo '</div>';
 
