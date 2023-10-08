@@ -1,0 +1,14 @@
+/* coolors {
+    #94AE89
+    #A8BCA1
+    #C0DA74
+    #BEEDAA
+    #D5FFD9
+} */
+body {
+  background-color: #94ae89;
+  font-family: sans-serif;
+}
+.divError {
+  border: 2px solid #d5ffd9;
+}
