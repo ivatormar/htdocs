@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @author Ivan Torres Marcos
+ * @version V1.1
+ * @description Funciones varias: validarDNI y mostrar mensajes
+ */
+
+
+
 function validarDNI($dni)
 {
     // Eliminar posibles espacios y letras en mayúscula

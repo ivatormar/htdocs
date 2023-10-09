@@ -7,7 +7,7 @@ require_once(__DIR__ . '/INC/functions.inc.php');
 /**
  * @author Ivan Torres Marcos
  * @version V1.2
- * @description En este archivo php hemos introducidos los datos los cuales se verán reflejados en productIvanTorres
+ * @description En este archivo php hemos implementado todas las funciones requeridas en el ejercicio parte 1
  */
 
 
@@ -30,7 +30,7 @@ if (isset($_POST['name'])) {
 
     //USER
     if (!isset($_POST['user']) || empty($_POST['user'])) { //Ponemos el empty para validar que no es un string vacío
-        $requiredMessages['user'] = 'El campo USUARIO es obligatorio.<br>';
+        $requiredMessages['user'] = 'El campo USUARIO es obligatorio.<br>'; //AÑadimos el mensaje al $requiredmessages
     } else {
 
         $_POST['user'] = trim($_POST['user']);
@@ -127,21 +127,12 @@ if (isset($_POST['name'])) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <!-- Etiquetas para el cache -->
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
@@ -151,13 +142,13 @@ if (isset($_POST['name'])) {
 
 <body>
     <h1>Oferta de trabajo</h1>
-    <?php if (count($successMessages) == 8) {
+    <?php if (count($successMessages) == 8) { //Este if lo hemos metido para que si el array de successMessages es = a 8 (numero total de campos validos) muestre el siguiente mensaje, sino sigas rellenando el form
         echo '<h1 class="success"> 🐸 Todos los campos se han enviado correctamente 🐸</h1>';
         echo '<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="780" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>';
     } else { ?>
         <div class="form-container">
-
-            <form action="#" method="post"> <!--Lo que hacemos con el php de value es comprobar si existe la variable y si tiene el contador de errores a 0 entonces si es asi setea la variable al valor introducido, sino la limpia -->
+            <form action="#" method="post">
+                <!--Lo que hacemos con el php de value es comprobar si existe la variable y si cumple con el pregmatch correspondiente, sino la limpia -->
                 <label for="user">Usuario</label><input type="text" name="user" value="<?php echo isset($_POST['user']) && preg_match($userExpr, $_POST['user']) ? $_POST['user']  : ''; ?>"><br>
                 <?php echo showMessages('user', $requiredMessages, $errorMessages) ?>
                 <label for="name">Nombre</label> <input type="text" name="name" value="<?php echo isset($_POST['name']) && preg_match($nameandSurnamesExpr, $_POST['name']) ? $_POST['name'] : ''; ?>"><br>
@@ -178,8 +169,6 @@ if (isset($_POST['name'])) {
             </form>
         </div>
     <?php } ?>
-
-
 </body>
 
 </html>
