@@ -70,14 +70,14 @@ if (isset($_POST['name'])) {
         $requiredMessages['dni'] = 'El campo DNI es obligatorio.<br>';
     } else {
         $_POST['dni'] = trim($_POST['dni']);
-        if (validarDNI($_POST['dni'])) {
-            if (!preg_match($dniExpr, $_POST['dni'])) {
-                $errorMessages['dni'] = 'DNI: Debe seguir el patrón de 8 dígitos seguido de una letra en mayúscula para casos especiales.';
-            } else {
-                $successMessages['dni'] = 'DNI enviado correctamente.';
-            }
+        if (validarDNI($_POST['dni']) && preg_match($dniExpr, $_POST['dni'])) {
+            $successMessages['dni'] = 'DNI enviado correctamente.';
+        } else {
+            $errorMessages['dni'] = 'DNI: Debe seguir el patrón de 8 dígitos seguido de una letra en mayúscula para casos especiales.';
         }
     }
+
+
 
     //DIRECTION
     if (!isset($_POST['direction']) || empty($_POST['direction'])) {
@@ -155,7 +155,7 @@ if (isset($_POST['name'])) {
                 <?php echo showMessages('name', $requiredMessages, $errorMessages) ?>
                 <label for="surname">Apellidos</label> <input type="text" name="surname" value="<?php echo isset($_POST['surname']) && preg_match($nameandSurnamesExpr, $_POST['surname']) ? $_POST['surname'] : ''; ?>"><br>
                 <?php echo showMessages('surname', $requiredMessages, $errorMessages) ?>
-                <label for="dni">DNI</label><input type="text" name="dni" value="<?php echo isset($_POST['dni']) && preg_match($dniExpr, $_POST['dni']) && validarDNI($_POST['dni']) ? $_POST['dni'] : ''; ?>"><br>
+                <label for="dni">DNI</label><input type="text" name="dni" value="<?php echo isset($_POST['dni']) && preg_match($dniExpr, $_POST['dni'])  ? $_POST['dni'] : ''; ?>"><br>
                 <?php echo showMessages('dni', $requiredMessages, $errorMessages) ?>
                 <label for="direction">Dirección</label> <input type="text" name="direction" value="<?php echo isset($_POST['direction']) && preg_match($directionExpr, $_POST['direction']) ? $_POST['direction'] : ''; ?>"><br>
                 <?php echo showMessages('direction', $requiredMessages, $errorMessages) ?>
