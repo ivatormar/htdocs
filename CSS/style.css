@@ -6,9 +6,66 @@
     #D5FFD9
 } */
 body {
-  background-color: #94ae89;
-  font-family: sans-serif;
+ 
+  margin: 0;
+  background-color: #7aeb0234;
+  font-family: "Mooli", sans-serif;
 }
-.divError {
-  border: 2px solid #d5ffd9;
+form{
+  text-align: left; /* Alinea el contenido del formulario a la izquierda */
+  max-width: fit-content; /* Ancho máximo del formulario */
+  padding: 20px; /* Espaciado interno */
+  border: 2px solid #7aeb02; /* Borde para resaltar el formulario */
+  border-radius: 5px; /
+}
+
+label {
+  display: block; /* Muestra cada etiqueta en una nueva línea */
+  margin-right: 15px;
+  padding-top: 15px;
+}
+input{
+  margin-top: 10px;
+}
+.form-container{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.divs{
+  display: flex;
+  flex-direction: column; /* Apila los divs verticalmente */
+  justify-content: center; /* Centra verticalmente los divs en el contenedor */
+  align-items: center; /* Centra horizontalmente los divs en el contenedor */
+    
+}
+h1{
+  margin-top: 35px;
+  text-align: center;
+  color: #7aeb02;
+}
+.success{
+  font-size:70px;
+  position: absolute; /* Posición absoluta para centrar verticalmente */
+  top: 30%; /* Mueve la parte superior al centro vertical */
+  left: 50%; /* Mueve la izquierda al centro horizontal */
+  transform: translate(-50%, -50%); 
+}
+iframe{
+  position: absolute; /* Posición absoluta para centrar verticalmente */
+  top: 70%; /* Mueve la parte superior al centro vertical */
+  left: 50%; /* Mueve la izquierda al centro horizontal */
+  transform: translate(-50%, -50%); 
+}
+.btn{
+  margin-top: 15px;
+  background-color: #7aeb02b4;
+  border:3px solid #000000dc;
+  border-radius: 10px;
+  width: 120px;
+  height: 40px;
+  font-size: 25px;
+  text-align: center;
+
 }
