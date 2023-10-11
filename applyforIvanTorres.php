@@ -8,6 +8,12 @@ require_once(__DIR__ . '/INC/functions.inc.php');
  * @author Ivan Torres Marcos
  * @version V1.2
  * @description En este archivo php hemos implementado todas las funciones requeridas en el ejercicio parte 1
+ * realizará todas las tareas (mostrar formularios, validar datos, mostrar errores, mostrar mensaje de éxito).
+
+ *Si se necesita se pueden crear archivos adicionales para estilos o para almacenar funciones php.
+ *Si todos los campos son correctos muestra un mensaje indicando que se ha registrado correctamente la solicitud y no se mostrará el formulario.
+ *Si algún campo no cumple los requisitos se mostrará otra vez el formulario original pero esta vez con todos los campos ya introducidos anteriormente y con un mensaje informativo debajo de cada campo erróneo
+ * 
  */
 
 
@@ -22,7 +28,7 @@ $birthDateExpr = '/^\d{2}-\d{2}-\d{4}$/'; // Fecha de nacimiento: Puede contener
 
 $errorMessages = []; //Creamos un array para almacenar todos los errores que tengamos
 $requiredMessages = []; //Creamos un array para almacenar todos los requires que tengamos
-$successMessages = []; //Creamos un array para almacenar los mensajes de exito
+$successMessages = []; //Creamos un array para almacenar los mensajes de éxito
 
 
 
@@ -144,7 +150,7 @@ if (isset($_POST['name'])) {
     <h1>Oferta de trabajo</h1>
     <?php if (count($successMessages) == 8) { //Este if lo hemos metido para que si el array de successMessages es = a 8 (numero total de campos validos) muestre el siguiente mensaje, sino sigas rellenando el form
         echo '<h1 class="success"> 🐸 Todos los campos se han enviado correctamente 🐸</h1>';
-        echo '<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="780" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>';
+        echo '<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="780" height="400" frameBorder="0" allowFullScreen></iframe>';
     } else { ?>
         <div class="form-container">
             <form action="#" method="post">
@@ -163,7 +169,7 @@ if (isset($_POST['name'])) {
                 <?php echo showMessages('email', $requiredMessages, $errorMessages) ?>
                 <label for="mobilephoneNumber">Teléfono</label><input type="text" name="mobilephoneNumber" value="<?php echo isset($_POST['mobilephoneNumber']) && preg_match($mobilephoneNumberExpr, $_POST['mobilephoneNumber']) ? $_POST['mobilephoneNumber'] : ''; ?>"><br>
                 <?php echo showMessages('mobilephoneNumber', $requiredMessages, $errorMessages) ?>
-                <label for="birthDate">Fecha de nacimiento</label><input type="text" name="birthDate"><br>
+                <label for="birthDate">Fecha de nacimiento</label><input type="text" name="birthDate" value="<?php echo isset($_POST['birthDate']) && preg_match($birthDateExpr, $_POST['birthDate']) ? $_POST['birthDate'] : ''; ?>"><br>
                 <?php echo showMessages('birthDate', $requiredMessages, $errorMessages) ?>
                 <input type="submit" value="Enviar" class="btn">
             </form>
