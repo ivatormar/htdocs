@@ -131,6 +131,45 @@ if (isset($_POST['name'])) {
             $successMessages['birthDate'] = 'Fecha de nacimiento enviado correctamente';
         }
     }
+
+    //PHOTO
+    //Si existe el files photo y si al subirlo no tiene ningún error seguimos (esto último me faltaba para poder mostrar el mensaje de que la foto debe ser
+    //en formato .png del $requiredMessages, sino, no funcionaba)
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        if ($_FILES['photo']['type'] === 'image/png') {
+            $newRoute = './MEDIA/candidates/' . $_POST['dni'] . '.png';
+            $success = move_uploaded_file($_FILES['photo']['tmp_name'], $newRoute);
+
+            if ($success) {
+                $successMessages['photo'] = 'Foto subida correctamente';
+            } else {
+                $errorMessages['photo'] = 'Error al guardar la foto en el servidor.';
+            }
+        } else {
+            $errorMessages['photo'] = 'La foto debe ser en formato .PNG';
+        }
+    } else {
+        $requiredMessages['photo'] = 'Debe subir una FOTO';
+    }
+    //CV
+    //Si existe el files CV y si al subirlo no tiene ningún error seguimos (esto último me faltaba para poder mostrar el mensaje de que la foto debe ser
+    //en formato .pdf del $requiredMessages, sino, no funcionaba)
+    if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
+        if ($_FILES['cv']['type'] === 'application/pdf') {
+            $newRoute = './CVS/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['surname'] . '.pdf';
+            $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
+
+            if ($success) {
+                $successMessages['cv'] = 'Curriculum subida correctamente';
+            } else {
+                $errorMessages['cv'] = 'Error al guardar el CV en el servidor.';
+            }
+        } else {
+            $errorMessages['cv'] = 'El CV debe ser en formato .PDF';
+        }
+    } else {
+        $requiredMessages['cv'] = 'Debe subir una CV';
+    }
 }
 
 ?>
@@ -148,12 +187,12 @@ if (isset($_POST['name'])) {
 
 <body>
     <h1>Oferta de trabajo</h1>
-    <?php if (count($successMessages) == 8) { //Este if lo hemos metido para que si el array de successMessages es = a 8 (numero total de campos validos) muestre el siguiente mensaje, sino sigas rellenando el form
+    <?php if (count($successMessages) == 10) { //Este if lo hemos metido para que si el array de successMessages es = a 10 (numero total de campos validos) muestre el siguiente mensaje, sino sigas rellenando el form
         echo '<h1 class="success"> 🐸 Todos los campos se han enviado correctamente 🐸</h1>';
         echo '<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="780" height="400" frameBorder="0" allowFullScreen></iframe>';
     } else { ?>
         <div class="form-container">
-            <form action="#" method="post">
+            <form action="#" method="post" enctype="multipart/form-data">
                 <!--Lo que hacemos con el php de value es comprobar si existe la variable y si cumple con el pregmatch correspondiente, sino la limpia -->
                 <label for="user">Usuario</label><input type="text" name="user" value="<?php echo isset($_POST['user']) && preg_match($userExpr, $_POST['user']) ? $_POST['user']  : ''; ?>"><br>
                 <?php echo showMessages('user', $requiredMessages, $errorMessages) ?>
@@ -171,6 +210,11 @@ if (isset($_POST['name'])) {
                 <?php echo showMessages('mobilephoneNumber', $requiredMessages, $errorMessages) ?>
                 <label for="birthDate">Fecha de nacimiento</label><input type="text" name="birthDate" value="<?php echo isset($_POST['birthDate']) && preg_match($birthDateExpr, $_POST['birthDate']) ? $_POST['birthDate'] : ''; ?>"><br>
                 <?php echo showMessages('birthDate', $requiredMessages, $errorMessages) ?>
+                <label for="photo">Foto </label><input type="file" name="photo">
+                <?php echo showMessages('photo', $requiredMessages, $errorMessages) ?>
+                <label for="cv">CV </label><input type="file" name="cv">
+                <?php echo showMessages('cv', $requiredMessages, $errorMessages) ?><br>
+
                 <input type="submit" value="Enviar" class="btn">
             </form>
         </div>
