@@ -1,112 +1,95 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-    <title>Login/Register Modal by Creative Tim</title>
-
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-
-    <style>
-        body {
-            padding-top: 60px;
-        }
-    </style>
-
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-
-    <link href="assets/css/login-register.css" rel="stylesheet" />
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
-    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="assets/js/bootstrap.js" type="text/javascript"></script>
-    <script src="assets/js/login-register.js" type="text/javascript"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>INDEXXX</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
-                <a class="btn big-register" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a>
+
+    <body cz-shortcut-listen="true">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="/MEDIA-REVELS-LOGO/logo-meouwth.png" alt="logoNav">
+                </a>
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="me-3">
+                        <div class="form-white input-group" style="width: 250px;">
+                            <input type="search" class="form-control rounded" placeholder="BIG PILILAS" aria-label="Search" aria-describedby="search-addon">
+                        </div>
+                    </form>
+                </div>
+                <div class="button-container">
+                    <button type="button" id="btnRegister" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad">REGISTER</button>
+                    <button type="button" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad">LOGIN</button>
+                </div>
             </div>
-            <div class="col-sm-4"></div>
-        </div>
+        </nav>
 
+        <section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                <div class="container h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body p-5">
+                                    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-        <div class="modal fade login" id="loginModal">
-            <div class="modal-dialog login animated">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Login with</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="box">
-                            <div class="content">
-                                <div class="social">
-                                    <a class="circle github" href="#">
-                                        <i class="fa fa-github fa-fw"></i>
-                                    </a>
-                                    <a id="google_login" class="circle google" href="#">
-                                        <i class="fa fa-google-plus fa-fw"></i>
-                                    </a>
-                                    <a id="facebook_login" class="circle facebook" href="#">
-                                        <i class="fa fa-facebook fa-fw"></i>
-                                    </a>
-                                </div>
-                                <div class="division">
-                                    <div class="line l"></div>
-                                    <span>or</span>
-                                    <div class="line r"></div>
-                                </div>
-                                <div class="error"></div>
-                                <div class="form loginBox">
-                                    <form method="" action="" accept-charset="UTF-8">
-                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                        <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                    <form>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example1cg">Your Name</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example3cg">Your Email</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example4cg">Password</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                                        </div>
+
+                                        <div class="form-check d-flex justify-content-center mb-5">
+                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                                            <label class="form-check-label" for="form2Example3g">
+                                                I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                                            </label>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="btn  btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                        </div>
+
+                                        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+
                                     </form>
+
                                 </div>
                             </div>
-                        </div>
-                        <div class="box">
-                            <div class="content registerBox" style="display:none;">
-                                <div class="form">
-                                    <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                        <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
-                                        <input class="btn btn-default btn-register" type="button" value="Create account" name="commit">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="forgot login-footer">
-                            <span>Looking to
-                                <a href="javascript: showRegisterForm();">create an account</a>
-                                ?</span>
-                        </div>
-                        <div class="forgot register-footer" style="display:none">
-                            <span>Already have an account?</span>
-                            <a href="javascript: showLoginForm();">Login</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            openLoginModal();
-        });
-    </script>
+        </section>
 
+    </body>
 
 </body>
 
