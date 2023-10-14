@@ -26,15 +26,23 @@
   font-size: 1.75rem;
   letter-spacing: 3px;
 }
+
 body {
-  background-image: url("/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png");
+  height: 100vh; /* Establece la altura al 100% de la altura del viewport */
+  background-image: linear-gradient(
+      to right,
+      rgba(252, 146, 173, 0.5),
+      rgba(164, 160, 163, 0.5)
+    ),
+    url("/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png");
 }
+
 button {
   margin-right: 10px;
 }
 .gradient-custom-3 {
   /* fallback for old browsers */
-  background: rgba(252, 146, 173, 0.5)
+  background: rgba(252, 146, 173, 0.5);
 
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
@@ -43,7 +51,6 @@ button {
     rgba(164, 160, 163, 0.5)
   );
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to right,
     rgba(252, 146, 173, 0.5),
@@ -52,7 +59,7 @@ button {
 }
 .gradient-custom-4 {
   /* fallback for old browsers */
-  background: rgba(252, 146, 173, 0.5)
+  background: rgba(252, 146, 173, 0.5);
 
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
