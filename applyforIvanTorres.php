@@ -156,7 +156,7 @@ if (isset($_POST['name'])) {
     //en formato .pdf del $requiredMessages, sino, no funcionaba)
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
-            $newRoute = './CVS/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['surname'] . '.pdf';
+            $newRoute = './CVS/' .$_POST['dni']. '-' .$_POST['name']. '-' .$_POST['surname']. '.pdf';
             $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
 
             if ($success) {

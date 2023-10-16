@@ -7,7 +7,9 @@
  */
 
 
-
+/**
+ * @description Función para comprobar si el DNI es valido o no
+ */
 function validarDNI($dni)
 {
     // Eliminar posibles espacios y letras en mayúscula
