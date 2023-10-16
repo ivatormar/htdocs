@@ -168,7 +168,7 @@ if (isset($_POST['name'])) {
             $errorMessages['cv'] = 'El CV debe ser en formato .PDF';
         }
     } else {
-        $requiredMessages['cv'] = 'Debe subir una CV';
+        $requiredMessages['cv'] = 'Debe subir un CV';
     }
 }
 

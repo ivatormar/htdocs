@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="me-3">
                     <div class="form-white input-group" style="width: 250px;">
-                        <input type="search" class="form-control rounded" placeholder="BIG PILILAS" aria-label="Search" aria-describedby="search-addon">
+                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
                     </div>
                 </form>
             </div>

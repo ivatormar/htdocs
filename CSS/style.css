@@ -1,77 +1,70 @@
-.navbar-scroll .nav-link,
-.navbar-scroll .navbar-toggler-icon,
-.navbar-scroll .navbar-brand {
-  color: #fff;
+/* coolors {
+    #94AE89
+    #A8BCA1
+    #C0DA74
+    #BEEDAA
+    #D5FFD9
+} */
+html {
+  background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
 }
-
-/* Color of the links AFTER scroll */
-.navbar-scrolled .nav-link,
-.navbar-scrolled .navbar-toggler-icon,
-.navbar-scrolled .navbar-brand {
-  color: #fff;
-}
-
-/* Color of the navbar AFTER scroll */
-.navbar-scroll,
-.navbar-scrolled {
-  background-color: #cbbcb1;
-}
-
-.mask-custom {
-  backdrop-filter: blur(5px);
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.navbar-brand {
-  font-size: 1.75rem;
-  letter-spacing: 3px;
-}
-
 body {
-  height: 100vh; /* Establece la altura al 100% de la altura del viewport */
-  background-image: linear-gradient(
-      to right,
-      rgba(252, 146, 173, 0.5),
-      rgba(164, 160, 163, 0.5)
-    ),
-    url("/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png");
+  font-family: "Mooli", sans-serif;
+}
+form {
+  text-align: left;
+  max-width: fit-content;
+  padding: 20px;
+  border: 2px solid #7aeb02;
+  border-radius: 5px;
 }
 
-button {
-  margin-right: 10px;
+label {
+  display: block;
+  margin-right: 15px;
+  padding-top: 15px;
 }
-.gradient-custom-3 {
-  /* fallback for old browsers */
-  background: rgba(252, 146, 173, 0.5);
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right,
-    rgba(252, 146, 173, 0.5),
-    rgba(164, 160, 163, 0.5)
-  );
-
-  background: linear-gradient(
-    to right,
-    rgba(252, 146, 173, 0.5),
-    rgba(164, 160, 163, 0.5)
-  );
+input {
+  margin-top: 10px;
 }
-.gradient-custom-4 {
-  /* fallback for old browsers */
-  background: rgba(252, 146, 173, 0.5);
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right,
-    rgba(252, 146, 173, 0.5),
-    rgba(164, 160, 163, 0.5)
-  );
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(
-    to right,
-    rgba(252, 146, 173, 0.5),
-    rgba(164, 160, 163, 0.5)
-  );
+.form-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.divs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  margin-top: 35px;
+  text-align: center;
+  color: #7aeb02;
+  text-shadow: 2px 2px 3px rgb(51, 135, 6);
+}
+.success {
+  font-size: 70px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+iframe {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.btn {
+  margin-top: 15px;
+  background-color: #7aeb02b4;
+  border: 3px solid #000000dc;
+  border-radius: 10px;
+  width: 120px;
+  height: 40px;
+  font-size: 25px;
+  text-align: center;
 }
