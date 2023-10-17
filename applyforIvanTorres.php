@@ -6,13 +6,13 @@ require_once(__DIR__ . '/INC/functions.inc.php');
 
 /**
  * @author Ivan Torres Marcos
- * @version V1.2
+ * @version V1.3
  * @description En este archivo php hemos implementado todas las funciones requeridas en el ejercicio parte 1
  * realizará todas las tareas (mostrar formularios, validar datos, mostrar errores, mostrar mensaje de éxito).
 
- *Si se necesita se pueden crear archivos adicionales para estilos o para almacenar funciones php.
- *Si todos los campos son correctos muestra un mensaje indicando que se ha registrado correctamente la solicitud y no se mostrará el formulario.
- *Si algún campo no cumple los requisitos se mostrará otra vez el formulario original pero esta vez con todos los campos ya introducidos anteriormente y con un mensaje informativo debajo de cada campo erróneo
+ * Si se necesita se pueden crear archivos adicionales para estilos o para almacenar funciones php.
+ * Si todos los campos son correctos muestra un mensaje indicando que se ha registrado correctamente la solicitud y no se mostrará el formulario.
+ * Si algún campo no cumple los requisitos se mostrará otra vez el formulario original pero esta vez con todos los campos ya introducidos anteriormente y con un mensaje informativo debajo de cada campo erróneo
  * 
  */
 
@@ -157,7 +157,11 @@ if (isset($_POST['name'])) {
     //en formato .pdf del $requiredMessages, sino, no funcionaba)
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
+<<<<<<< HEAD
             $newRoute = './CVS/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['surname'][0] . '.pdf';
+=======
+            $newRoute = './CVS/' .$_POST['dni']. '-' .$_POST['name']. '-' .$_POST['surname']. '.pdf';
+>>>>>>> 75d1ff5d28ea069820cc4d20e39220388e932866
             $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
 
             if ($success) {
@@ -169,7 +173,7 @@ if (isset($_POST['name'])) {
             $errorMessages['cv'] = 'El CV debe ser en formato .PDF';
         }
     } else {
-        $requiredMessages['cv'] = 'Debe subir una CV';
+        $requiredMessages['cv'] = 'Debe subir un CV';
     }
 }
 

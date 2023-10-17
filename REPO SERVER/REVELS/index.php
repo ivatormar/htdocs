@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="me-3">
                     <div class="form-white input-group" style="width: 250px;">
-                        <input type="search" class="form-control rounded" placeholder="BIG PILILAS" aria-label="Search" aria-describedby="search-addon">
+                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
                     </div>
                 </form>
             </div>
@@ -36,7 +36,7 @@
     </nav>
 
     <!-- Register form -->
-    <section id="seccionRegister" class="vh-100 bg-image " style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); display:none;">
+    <section id="seccionRegister" class="vh-100 bg-image " style="display:none;">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -96,7 +96,7 @@
     </section>
 
     <!-- Login form -->
-    <section id="seccionLogin" class="vh-100 bg-image " style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); display:none;">
+    <section id="seccionLogin" class="vh-100 bg-image " style="display:none;">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -132,7 +132,6 @@
             </div>
         </div>
     </section>
-    <script src="main.js"></script>
 </body>
 
 

@@ -5,10 +5,9 @@
     #BEEDAA
     #D5FFD9
 } */
-html {
-  background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
-}
 body {
+  background: rgb(212,252,121);
+background: linear-gradient(90deg, rgba(212,252,121,1) 0%, rgba(150,230,161,1) 100%);
   font-family: "Mooli", sans-serif;
 }
 form {
