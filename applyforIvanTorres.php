@@ -66,7 +66,7 @@ if (isset($_POST['name'])) {
         if (!preg_match($nameandSurnamesExpr, $_POST['surname'])) {
             $errorMessages['surname'] = 'Nombre y apellidos: Debe contener solo letras mayúsculas y minúsculas, y puede incluir espacios.';
         } else {
-            explode(' ',$_POST['surname']);
+             $_POST['apellido1']= explode(' ',$_POST['surname']);
             $successMessages['surname'] = 'Apellidos enviado correctamente.';
         }
     }
@@ -157,7 +157,7 @@ if (isset($_POST['name'])) {
     //en formato .pdf del $requiredMessages, sino, no funcionaba).
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
-            $newRoute = './CVS/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['surname'][0] . '.pdf';
+            $newRoute = './cvs/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['apellido1'][0] . '.pdf';
             $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
 
             if ($success) {
