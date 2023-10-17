@@ -154,7 +154,7 @@ if (isset($_POST['name'])) {
     }
     //CV
     //Si existe el files CV y si al subirlo no tiene ningún error seguimos (esto último me faltaba para poder mostrar el mensaje de que la foto debe ser
-    //en formato .pdf del $requiredMessages, sino, no funcionaba)
+    //en formato .pdf del $requiredMessages, sino, no funcionaba).
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
             $newRoute = './CVS/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['surname'][0] . '.pdf';
