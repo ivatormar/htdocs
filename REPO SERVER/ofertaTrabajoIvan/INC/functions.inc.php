@@ -42,22 +42,6 @@ function validarDNI($dni)
     return true;
 }
 
-// function validator($value, $pattern, $requiredMessage, $errorMessage, $successMessage)
-// {
-//     if (!isset($_POST[$value]) || empty($_POST[$value])) { //Ponemos el empty para validar que no es un string vacío
-//         $requiredMessages[] = $requiredMessage;
-//     } else {
-
-//         $_POST[$value] = trim($_POST[$value]);
-//         if (!preg_match($pattern, $_POST[$value])) {
-//             $errorMessages[] = $errorMessage;
-//         } else {
-//             $successMessages[] = $successMessage;
-//         }
-//     }
-// }
-
-
 /**
  * @description Función para mostrar los mensajes de require,error o success después del input
  */

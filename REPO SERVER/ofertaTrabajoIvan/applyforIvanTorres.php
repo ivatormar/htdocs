@@ -66,6 +66,7 @@ if (isset($_POST['name'])) {
         if (!preg_match($nameandSurnamesExpr, $_POST['surname'])) {
             $errorMessages['surname'] = 'Nombre y apellidos: Debe contener solo letras mayúsculas y minúsculas, y puede incluir espacios.';
         } else {
+             $_POST['apellido1']= explode(' ',$_POST['surname']);
             $successMessages['surname'] = 'Apellidos enviado correctamente.';
         }
     }
@@ -153,10 +154,10 @@ if (isset($_POST['name'])) {
     }
     //CV
     //Si existe el files CV y si al subirlo no tiene ningún error seguimos (esto último me faltaba para poder mostrar el mensaje de que la foto debe ser
-    //en formato .pdf del $requiredMessages, sino, no funcionaba)
+    //en formato .pdf del $requiredMessages, sino, no funcionaba).
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
-            $newRoute = './CVS/' .$_POST['dni']. '-' .$_POST['name']. '-' .$_POST['surname']. '.pdf';
+            $newRoute = './cvs/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['apellido1'][0] . '.pdf';
             $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
 
             if ($success) {
