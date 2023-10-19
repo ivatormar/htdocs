@@ -1,0 +1,20 @@
+body{
+    text-align: center;
+    background-color: #a2e9fbcd;
+}
+img{
+    width: 500px;
+    height: 400px;
+}
+.imgDiv{
+    display: inline-block;
+    margin: 10px;
+    width: fit-content;
+    border: 2px solid rgb(2, 138, 241);
+    border-radius: 5px;
+}
+h1{
+    font-size: 40px;
+    color: #8093F1;
+    font-family: 'Courier New', Courier, monospace;
+}
