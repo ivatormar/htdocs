@@ -66,7 +66,7 @@ if (isset($_POST['name'])) {
         if (!preg_match($nameandSurnamesExpr, $_POST['surname'])) {
             $errorMessages['surname'] = 'Nombre y apellidos: Debe contener solo letras mayúsculas y minúsculas, y puede incluir espacios.';
         } else {
-             $_POST['apellido1']= explode(' ',$_POST['surname']);
+            $_POST['apellido1'] = explode(' ', $_POST['surname']);
             $successMessages['surname'] = 'Apellidos enviado correctamente.';
         }
     }
@@ -138,8 +138,28 @@ if (isset($_POST['name'])) {
     //en formato .png del $requiredMessages, sino, no funcionaba)
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['photo']['type'] === 'image/png') {
+            $route = './MEDIA/candidates/';
+            if (!is_dir($route)) { //Si no existe el directorio lo creamos
+                mkdir($route);
+            }
             $newRoute = './MEDIA/candidates/' . $_POST['dni'] . '.png';
+            $newRouteThumbnail = './MEDIA/candidates/' . $_POST['dni'] . '-thumbnail' . '.png';
             $success = move_uploaded_file($_FILES['photo']['tmp_name'], $newRoute);
+
+            $dimensions = getimagesize($newRoute); //Cogemos las dimesiones originales
+            $originalWidth = $dimensions[0]; //X
+            $originalHeigth = $dimensions[1]; //Y
+            $thumbnailWidth = 50;
+            $thumbnailHeigth = ($thumbnailWidth / $originalWidth) * $originalHeigth; //Regla de 3 para calcular la altura proporcional
+
+            $thumbnail = imagecreatetruecolor($thumbnailWidth, $thumbnailHeigth); //Creamos la imagen redimensionada
+            $ogImage = imagecreatefrompng($newRoute);
+
+            imagecopyresampled($thumbnail, $ogImage, 0, 0, 0, 0, $thumbnailWidth, $thumbnailHeigth, $originalWidth, $originalHeigth); //Copiamos y la resampleamos
+            imagepng($thumbnail, $newRouteThumbnail); //Guardamos la imagen
+
+            imagedestroy($ogImage); //Destruimos ambas imagenes
+            imagedestroy($thumbnail);
 
             if ($success) {
                 $successMessages['photo'] = 'Foto subida correctamente';
@@ -157,6 +177,10 @@ if (isset($_POST['name'])) {
     //en formato .pdf del $requiredMessages, sino, no funcionaba).
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         if ($_FILES['cv']['type'] === 'application/pdf') {
+            $route = './cvs/';
+            if (!is_dir($route)) { //Si no existe el directorio lo creamos
+                mkdir($route);
+            }
             $newRoute = './cvs/' . $_POST['dni'] . '-' . $_POST['name'] . '-' . $_POST['apellido1'][0] . '.pdf';
             $success = move_uploaded_file($_FILES['cv']['tmp_name'], $newRoute);
 
