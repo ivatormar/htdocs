@@ -6,7 +6,7 @@ require_once(__DIR__ . '/INC/functions.inc.php');
 
 /**
  * @author Ivan Torres Marcos
- * @version V1.3
+ * @version V1.4
  * @description En este archivo php hemos implementado todas las funciones requeridas en el ejercicio parte 1
  * realizará todas las tareas (mostrar formularios, validar datos, mostrar errores, mostrar mensaje de éxito).
 
@@ -233,7 +233,7 @@ if (isset($_POST['name'])) {
                 <?php echo showMessages('email', $requiredMessages, $errorMessages) ?>
                 <label for="mobilephoneNumber">Teléfono</label><input type="text" name="mobilephoneNumber" value="<?php echo isset($_POST['mobilephoneNumber']) && preg_match($mobilephoneNumberExpr, $_POST['mobilephoneNumber']) ? $_POST['mobilephoneNumber'] : ''; ?>"><br>
                 <?php echo showMessages('mobilephoneNumber', $requiredMessages, $errorMessages) ?>
-                <label for="birthDate">Fecha de nacimiento</label><input type="text" name="birthDate" value="<?php echo isset($_POST['birthDate']) && preg_match($birthDateExpr, $_POST['birthDate']) ? $_POST['birthDate'] : ''; ?>"><br>
+                <label for="birthDate">Fecha de nacimiento (dd-mm-aaaa)</label><input type="text" name="birthDate" value="<?php echo isset($_POST['birthDate']) && preg_match($birthDateExpr, $_POST['birthDate']) ? $_POST['birthDate'] : ''; ?>"><br>
                 <?php echo showMessages('birthDate', $requiredMessages, $errorMessages) ?>
                 <label for="photo">Foto </label><input type="file" name="photo">
                 <?php echo showMessages('photo', $requiredMessages, $errorMessages) ?>
