@@ -1,4 +1,4 @@
-h1{
+h1{margin-top: 0;
     width: fit-content;
     background-color: aqua;
 }
@@ -6,5 +6,4 @@ article{
     width: fit-content;
     border: 2px solid black;
     border-radius: 5px;
-    padding: 10px;
 }
