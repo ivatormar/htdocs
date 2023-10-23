@@ -1,4 +1,12 @@
 <?php
+/**
+ * @author Iván Torres Marcos
+ * @version 1.1
+ * @description Creación de la clase user con susfunciones
+ *
+ */
+
+
 class User
 {
     private $id;

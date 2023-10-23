@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author Alex Teacher
+ * @version 1.0
+ * @description Creación de los users
+ *
+ */
 require_once(__DIR__.'/User.inc.php');
 
 for ($i=1; $i<=15; $i++) {
