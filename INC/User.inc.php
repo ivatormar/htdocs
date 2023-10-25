@@ -44,27 +44,33 @@ class User
 
     public function calculate_age()
     {
-        $birthday = new DateTime();
-        $birthday->setTimestamp($this->birthday);
-        $now = new DateTime();
-        $age = $now->diff($birthday)->y;
+        $birthday_year = date('Y', $this->birthday); // Obtiene el año de nacimiento
+        $current_year = date('Y'); // Obtiene el año actual
+
+        $age = $current_year - $birthday_year;
+
+        // Ajusta la edad si el cumpleaños aún no ha ocurrido este año
+        $birthday_month = date('m', $this->birthday);
+        $current_month = date('m');
+        $birthday_day = date('d', $this->birthday);
+        $current_day = date('d');
+
+        if ($birthday_month > $current_month || ($birthday_month === $current_month && $birthday_day > $current_day)) {
+            $age--;
+        }
+
         return $age;
     }
 
-    function make_birthday(): int
-    {
-        $birthday = new DateTime();
-        $birthday->setDate(mt_rand(1999, 2005), mt_rand(1, 12), mt_rand(1, 31));
-        $birthday->setTime(0, 0, 0);
-        return $birthday->getTimestamp();
-    }
+
+
 
     private function calculate_birthdate()
     {
-        $birthday = new DateTime();
-        $birthday->setTimestamp($this->birthday); // Use the user's stored birthday timestamp
-        $day = $birthday->format('d');
-        $monthNumber = $birthday->format('n');
+        $birthday_timestamp = $this->birthday; // Utiliza la marca de tiempo de cumpleaños almacenada
+
+        $day = date('d', $birthday_timestamp);
+        $monthNumber = date('n', $birthday_timestamp);
         $monthNames = [
             1 => 'enero',
             2 => 'febrero',
@@ -80,10 +86,11 @@ class User
             12 => 'diciembre'
         ];
         $month = $monthNames[$monthNumber];
-        $year = $birthday->format('Y');
+        $year = date('Y', $birthday_timestamp);
 
         return $day . ' de ' . $month . ' de ' . $year;
     }
+
 
 
 

@@ -1,6 +1,7 @@
 h1{margin-top: 0;
     width: fit-content;
     background-color: aqua;
+    padding: 8px;
 }
 article{
     width: fit-content;
