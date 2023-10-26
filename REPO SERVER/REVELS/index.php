@@ -1,3 +1,9 @@
+<?php
+$login=true;
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,7 +18,7 @@
 
 
 <body cz-shortcut-listen="true">
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -28,28 +34,32 @@
                     </div>
                 </form>
             </div>
+            <?php 
+            if($login===true){
+            echo '
+            <div class="login">
+                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
+                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
+                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Salir </button>
+            </div>'
+            ;}
+            ?>
             <div class="button-container">
-                <button type="button" id="btnRegister" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad">REGISTER</button>
                 <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad">LOGIN</button>
             </div>
         </div>
     </nav>
 
     <!-- REGISTER FORM -->
-    <div class="register-page">
+    <div class="login-page">
         <div class="form">
-            <form class="register-form">
-                <input type="text" placeholder="name" />
-                <input type="password" placeholder="password" />
-                <input type="text" placeholder="email address" />
-                <button>create</button>
-                <p class="message">Already registered? <a href="#">Sign In</a></p>
-            </form>
-            <form class="register-form">
-                <input type="text" placeholder="username" />
-                <input type="password" placeholder="password" />
-                <button>Register</button>
-                <p class="message">¿Tienes una cuenta? <a href="#">Logueate</a></p>
+            <h2>¡Bienvenido a Revels, REGISTRATE!</h2>
+            <form class="login-form">
+                <input type="text" placeholder="Usuario" />
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Contraseña" />
+                <input type="submit" value="Registrarse" class="registerBtn">
+                <p class="message">¿Ya tienes una cuenta? <a href="#">Logueate </a></p>
             </form>
         </div>
     </div>
