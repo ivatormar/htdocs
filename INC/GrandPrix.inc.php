@@ -2,7 +2,7 @@
 class GrandPrix{
     private $date;
     private $circuit;
-    private $number;
+    private $rider;
 
     public function __construct(int $date)
     {
