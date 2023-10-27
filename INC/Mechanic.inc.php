@@ -1,4 +1,5 @@
 <?php
+
 class Mechanic extends Person
 {
     private $speciality;

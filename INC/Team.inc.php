@@ -14,16 +14,16 @@ class Team{
 
     public function __toString()
     {
-        $teamInfo = 'Nombre del equipo: ' . $this->name . "\nPaís: " . $this->country . "\n";
+        $teamInfo = 'Nombre del equipo: ' . $this->name . '<br>País: ' . $this->country . "<br>";
 
-        $ridersInfo = 'Pilotos:' . "\n";
+        $ridersInfo = 'Pilotos:' . '<br>';
         foreach ($this->riders as $rider) {
-            $ridersInfo .= $rider . "\n";
+            $ridersInfo .= $rider . '<br>';
         }
 
-        $mechanicsInfo = 'Mecánicos:' . "\n";
+        $mechanicsInfo = 'Mecánicos:' . '<br>';
         foreach ($this->mechanics as $mechanic) {
-            $mechanicsInfo .= $mechanic . "\n";
+            $mechanicsInfo .= $mechanic . '<br>';
         }
 
         return $teamInfo . $ridersInfo . $mechanicsInfo;
