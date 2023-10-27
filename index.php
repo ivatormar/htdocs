@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+    include_once(__DIR__.('/INC/utils.inc.php'));
     
+
+    
+    ?>
 </body>
 </html>
