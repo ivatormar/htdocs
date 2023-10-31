@@ -2,8 +2,8 @@
 class Team{
     private $name;
     private $country;
-    private $riders; //*Porque tiene 0,n riders
-    private $mechanics;//*Porque tiene 0,n mechanics
+    private $riders=[]; //*Porque tiene 0,n riders
+    private $mechanics=[];//*Porque tiene 0,n mechanics
 
     public function __construct(string $name, string $country)
     {
@@ -34,6 +34,15 @@ class Team{
     }
     public function addMechanic(Mechanic $mechanic){
         $this->mechanics[]=$mechanic;
+    }
+
+    public function __set($property,$value){
+        if(isset($this->$property))
+        return  $this->$property=$value;
+    }
+    public function __get($property){
+        if(isset($this->$property))
+        return $this->$property;
     }
 
 }

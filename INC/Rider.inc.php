@@ -13,6 +13,13 @@ class Rider extends Person
     {
         return parent::__toString().' '. $this->number;
     }
-
+    public function __set($property,$value){
+        if(isset($this->$property))
+        return $this->$property=$value;
+    }
+    public function __get($property){
+        if(isset($this->$property))
+        return $this->$property;
+    }
 }
 

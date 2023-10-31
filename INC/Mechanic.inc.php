@@ -13,5 +13,15 @@ class Mechanic extends Person
     {
         return parent::__toString().' '. $this->speciality;
     }
+    public function __set($property,$value){
+        if(isset($this->$property))
+         return $this->$property=$value;
+    }
+    public function __get($property) {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        return null; // O puedes lanzar una excepción si lo prefieres
+    }
 
 }
