@@ -5,6 +5,7 @@ include_once(__DIR__ . '/INC/GrandPrix.inc.php');
 include_once(__DIR__ . '/INC/Rider.inc.php');
 include_once(__DIR__ . '/INC/Mechanic.inc.php');
 include_once(__DIR__ . '/INC/TraitCalcAge.inc.php');
+include_once(__DIR__ . '/INC/Circuit.inc.php');
 
 
 $teams = $GLOBALS['teams'];
@@ -12,105 +13,101 @@ $circuits = $GLOBALS['circuits'];
 
 // Añadir 2 mecánicos y 2 pilotos a cada equipo
 foreach ($teams as $team) {
-    for ($i = 0; $i < 2; $i++) {
-        $mechanic = new Mechanic(randomName(), randomBirthday(), randomSpeciality());
-        $team->addMechanic($mechanic);
-        echo 'PILILA';
-        $rider = new Rider(randomName(), randomBirthday(), randomDorsal($dorsals));
-        $team->addRider($rider);
-    }
-    var_dump($mechanic);
-    var_dump($rider);
+   $mechanic = null;
+   $rider = null;
+   for ($i = 0; $i < 2; $i++) {
+      $mechanic = new Mechanic(randomName(), randomBirthday(), randomSpeciality());
+      $team->addMechanic($mechanic);
+      $rider = new Rider(randomName(), randomBirthday(), randomDorsal($dorsals));
+      $team->addRider($rider);
+   }
+   // var_dump($mechanic);
+   // var_dump($rider);
+
 }
 
 
 // Crear carreras
-// $grandPrixs = [];
-// for ($i = 0; $i < 3; $i++) {
-//     $circuit = $circuits[$i];
-//     $grandPrix = new GrandPrix(randomDate(), $circuit);
-//     foreach ($teams as $team) {
-//         $riders = $team->getRiders();
-//         foreach ($riders as $rider) {
-//             $position = randomPosition();
-//             $grandPrix->addRider($rider, $position);
-//         }
-//     }
-//     $grandPrixs[] = $grandPrix;
-// }
-?>
+$grandPrixs = [];
+foreach ($circuits as $circuit) {
+   $grandPrix = new GrandPrix(mktime(0, 0, 0, rand(1, 12), rand(1, 31), 2023), $circuit);
 
+   foreach ($teams as $team) {
+      $riders = $team->riders;
+      shuffle($riders); // Barajar el orden de los pilotos aleatoriamente
+      $positions = range(1, count($riders)); // Obtener posiciones del 1 al número de pilotos
+
+      foreach ($positions as $position) {
+         $rider = array_shift($riders);
+         $grandPrix->addRider($rider, $position);
+      }
+   }
+
+   $grandPrixs[] = $grandPrix;
+}
+
+?>
 <!DOCTYPE html>
+<html lang="en">
 <html>
 
 <head>
-    <title>Resultados del Gran Premio</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/CSS/style.css">
+   <title>Resultados del Gran Premio</title>
 </head>
 
 <body>
-    <h1>Resultados del Gran Premio</h1>
-
-    <h2>Equipos</h2>
-    <table>
-        <tr>
-            <th>Equipo</th>
+   <h1>Resultados del Gran Premio</h1>
+   <h2>Equipos</h2>
+   <table>
+      <thead>
+         <tr>
+            <th>Nombre del equipo</th>
             <th>País</th>
             <th>Mecánicos</th>
-            <th>Riders</th>
-        </tr>
-        <?php foreach ($teams as $team) : ?>
+            <th>Pilotos</th>
+         </tr>
+      </thead>
+      <tbody>
+         <?php foreach ($teams as $team) : ?>
             <tr>
-                <td><?php echo $team->name; ?></td>
-                <td><?php echo $team->country; ?></td>
-                <td>
-                    <?php foreach ($team->mechanics as $mechanic) : ?>
-                        <?php echo $mechanic->name . '<br>'; ?>
-                    <?php endforeach; ?>
-                </td>
-                <td>
-                    <?php foreach ($team->riders as $rider) : ?>
-                        <?php echo $rider->name . '<br>'; ?>
-                    <?php endforeach; ?>
-                </td>
+               <td><?php echo $team->name; ?></td>
+               <td><?php echo $team->country; ?></td>
+               <td>
+                  <?php foreach ($team->mechanics as $mechanic) : ?>
+                     <?php echo $mechanic . '<br>'; ?>
+                  <?php endforeach; ?>
+               </td>
+               <td>
+                  <?php foreach ($team->riders as $rider) : ?>
+                     <?php echo $rider . '<br>'; ?>
+                  <?php endforeach; ?>
+               </td>
             </tr>
-        <?php endforeach; ?>
-    </table>
+         <?php endforeach; ?>
+      </tbody>
+   </table>
+   <h2>Carreras</h2>
+   <?php foreach ($grandPrixs as $grandPrix) : ?>
+      <h3><?php echo $grandPrix->circuit; ?> - <?php echo date("d/m/Y", $grandPrix->date); ?></h3>
+      <h4>Resultados</h4>
+      <ul>
+         <?php
+        
+         foreach ($grandPrix->results as $position => $rider) {
+            
+                     echo $position .': '. $rider.'<br>';
+                  }
+            
+         
 
-    <!-- <h2>Carreras</h2>
-    <?php foreach ($grandPrixs as $grandPrix) : ?>
-        <h3><?php echo $grandPrix->circuit->name; ?></h3>
-        <table>
-            <tr>
-                <th>Posición</th>
-                <th>Piloto</th>
-                <th>Equipo</th>
-            </tr>
-            <?php foreach ($grandPrix->getResults() as $position => $rider) : ?>
-                <tr>
-                    <td><?php echo $position; ?></td>
-                    <td><?php echo $rider->getName(); ?></td>
-                    <td><?php echo $rider->getTeam()->getName(); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php endforeach; ?> -->
+        
+
+         ?>
+      </ul>
+   <?php endforeach; ?>
 </body>
 
 </html>

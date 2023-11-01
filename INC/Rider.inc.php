@@ -11,7 +11,7 @@ class Rider extends Person
     }
     public function __toString()
     {
-        return parent::__toString().' '. $this->number;
+        return parent::__toString().'  Dorsal: '. $this->number;
     }
     public function __set($property,$value){
         if(isset($this->$property))

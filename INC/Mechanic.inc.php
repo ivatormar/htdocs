@@ -11,7 +11,7 @@ class Mechanic extends Person
     }
     public function __toString()
     {
-        return parent::__toString().' '. $this->speciality;
+        return parent::__toString().' Especialidad: '. $this->speciality;
     }
     public function __set($property,$value){
         if(isset($this->$property))

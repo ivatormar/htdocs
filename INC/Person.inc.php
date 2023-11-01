@@ -17,7 +17,7 @@ class Person
     public function __toString()
     {
         $age = $this->calcAge(); // Llama al método calcAge del trait usando $this
-        return $this->name . ' - ' . $age;
+        return $this->name . ' - ' . $age.' años,';
     }
     public function __set($property,$value){
         if(isset($this->$property))
