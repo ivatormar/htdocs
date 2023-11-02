@@ -32,15 +32,19 @@ $grandPrixs = [];
 foreach ($circuits as $circuit) {
    $grandPrix = new GrandPrix(mktime(0, 0, 0, rand(1, 12), rand(1, 31), 2023), $circuit);
 
+   $allRiders = [];//*Tuve que hacer este array_merge y luego shufflearlos porque previamente solo me hacía el shuffle intraequipos, no de todos los riders de los equipos
    foreach ($teams as $team) {
-      $riders = $team->riders;
-      shuffle($riders); // Barajar el orden de los pilotos aleatoriamente
-      $positions = range(1, count($riders)); // Obtener posiciones del 1 al número de pilotos
+      $allRiders = array_merge($allRiders, $team->riders);
+   }
 
-      foreach ($positions as $position) {
-         $rider = array_shift($riders);
-         $grandPrix->addRider($rider, $position);
-      }
+   shuffle($allRiders); // Barajar el orden de todos los pilotos
+
+   $positions = range(1, count($allRiders)); // Obtener posiciones del 1 al número de pilotos
+   shuffle($positions); // Barajar el orden de las posiciones
+
+   foreach ($positions as $index => $position) {
+      $rider = $allRiders[$index];
+      $grandPrix->addRider($rider, $position);
    }
 
    $grandPrixs[] = $grandPrix;
@@ -94,18 +98,14 @@ foreach ($circuits as $circuit) {
       <h3><?php echo $grandPrix->circuit; ?> - <?php echo date("d/m/Y", $grandPrix->date); ?></h3>
       <h4>Resultados</h4>
       <ul>
-         <?php
-        
-         foreach ($grandPrix->results as $position => $rider) {
-            
-                     echo $position .': '. $rider.'<br>';
-                  }
-            
          
+       <?php echo $grandPrix->results(); ?>
 
-        
 
-         ?>
+
+
+
+         
       </ul>
    <?php endforeach; ?>
 </body>
