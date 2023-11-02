@@ -98,11 +98,7 @@ foreach ($circuits as $circuit) {
       <h3><?php echo $grandPrix->circuit; ?> - <?php echo date("d/m/Y", $grandPrix->date); ?></h3>
       <h4>Resultados</h4>
       <ul>
-
          <?php echo $grandPrix->results(); ?>
-
-
-
       </ul>
    <?php endforeach; ?>
 </body>
