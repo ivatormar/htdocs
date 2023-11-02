@@ -32,7 +32,7 @@ $grandPrixs = [];
 foreach ($circuits as $circuit) {
    $grandPrix = new GrandPrix(mktime(0, 0, 0, rand(1, 12), rand(1, 31), 2023), $circuit);
 
-   $allRiders = [];//*Tuve que hacer este array_merge y luego shufflearlos porque previamente solo me hacía el shuffle intraequipos, no de todos los riders de los equipos
+   $allRiders = []; //*Tuve que hacer este array_merge y luego shufflearlos porque previamente solo me hacía el shuffle intraequipos, no de todos los riders de los equipos
    foreach ($teams as $team) {
       $allRiders = array_merge($allRiders, $team->riders);
    }
@@ -98,14 +98,11 @@ foreach ($circuits as $circuit) {
       <h3><?php echo $grandPrix->circuit; ?> - <?php echo date("d/m/Y", $grandPrix->date); ?></h3>
       <h4>Resultados</h4>
       <ul>
-         
-       <?php echo $grandPrix->results(); ?>
+
+         <?php echo $grandPrix->results(); ?>
 
 
 
-
-
-         
       </ul>
    <?php endforeach; ?>
 </body>

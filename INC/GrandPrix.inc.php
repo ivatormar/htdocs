@@ -4,11 +4,12 @@ class GrandPrix
 
     private $date;
     private $circuit;
-    private $riders = [];//* y tambien esto no se tiene que hacer asi
+    private $riders;//* y tambien esto no se tiene que hacer asi
     
 
     public function __construct(int $date, Circuit $circuit)
     {
+        $this->riders = [];
         $this->date = $date;
         $this->circuit = $circuit;
     }
