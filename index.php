@@ -102,12 +102,15 @@ foreach ($circuits as $circuit) {
             <?php } ?>
         </tbody>
     </table>
-    <h2>Carreras</h2>
-    <?php foreach ($grandPrixs as $grandPrix) { ?>
-        <h3><?= $grandPrix->circuit ?> - <?= date("d/m/Y", $grandPrix->date) ?></h3>
-        <h4>Resultados</h4>
-        <ul><?= $grandPrix->results() ?></ul>
-    <?php } ?>
+    <div class="race-grid">
+        <?php foreach ($grandPrixs as $grandPrix) { ?>
+            <div class="race-card">
+                <h3><?= $grandPrix->circuit ?> - <?= date("d/m/Y", $grandPrix->date) ?></h3>
+                <h4>Resultados</h4>
+                <ul><?= $grandPrix->results() ?></ul>
+            </div>
+        <?php } ?>
+    </div>
 
 </body>
 
