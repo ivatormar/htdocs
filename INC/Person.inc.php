@@ -12,7 +12,7 @@ include_once(__DIR__ . '/TraitCalcAge.inc.php');
 
 class Person
 {
-    use Age; // Utiliza el trait Age
+    use Age; // Utilizamos el trait Age
 
     private $name;
     private $birthday;
