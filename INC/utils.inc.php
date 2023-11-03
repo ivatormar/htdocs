@@ -1,4 +1,14 @@
 <?php
+/**
+ * @author Alex Torres
+ * @version Unknown
+ * @description En este php creamos todas las funciones  para generar nombres, fechas, especialidades, además, creamos los equipos 
+ * entre otras cosas.
+ *
+ */
+
+
+
 require_once('Team.inc.php');
 require_once('Circuit.inc.php');
 

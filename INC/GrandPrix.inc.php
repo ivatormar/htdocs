@@ -2,8 +2,8 @@
 
 /**
  * @author Tu Nombre
- * @version 1.0
- * @description Descripción del código
+ * @version 1.3
+ * @description Clase para generar GrandPrix
  *
  */
 class GrandPrix
@@ -16,7 +16,7 @@ class GrandPrix
      * Constructor de la clase GrandPrix.
      *
      * @param int     $date    La fecha del Gran Premio.
-     * @param Circuit $circuit El circuito donde se lleva a cabo el Gran Premio.
+     * @param Circuit $circuit El circuito donde se lleva a cabo el Gran Premio, e inicializamos riders.
      */
     public function __construct(int $date, Circuit $circuit)
     {

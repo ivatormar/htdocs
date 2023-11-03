@@ -4,7 +4,7 @@
  *
  * @author Ivan Torres Marcos
  * @version V1.4
- * @description 
+ * @description Clase para crear circuitos 
  *
  */
 class Circuit
