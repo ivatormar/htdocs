@@ -1,5 +1,5 @@
 <?php
-$login=true;
+$login=false;
 ?>
 
 
@@ -45,21 +45,20 @@ $login=true;
             ;}
             ?>
             <div class="button-container">
-                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad">LOGIN</button>
+                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index.php">REGISTER</a></button>
             </div>
         </div>
     </nav>
 
-    <!-- REGISTER FORM -->
+    <!-- LOGIN FORM -->
     <div class="login-page">
         <div class="form">
-            <h2>¡Bienvenido a Revels, REGISTRATE!</h2>
+            <h2>¡ Revel yourself !</h2>
             <form class="login-form">
-                <input type="text" placeholder="Usuario" />
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Contraseña" />
-                <input type="submit" value="Registrarse" class="registerBtn">
-                <p class="message">¿Ya tienes una cuenta? <a href="#">Logueate </a></p>
+                <input type="text" placeholder="User" />
+                <input type="password" placeholder="Password" />
+                <input type="submit" value="Login" class="loginBtn">
+                <p class="message">Don't have an account?<a href="/index.php">  Create one </a></p>
             </form>
         </div>
     </div>
