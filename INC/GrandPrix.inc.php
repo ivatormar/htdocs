@@ -54,7 +54,7 @@ class GrandPrix
      */
     public function results()
     {
-        $resultString = '';
+        $resultString = '';//Inicializamos
         foreach ($this->riders as $position => $rider) {
             $resultString .= 'Puesto: ' . $position . ': ' . $rider . '<br>';
         }
