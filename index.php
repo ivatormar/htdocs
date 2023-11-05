@@ -1,71 +1,117 @@
 <?php
-$login=false;
+
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.6
+ * @description Indice principal de la app.
+ *
+ */
+
+
+include_once(__DIR__ . '/INC/utils.inc.php');
+include_once(__DIR__ . '/INC/Person.inc.php');
+include_once(__DIR__ . '/INC/GrandPrix.inc.php');
+include_once(__DIR__ . '/INC/Rider.inc.php');
+include_once(__DIR__ . '/INC/Mechanic.inc.php');
+include_once(__DIR__ . '/INC/TraitCalcAge.inc.php');
+include_once(__DIR__ . '/INC/Circuit.inc.php');
+
+
+$teams = $GLOBALS['teams'];
+$circuits = $GLOBALS['circuits'];
+
+// Añadimos 2 mecánicos y 2 pilotos a cada equipo
+foreach ($teams as $team) {
+    $mechanic = null;
+    $rider = null;
+    for ($i = 0; $i < 2; $i++) {
+        $mechanic = new Mechanic(randomName(), randomBirthday(), randomSpeciality());
+        $team->addMechanic($mechanic);
+        $rider = new Rider(randomName(), randomBirthday(), randomDorsal($dorsals));
+        $team->addRider($rider);
+    }
+    // var_dump($mechanic);
+    // var_dump($rider);
+
+}
+
+
+// Creamos carreras
+$grandPrixs = [];
+foreach ($circuits as $circuit) {
+    $grandPrix = new GrandPrix(mktime(0, 0, 0, rand(1, 12), rand(1, 31), 2023), $circuit);
+
+    $allRiders = []; //*Tuve que hacer este array_merge y luego shufflearlos porque previamente solo me hacía el shuffle intraequipos, no de todos los riders de los equipos
+    foreach ($teams as $team) {
+        $allRiders = array_merge($allRiders, $team->riders);
+    }
+
+    shuffle($allRiders); // Barajamos el orden de todos los pilotos
+
+    $positions = range(1, count($allRiders)); // Obtenemos posiciones del 1 al número de pilotos
+    shuffle($positions); // Barajamos las posiciones
+
+    foreach ($positions as $index => $position) {
+        $rider = $allRiders[$index];
+        $grandPrix->addRider($rider, $position);
+    }
+
+    $grandPrixs[] = $grandPrix;
+}
+
 ?>
-
-
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>INDEXXX</title>
+    <title>Resultados del Gran Premio</title>
 </head>
 
-
-
-<body cz-shortcut-listen="true">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/MEDIA-REVELS-LOGO/logo-meouwth.png" alt="logoNav">
-            </a>
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="me-3">
-                    <div class="form-white input-group" style="width: 250px;">
-                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
-                    </div>
-                </form>
+<body>
+    <h1>Resultados del Gran Premio</h1>
+    <h2>Equipos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del equipo</th>
+                <th>País</th>
+                <th>Mecánicos</th>
+                <th>Pilotos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($teams as $team) { ?>
+                <tr>
+                    <td><?= $team->name ?></td>
+                    <td><?= $team->country ?></td>
+                    <td>
+                        <?php foreach ($team->mechanics as $mechanic) { ?>
+                            <?= $mechanic ?><br>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php foreach ($team->riders as $rider) { ?>
+                            <?= $rider ?><br>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <div class="race-grid">
+        <?php foreach ($grandPrixs as $grandPrix) { ?>
+            <div class="race-card">
+                <h3><?= $grandPrix->circuit ?> - <?= date("d/m/Y", $grandPrix->date) ?></h3>
+                <h4>Resultados</h4>
+                <ul><?= $grandPrix->results() ?></ul>
             </div>
-            <?php 
-            if($login===true){
-            echo '
-            <div class="login">
-                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
-                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
-                <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Salir </button>
-            </div>'
-            ;}
-            ?>
-            <div class="button-container">
-                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/INC/login.inc.php">LOGIN</a></button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- REGISTER FORM -->
-    <div class="login-page">
-        <div class="form">
-            <h2>¡Welcome to Revels, SIGN UP!</h2>
-            <form class="login-form">
-                <input type="text" placeholder="User" />
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <input type="submit" value="Sign up" class="registerBtn">
-                <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
-            </form>
-        </div>
+        <?php } ?>
     </div>
 
 </body>
-
-
 
 </html>

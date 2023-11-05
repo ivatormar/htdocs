@@ -1,0 +1,173 @@
+.navbar-scroll .nav-link,
+.navbar-scroll .navbar-toggler-icon,
+.navbar-scroll .navbar-brand {
+  color: #fff;
+}
+
+/* Color of the links AFTER scroll */
+.navbar-scrolled .nav-link,
+.navbar-scrolled .navbar-toggler-icon,
+.navbar-scrolled .navbar-brand {
+  color: #fff;
+}
+
+/* Color of the navbar AFTER scroll */
+.navbar-scroll,
+.navbar-scrolled {
+  background-color: #cbbcb1;
+}
+
+.mask-custom {
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-brand {
+  font-size: 1.75rem;
+  letter-spacing: 3px;
+}
+
+body {
+  height: 100vh; /* Establece la altura al 100% de la altura del viewport */
+  background-image: linear-gradient(
+      to right,
+      rgba(252, 146, 173, 0.5),
+      rgba(164, 160, 163, 0.5)
+    ),
+    url("/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png");
+}
+
+button {
+  margin-right: 10px;
+}
+.gradient-custom-3 {
+  /* fallback for old browsers */
+  background: rgba(252, 146, 173, 0.5);
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(252, 146, 173, 0.5),
+    rgba(164, 160, 163, 0.5)
+  );
+
+  background: linear-gradient(
+    to right,
+    rgba(252, 146, 173, 0.5),
+    rgba(164, 160, 163, 0.5)
+  );
+}
+.gradient-custom-4 {
+  /* fallback for old browsers */
+  background: rgba(252, 146, 173, 0.5);
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(252, 146, 173, 0.5),
+    rgba(164, 160, 163, 0.5)
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(
+    to right,
+    rgba(252, 146, 173, 0.5),
+    rgba(164, 160, 163, 0.5)
+  );
+}
+
+
+/** FORM */
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #fc92ad;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #fc92ad;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #fc92ad;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.registerBtn{
+  background-color: #fc92ad;
+}
+.login button{
+  margin-right: 10px;
+
+}
+
+.login-a{
+  text-decoration: none; /* Elimina el subrayado */
+  color: #000; 
+}
+input .loginBtn{
+  background-color: #fc92ad;
+}
