@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discografía - TuNombre</title>
 </head>
+
 <body>
     <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
 
@@ -31,10 +33,11 @@
                     echo '<p>Inicio: ' . $grupo['inicio'] . '</p>';
 
                     // Consulta para obtener los álbumes del grupo
-                    $stmt = $conexion->prepare('SELECT * FROM albumes WHERE codigo = :codigo');
+                    $stmt = $conexion->prepare('SELECT * FROM albumes WHERE grupo = :codigo');
                     $stmt->bindParam(':codigo', $codigo, PDO::PARAM_STR);
                     $stmt->execute();
                     $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
                     if ($albums) {
                         echo '<h2>Álbumes del Grupo:</h2>';
@@ -42,6 +45,7 @@
                         echo '<tr><th>Título</th><th>Año</th><th>Formato</th><th>Fecha de Compra</th><th>Precio</th></tr>';
 
                         foreach ($albums as $album) {
+                          
                             echo '<tr>';
                             echo '<td><a href="album.php?codigo=' . $album['codigo'] . '">' . $album['titulo'] . '</a></td>';
                             echo '<td>' . $album['anyo'] . '</td>';
@@ -72,5 +76,7 @@
     <br>
     <a href="index.php">Volver a la lista de grupos</a>
 
+
 </body>
+
 </html>
