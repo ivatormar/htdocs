@@ -1,12 +1,21 @@
 <?php
 $login = false;
-$errors = array("user" => "", "email" => "", "password" => "");
-$success_message = "";
+$errors = array("user" => "", "password" => "");
+
+function validarUsuarioYContraseña($user, $password) {
+    // Aquí deberías implementar la lógica de validación de usuario y contraseña
+    // Puedes verificar las credenciales en una base de datos o utilizar otro método de autenticación.
+    // Si las credenciales son válidas, devuelve true; de lo contrario, devuelve false.
+    if ($user === 'usuario' && $password === 'contraseña') {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica si se ha enviado el formulario
     $user = $_POST["user"];
-    $email = $_POST["email"];
     $password = $_POST["password"];
 
     // Validación del campo "User"
@@ -16,13 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors["user"] = "El usuario solo puede contener letras, números y guiones bajos (_).";
     }
 
-    // Validación del campo "Email"
-    if (empty($email)) {
-        $errors["email"] = "El campo de correo electrónico es obligatorio.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors["email"] = "El correo electrónico no es válido.";
-    }
-
     // Validación del campo "Password"
     if (empty($password)) {
         $errors["password"] = "El campo de contraseña es obligatorio.";
@@ -30,11 +32,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors["password"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 
-    if (empty($errors["user"]) && empty($errors["email"]) && empty($errors["password"])) {
-        $success_message = "¡Registro exitoso!";
+    if (empty($errors["user"]) && empty($errors["password"])) {
+        // Aquí puedes realizar la validación de usuario y contraseña en tu base de datos
+        // Si la validación es exitosa, establece $login en true
+        // De lo contrario, muestra un mensaje de error
+        if (validarUsuarioYContraseña($user, $password)) {
+            $login = true;
+        } else {
+            // Comprueba si el usuario o la contraseña son incorrectos
+            if ($user !== 'usuario') {
+                $errors["user"] = "Usuario incorrecto.";
+            }
+            if ($password !== 'contraseña') {
+                $errors["password"] = "Contraseña incorrecta.";
+            }
+        }
     }
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -65,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
             <?php 
-            if ($login === true) {
+            if($login === true){
                 echo '
                 <div class="login">
                     <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
@@ -75,27 +93,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
             <div class="button-container">
-                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/INC/login.inc.php">LOGIN</a></button>
+                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index.php">REGISTER</a></button>
             </div>
         </div>
     </nav>
 
-    <!-- REGISTER FORM -->
+    <!-- LOGIN FORM -->
     <div class="login-page">
         <div class="form">
-            <h2>¡Welcome to Revels, SIGN UP!</h2>
+            <h2>¡ Revel yourself !</h2>
             <form class="login-form" method="POST">
                 <input type="text" name="user" placeholder="User" required />
                 <p class="error-message"><?php echo $errors["user"]; ?></p>
-                <input type="text" name="email" placeholder="Email" required />
-                <p class="error-message"><?php echo $errors["email"]; ?></p>
                 <input type="password" name="password" placeholder="Password" required />
                 <p class="error-message"><?php echo $errors["password"]; ?></p>
-                <input type="submit" value="Sign up" class="registerBtn">
-                <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
-                <?php if (!empty($success_message)): ?>
-                    <p class="success-message"><?php echo $success_message; ?></p>
-                <?php endif; ?>
+                <input type="submit" value="Login" class="loginBtn">
+                <p class="message">Don't have an account?<a href="/index.php"> Create one </a></p>
             </form>
         </div>
     </div>
