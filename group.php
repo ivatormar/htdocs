@@ -51,7 +51,7 @@
                             echo '<td>' . $album['anyo'] . '</td>';
                             echo '<td>' . $album['formato'] . '</td>';
                             echo '<td>' . $album['fechacompra'] . '</td>';
-                            echo '<td>' . $album['precio'] . '</td>';
+                            echo '<td>' . $album['precio'] . ' €</td>';
                             echo '</tr>';
                         }
 
