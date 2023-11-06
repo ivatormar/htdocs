@@ -48,8 +48,7 @@
                         echo '<tr><th>Canción</th><th>Duración</th></tr>';
 
                         foreach ($canciones as $cancion) {
-                            $cancionMins=$cancion['duracion']/60;
-                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancionMins . ' segundos</td></tr>';
+                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancion['duracion'] . ' segundos</td></tr>';
                         }
 
                         echo '</table>';
