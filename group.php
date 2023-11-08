@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
+    <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
 
     <?php
     if (isset($_GET['codigo'])) {
@@ -45,9 +45,9 @@
                         echo '<tr><th>Título</th><th>Año</th><th>Formato</th><th>Fecha de Compra</th><th>Precio</th></tr>';
 
                         foreach ($albums as $album) {
-                          
+                        
                             echo '<tr>';
-                            echo '<td><a href="album.php?codigo=' . $album['codigo'] . '">' . $album['titulo'] . '</a></td>';
+                            echo '<td><a href="/album/' . $album['codigo'] . '">' . $album['titulo'] . '</a></td>';
                             echo '<td>' . $album['anyo'] . '</td>';
                             echo '<td>' . $album['formato'] . '</td>';
                             echo '<td>' . $album['fechacompra'] . '</td>';
@@ -74,7 +74,7 @@
     ?>
 
     <br>
-    <a href="index.php">Volver a la lista de grupos</a>
+    <a href="/index.php">Volver a la lista de grupos</a>
 
 
 </body>

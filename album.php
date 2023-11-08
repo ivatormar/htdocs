@@ -6,7 +6,7 @@
     <title>Discografía - Ivan Torres</title>
 </head>
 <body>
-    <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
+    <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
 
     <?php
     if (isset($_GET['codigo'])) {
@@ -26,6 +26,7 @@
                 $stmt->bindParam(':codigo', $codigo_album, PDO::PARAM_INT);
                 $stmt->execute();
                 $album = $stmt->fetch(PDO::FETCH_ASSOC);
+                
                 
 
                
@@ -74,8 +75,7 @@
     ?>
 
     <br>
-    
-    <a href="group.php?codigo=<?= $album['grupo'] ?>">Volver a la lista de álbumes</a>
+    <a href="/group/<?= $album['codigo'] ?>">Volver a la lista de álbumes</a>
 
 
 

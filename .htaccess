@@ -2,5 +2,6 @@ Options +FollowSymLinks
 
 RewriteEngine On
 RewriteBase /
-RewriteRule ^codigo/([0-9]+)$ group.php?codigo=$1 [L]
-RewriteRule ^codigo/([0-9]+)/album/([0-9]+)$ album.php?codigo=$2 [L]
+RewriteRule ^index$ index.php [L]
+RewriteRule ^group/([0-9]+)$ group.php?codigo=$1 [L]
+RewriteRule ^album/([0-9]+)$ album.php?codigo=$1 [L]

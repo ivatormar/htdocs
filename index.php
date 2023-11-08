@@ -28,7 +28,7 @@
                     echo '<ol>';
 
                     foreach ($grupos as $grupo) {
-                        echo '<li><a href="group.php?codigo=' . $grupo['codigo'] . '">' . $grupo['nombre'] . '</a></li>';
+                        echo '<li><a href="group/' . $grupo['codigo'] . '">' . $grupo['nombre'] . '</a></li>';
                     }
 
                     echo '</ol>';
@@ -45,6 +45,7 @@
         echo 'Error en la base de datos: ' . $e->getMessage();
     }
     ?>
+        
 
 </body>
 
