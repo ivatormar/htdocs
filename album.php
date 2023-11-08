@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discografía - Ivan Torres</title>
 </head>
+
 <body>
     <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
 
@@ -17,19 +19,19 @@
             $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
 
             if ($conexion) {
-              
+
                 $codigo_album = $_GET['codigo'];
                 $stmt = $conexion->prepare('SELECT *
                     FROM albumes
                     JOIN grupos ON albumes.grupo = grupos.codigo
                     WHERE albumes.codigo = :codigo');
-                $stmt->bindParam(':codigo', $codigo_album, PDO::PARAM_INT);
+                $stmt->bindParam(':codigo', $codigo_album);
                 $stmt->execute();
                 $album = $stmt->fetch(PDO::FETCH_ASSOC);
-                
-                
 
-               
+
+
+
                 if ($album) {
                     echo '<h2>Detalles del Álbum:</h2>';
                     echo '<p>Nombre del Grupo: ' . $album['nombre'] . '</p>';
@@ -40,7 +42,7 @@
                     $stmt->bindParam(':codigo', $codigo_album, PDO::PARAM_INT);
                     $stmt->execute();
                     $canciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    
+
 
 
                     if ($canciones) {
@@ -52,8 +54,8 @@
                             $duracion = $cancion['duracion'];
                             $cancionMins = floor($duracion / 60);  // Obtenemos los minutos enteros
                             $cancionSegs = $duracion % 60;  // Obtenemos los segundos restantes
-                            
-                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancionMins . ' minutos y '.$cancionSegs.' segundos</td></tr>';
+
+                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancionMins . ' minutos y ' . $cancionSegs . ' segundos</td></tr>';
                         }
 
                         echo '</table>';
@@ -80,4 +82,5 @@
 
 
 </body>
+
 </html>

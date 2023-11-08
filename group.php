@@ -21,7 +21,7 @@
             if ($conexion) {
                 $codigo = $_GET['codigo'];
                 $stmt = $conexion->prepare('SELECT * FROM grupos WHERE codigo = :codigo');
-                $stmt->bindParam(':codigo', $codigo, PDO::PARAM_STR);
+                $stmt->bindParam(':codigo', $codigo);
                 $stmt->execute();
                 $grupo = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -34,7 +34,7 @@
 
                     // Consulta para obtener los álbumes del grupo
                     $stmt = $conexion->prepare('SELECT * FROM albumes WHERE grupo = :codigo');
-                    $stmt->bindParam(':codigo', $codigo, PDO::PARAM_STR);
+                    $stmt->bindParam(':codigo', $codigo);
                     $stmt->execute();
                     $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
