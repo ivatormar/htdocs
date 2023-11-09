@@ -6,7 +6,7 @@ function connection(string $database, string $user, string $pass, array $options
         $conexion = new PDO($dsn, $user, $pass, $options);
         return $conexion;
     } catch (PDOException $e) {
-        print 'Fallo durante la conexión: ' . $e->getMessage();
+        echo 'Fallo durante la conexión: ' . $e->getMessage();
         return null;
     }
 }

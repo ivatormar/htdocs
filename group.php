@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/STYLE/style.css">
+
+
     <title>Discografía - TuNombre</title>
 </head>
 
@@ -51,8 +55,9 @@
                             echo '<td>' . $album['anyo'] . '</td>';
                             echo '<td>' . $album['formato'] . '</td>';
                             echo '<td>' . $album['fechacompra'] . '</td>';
-                            echo '<td>' . $album['precio'] . ' €</td>';
+                            echo '<td>' . $album['precio'] . ' € <a href=""><i class="bx bxs-trash"></i></a></td> ';
                             echo '</tr>';
+
                         }
 
                         echo '</table>';
@@ -72,6 +77,24 @@
         echo 'Código de grupo no válido.';
     }
     ?>
+<form action="group.php" method="post">
+    <label for="titulo">Título del álbum:</label>
+    <input type="text" name="titulo" id="titulo" required>
+
+    <label for="anyo">Año:</label>
+    <input type="number" name="anyo" id="anyo" required>
+
+    <label for="formato">Formato:</label>
+    <input type="text" name="formato" id="formato" required>
+
+    <label for="fechacompra">Fecha de compra:</label>
+    <input type="date" name="fechacompra" id="fechacompra" required>
+
+    <label for="precio">Precio:</label>
+    <input type="number" name="precio" id="precio" required>
+
+    <input type="submit" value="Crear álbum">
+</form>
 
     <br>
     <a href="/index.php">Volver a la lista de grupos</a>

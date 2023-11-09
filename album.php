@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/STYLE/style.css">
+
+
     <title>Discografía - Ivan Torres</title>
 </head>
 
@@ -39,7 +43,7 @@
 
                     // Consulta para obtener las canciones del álbum
                     $stmt = $conexion->prepare('SELECT titulo, duracion FROM canciones WHERE album = :codigo');
-                    $stmt->bindParam(':codigo', $codigo_album, PDO::PARAM_INT);
+                    $stmt->bindParam(':codigo', $codigo_album);
                     $stmt->execute();
                     $canciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -55,7 +59,7 @@
                             $cancionMins = floor($duracion / 60);  // Obtenemos los minutos enteros
                             $cancionSegs = $duracion % 60;  // Obtenemos los segundos restantes
 
-                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancionMins . ' minutos y ' . $cancionSegs . ' segundos</td></tr>';
+                            echo '<tr><td>' . $cancion['titulo'] . '</td><td>' . $cancionMins . ' minutos y ' . $cancionSegs . ' segundos <a href=""><i class="bx bxs-trash"></i></a></td></tr>';
                         }
 
                         echo '</table>';
@@ -75,7 +79,15 @@
         echo 'Código de álbum no válido.';
     }
     ?>
+    <form action="album.php" method="post">
+        <label for="titulo">Título de la canción:</label>
+        <input type="text" name="titulo" id="titulo" required>
 
+        <label for="duracion">Duración (en minutos):</label>
+        <input type="number" name="duracion" id="duracion" required>
+
+        <input type="submit" value="Crear canción">
+    </form>
     <br>
     <a href="/group/<?= $album['codigo'] ?>">Volver a la lista de álbumes</a>
 
