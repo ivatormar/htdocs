@@ -2,30 +2,28 @@
 include_once(__DIR__ . '/INC/connection.inc.php');
 $errores = array(); // Inicializa el array de errores
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-// Validar el nombre del grupo
-if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
-    $errores['nombre'] = 'El nombre del grupo es obligatorio.';
-} else if (strlen($_POST['nombre']) > 50) {
-    $errores['nombre'] = 'El nombre del grupo no puede tener más de 50 caracteres.';
-}
+print_r($_POST) ;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validar el nombre del grupo
+    if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
+        $errores['nombre'] = 'El nombre del grupo es obligatorio.';
+    } else if (strlen($_POST['nombre']) > 50) {
+        $errores['nombre'] = 'El nombre del grupo no puede tener más de 50 caracteres.';
+    }
 
-// Validar el género del grupo
-if (!isset($_POST['genero']) || empty($_POST['genero'])) {
-    $errores['genero'] = 'El género del grupo es obligatorio.';
-} else if (strlen($_POST['genero']) > 50) {
-    $errores['genero'] = 'El género del grupo no puede tener más de 50 caracteres.';
-}
+    // Validar el género del grupo
+    if (!isset($_POST['genero']) || empty($_POST['genero'])) {
+        $errores['genero'] = 'El género del grupo es obligatorio.';
+    } else if (strlen($_POST['genero']) > 50) {
+        $errores['genero'] = 'El género del grupo no puede tener más de 50 caracteres.';
+    }
 
-// Validar el país del grupo
-if (!isset($_POST['pais']) || empty($_POST['pais'])) {
-    $errores['pais'] = 'El país del grupo es obligatorio.';
-} else if (strlen($_POST['pais']) > 20) {
-    $errores['pais'] = 'El país del grupo no puede tener más de 20 caracteres.';
-}
-
-
-
+    // Validar el país del grupo
+    if (!isset($_POST['pais']) || empty($_POST['pais'])) {
+        $errores['pais'] = 'El país del grupo es obligatorio.';
+    } else if (strlen($_POST['pais']) > 20) {
+        $errores['pais'] = 'El país del grupo no puede tener más de 20 caracteres.';
+    }
 }
 // Si hay errores, los mostramos
 if (count($errores) > 0) {
@@ -34,31 +32,34 @@ if (count($errores) > 0) {
     }
 
 
-if (count($errores) === 0) {
-    try {
-        // Conexión a la base de datos
-        $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-        $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
+    if (count($errores) === 0) {
+        try {
 
-        // Preparar la consulta de inserción
-        $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais,inicio) VALUES (:nombre, :genero, :pais, :inicio)');
+            $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+            $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
 
-        // Bind de los parámetros
-        $stmt->bindParam(':nombre', $_POST['nombre']);
-        $stmt->bindParam(':genero', $_POST['genero']);
-        $stmt->bindParam(':pais', $_POST['pais']);
-        $stmt->bindParam(':inicio', $_POST['inicio']);
 
-        // Ejecutar la consulta
-        $stmt->execute();
+            $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais,inicio) VALUES (:nombre, :genero, :pais, :inicio)');
 
-        // Redireccionar u mostrar mensaje de éxito
-        header('Location: index.php?success=1');
-        exit();
-    } catch (Exception $e) {
-        echo 'Error en la base de datos: ' . $e->getMessage();
+
+            $stmt->bindParam(':nombre', $_POST['nombre']);
+            $stmt->bindParam(':genero', $_POST['genero']);
+            $stmt->bindParam(':pais', $_POST['pais']);
+            $stmt->bindParam(':inicio', $_POST['inicio']);
+
+
+            $stmt->execute();
+
+            echo '<pre>';
+            print_r($stmt->debugDumpParams());
+            echo '</pre>';
+
+
+            header('Location: index.php?success=1');
+        } catch (Exception $e) {
+            echo 'Error en la base de datos: ' . $e->getMessage();
+        }
     }
-}
 }
 ?>
 
@@ -81,7 +82,7 @@ if (count($errores) === 0) {
     <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
 
     <?php
-    
+
 
     try {
         $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -115,7 +116,7 @@ if (count($errores) === 0) {
         echo 'Error en la base de datos: ' . $e->getMessage();
     }
     ?>
-    <form action="index.php" method="post">
+    <form action="#" method="post">
         <label for="nombre">Nombre del grupo:</label>
         <input type="text" name="nombre" id="nombre" required>
 
@@ -126,7 +127,7 @@ if (count($errores) === 0) {
         <input type="text" name="pais" id="pais" required>
 
         <label for="inicio">Año de inicio:</label>
-        <select name="inicio" id="inicio" form="inicio">
+        <select name="inicio" id="inicio" >
             <?php
 
             for ($i = 1990; $i <= date('Y'); $i++) {
