@@ -2,7 +2,7 @@
 include_once(__DIR__ . '/INC/connection.inc.php');
 $errores = array(); // Inicializa el array de errores
 
-print_r($_POST) ;
+print_r($_POST);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar el nombre del grupo
     if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
@@ -24,43 +24,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if (strlen($_POST['pais']) > 20) {
         $errores['pais'] = 'El país del grupo no puede tener más de 20 caracteres.';
     }
-}
-// Si hay errores, los mostramos
-if (count($errores) > 0) {
-    foreach ($errores as $error) {
-        echo '<div class="alert alert-danger">' . $error . '</div>';
-    }
 
+    if (!isset($_POST['inicio']) || empty($_POST['inicio'])) {
+        $errores['inicio'] = 'El año de inicio del grupo es obligatorio.';
+    }
 
     if (count($errores) === 0) {
         try {
-
             $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
             $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
+            // Comprobamos que la conexión se ha establecido correctamente
+            if ($conexion->errorCode() != PDO::ERR_NONE) {
+                throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
+            }
 
+            $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais, inicio) VALUES (:nombre, :genero, :pais, :inicio)');
 
-            $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais,inicio) VALUES (:nombre, :genero, :pais, :inicio)');
-
-
-            $stmt->bindParam(':nombre', $_POST['nombre']);
-            $stmt->bindParam(':genero', $_POST['genero']);
-            $stmt->bindParam(':pais', $_POST['pais']);
-            $stmt->bindParam(':inicio', $_POST['inicio']);
-
+            $stmt->bindValue(':nombre', $_POST['nombre']);
+            $stmt->bindValue(':genero', $_POST['genero']);
+            $stmt->bindValue(':pais', $_POST['pais']);
+            $stmt->bindValue(':inicio', $_POST['inicio']);
 
             $stmt->execute();
 
-            echo '<pre>';
-            print_r($stmt->debugDumpParams());
-            echo '</pre>';
-
-
+            echo 'Inserción exitosa.';
             header('Location: index.php?success=1');
         } catch (Exception $e) {
             echo 'Error en la base de datos: ' . $e->getMessage();
         }
     }
 }
+
 ?>
 
 
@@ -127,7 +121,7 @@ if (count($errores) > 0) {
         <input type="text" name="pais" id="pais" required>
 
         <label for="inicio">Año de inicio:</label>
-        <select name="inicio" id="inicio" >
+        <select name="inicio" id="inicio">
             <?php
 
             for ($i = 1990; $i <= date('Y'); $i++) {
