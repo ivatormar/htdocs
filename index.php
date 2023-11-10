@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores['inicio'] = 'El año de inicio del grupo es obligatorio.';
     }
 
+    if (count($errores) > 0) {
+        foreach ($errores as $error) {
+            echo '<div class="alert alert-danger">' . $error . '</div>';
+        }
+    }
+
     if (count($errores) === 0) {
         try {
             $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -40,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais, inicio) VALUES (:nombre, :genero, :pais, :inicio)');
 
-            $stmt->bindValue(':nombre', $_POST['nombre']);
-            $stmt->bindValue(':genero', $_POST['genero']);
-            $stmt->bindValue(':pais', $_POST['pais']);
-            $stmt->bindValue(':inicio', $_POST['inicio']);
+            $stmt->bindParam(':nombre', $_POST['nombre']);
+            $stmt->bindParam(':genero', $_POST['genero']);
+            $stmt->bindParam(':pais', $_POST['pais']);
+            $stmt->bindParam(':inicio', $_POST['inicio']);
 
             $stmt->execute();
 
