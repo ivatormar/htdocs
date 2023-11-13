@@ -3,14 +3,17 @@
 /**
  *	Script que informa del uso de cookies en él
  * 
- *	@author Ivaán Torres Marcos
+ *	@author Iván Torres Marcos
  *	@version V.1.3
- *	@description 
+ *	@description Implementamos "facilmenete" el uso de las cookies en esta app
  */
+
+ //Si hemos clicado en accept me setea el theme a dark
 if (isset($_GET['accept'])) {
 	if ($_GET['accept'] == true) {
 		setcookie('theme', 'dark', time() + 60, httponly: true);
 		header('location:index.php');
+		exit;
 	}
 }
 
@@ -32,6 +35,8 @@ if (isset($_GET['theme'])) {
 if(isset($_GET['delete'])){
 		setcookie('theme','',time()-1);
 		header('location:index.php');
+		exit;
+
 }
 
 ?>
