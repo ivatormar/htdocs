@@ -1,148 +1,72 @@
 <?php
-include_once(__DIR__ . '/INC/connection.inc.php');
-$errores = array(); // Inicializa el array de errores
 
-print_r($_POST);
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validar el nombre del grupo
-    if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
-        $errores['nombre'] = 'El nombre del grupo es obligatorio.';
-    } else if (strlen($_POST['nombre']) > 50) {
-        $errores['nombre'] = 'El nombre del grupo no puede tener más de 50 caracteres.';
-    }
+/**
+ *	Script que informa del uso de cookies en él
+ * 
+ *	@author Ivaán Torres Marcos
+ *	@version V.1.3
+ *	@description 
+ */
+if (isset($_GET['accept'])) {
+	if ($_GET['accept'] == true) {
+		setcookie('theme', 'dark', time() + 60, httponly: true);
+		header('location:index.php');
+	}
+}
 
-    // Validar el género del grupo
-    if (!isset($_POST['genero']) || empty($_POST['genero'])) {
-        $errores['genero'] = 'El género del grupo es obligatorio.';
-    } else if (strlen($_POST['genero']) > 50) {
-        $errores['genero'] = 'El género del grupo no puede tener más de 50 caracteres.';
-    }
 
-    // Validar el país del grupo
-    if (!isset($_POST['pais']) || empty($_POST['pais'])) {
-        $errores['pais'] = 'El país del grupo es obligatorio.';
-    } else if (strlen($_POST['pais']) > 20) {
-        $errores['pais'] = 'El país del grupo no puede tener más de 20 caracteres.';
-    }
+//Si el theme es true, y clicamos en el boton de light me setea el css al de light, sino dark
+if (isset($_GET['theme'])) {
+	if ($_GET['theme'] == 'light') {
+		$cssStyle = 'light';
+		setcookie('theme', 'light');
+	} else {
+		$cssStyle = 'dark';
+		setcookie('theme', 'dark');
+	}
+} else {
+	$cssStyle = 'dark';
+}
 
-    if (!isset($_POST['inicio']) || empty($_POST['inicio'])) {
-        $errores['inicio'] = 'El año de inicio del grupo es obligatorio.';
-    }
-
-    if (count($errores) > 0) {
-        foreach ($errores as $error) {
-            echo '<div class="alert alert-danger">' . $error . '</div>';
-        }
-    }
-
-    if (count($errores) === 0) {
-        try {
-            $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-            $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
-            // Comprobamos que la conexión se ha establecido correctamente
-            if ($conexion->errorCode() != PDO::ERR_NONE) {
-                throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
-            }
-
-            $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais, inicio) VALUES (:nombre, :genero, :pais, :inicio)');
-
-            $stmt->bindParam(':nombre', $_POST['nombre']);
-            $stmt->bindParam(':genero', $_POST['genero']);
-            $stmt->bindParam(':pais', $_POST['pais']);
-            $stmt->bindParam(':inicio', $_POST['inicio']);
-
-            $stmt->execute();
-
-            echo 'Inserción exitosa.';
-            header('Location: index.php?success=1');
-        } catch (Exception $e) {
-            echo 'Error en la base de datos: ' . $e->getMessage();
-        }
-    }
+//Si recibimos por get el delete al clicar, me borra las cookies de theme creada previamente
+if(isset($_GET['delete'])){
+		setcookie('theme','',time()-1);
+		header('location:index.php');
 }
 
 ?>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/STYLE/style.css">
-
-    <title>Discografía - Ivan Torres</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Triki: el monstruo de las Cookies</title>
+	<link rel="stylesheet" href="css/<?= $cssStyle ?>.css">
 </head>
 
 <body>
-    <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
+	<?php
+	if (!isset($_COOKIE['theme'])) {
+		echo '<div id="cookies">
+		Este sitio web utiliza cookies propias y puede que de terceros.<br>
+		Al utilizar nuestros servicios, aceptas el uso que hacemos de las cookies.<br>
+		<div><a href="index.php?accept=true;">ACEPTAR</a></div>
+	</div>';
+	}
+	?>
+	<h1>Bienvenido a la web de Triki, el monstruo de las cookies</h1>
 
-    <?php
+	<h2>Bienvenido a la web donde no se gestionan las cookies, se devoran.</h2>
+	<img src="img/triki.jpg" alt="Imagen de triki mirando una galleta">
 
+	<div id="botones">
+		<a href="index.php?theme=light" class="styleButton">Claro</a>
+		<a href="index.php?theme=dark" class="styleButton">Oscuro</a>
+	</div>
+	<br>
 
-    try {
-        $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-        $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
-
-        if ($conexion) {
-            $result = $conexion->query('SELECT * FROM grupos');
-
-            if ($result) {
-                $grupos = $result->fetchAll(PDO::FETCH_ASSOC);
-
-                if ($grupos) {
-                    echo '<h2>Lista de Grupos:</h2>';
-                    echo '<ol>';
-
-                    foreach ($grupos as $grupo) {
-                        echo '<li><a href="group/' . $grupo['codigo'] . '">' . $grupo['nombre'] . '</a>  <a href=""><i class="bx bxs-trash"></i></a></li>';
-                    }
-
-                    echo '</ol>';
-                } else {
-                    echo 'No hay grupos disponibles actualmente.';
-                }
-            } else {
-                echo 'No se pudo ejecutar la consulta SQL.';
-            }
-        } else {
-            echo 'La conexión a la base de datos no se estableció correctamente.';
-        }
-    } catch (Exception $e) {
-        echo 'Error en la base de datos: ' . $e->getMessage();
-    }
-    ?>
-    <form action="index.php" method="post">
-        <label for="nombre">Nombre del grupo:</label>
-        <input type="text" name="nombre" id="nombre" required>
-
-        <label for="genero">Género:</label>
-        <input type="text" name="genero" id="genero" required>
-
-        <label for="pais">País:</label>
-        <input type="text" name="pais" id="pais" required>
-
-        <label for="inicio">Año de inicio:</label>
-        <select name="inicio" id="inicio">
-            <?php
-
-            for ($i = 1990; $i <= date('Y'); $i++) {
-                echo '<option value="' . $i . '">' . $i . '</option>';
-            }
-
-
-
-            ?>
-        </select>
-
-        <input type="submit" value="Crear grupo">
-    </form>
-
-
+	<div><a href="index.php?delete">Borrar cookies</a></div>
 </body>
 
 </html>
