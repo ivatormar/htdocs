@@ -4,7 +4,7 @@ $errores = array(); // Inicializa el array de errores
 
 print_r($_POST);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validar el nombre del grupo
+    // Validar el nombre del album
     if (!isset($_POST['titulo']) || empty($_POST['titulo'])) {
         $errores['titulo'] = 'El titulo del grupo es obligatorio.';
     } else if (strlen($_POST['titulo']) > 50) {
@@ -14,17 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar el año del album
     if (!isset($_POST['anyo']) || empty($_POST['anyo'])) {
         $errores['anyo'] = 'El año del album es obligatorio.';
-    } else if (strlen($_POST['anyo']) > 50) {
-        $errores['anyo'] = 'El año del album no puede tener más de 50 caracteres.';
-    }
+    } 
 
-    // Validar el país del grupo
+    // Validar el format del album
     if (!isset($_POST['formato']) || empty($_POST['formato'])) {
         $errores['formato'] = 'El formato del album es obligatorio.';
-    } else if (strlen($_POST['formato']) > 20) {
-        $errores['formato'] = 'El formato del grupo no puede tener más de 20 caracteres.';
-    }
-
+    } 
+    
     if (!isset($_POST['inicio']) || empty($_POST['inicio'])) {
         $errores['inicio'] = 'El año de inicio del grupo es obligatorio.';
     }
