@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Error en la base de datos: ' . $e->getMessage();
     }
     ?>
-    <form action="#" method="post">
+    <form action="index.php" method="post">
         <label for="nombre">Nombre del grupo:</label>
         <input type="text" name="nombre" id="nombre" required>
 
