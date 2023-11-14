@@ -1,6 +1,14 @@
 <?php
+
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.3
+ * @description Codigo principal para el insert de nuevos canciones
+ *
+ */
+
+
 include_once(__DIR__ . '/INC/connection.inc.php');
-$errores = array(); // Inicializa el array de errores
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
 
@@ -10,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Obtenemos los values para los hidden venideros
     $stmt = $conexion->prepare('SELECT album, posicion FROM canciones WHERE codigo = :codigo');
-    $stmt->bindParam(':codigo', $codigo_cancion);
-    $stmt->execute();
+    $stmt->execute([':codigo' => $codigo_cancion]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Asignamos los valores a las variables
@@ -20,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+    $errores=[];//A pesar de que en PHP no es necesario inicializar variables he estado probando y los count no funcionan sino inicializas el array
 
     if (isset($_POST['delete_cancion'])) {
         try {
@@ -103,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="info">
-    <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
+    <h1><a href="/index">Discografía - Ivan Torres</a></h1>
 
     <?php
     if (isset($_GET['codigo'])) {
@@ -117,8 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     FROM albumes
                     JOIN grupos ON albumes.grupo = grupos.codigo
                     WHERE albumes.codigo = :codigo');
-                $stmt->bindParam(':codigo', $codigo_album);
-                $stmt->execute();
+                $stmt->execute([':codigo' => $codigo_album]);
                 $album = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
@@ -131,8 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Consulta para obtener las canciones del álbum
                     $stmt = $conexion->prepare('SELECT codigo,titulo, duracion FROM canciones WHERE album = :codigo');
-                    $stmt->bindParam(':codigo', $codigo_album);
-                    $stmt->execute();
+                    $stmt->execute([':codigo' => $codigo_album]);
                     $canciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 

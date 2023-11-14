@@ -1,6 +1,13 @@
 <?php
+
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.0
+ * @description Codigo principal para el insert de nuevos albúmes
+ *
+ */
+
 include_once(__DIR__ . '/INC/connection.inc.php');
-$errores = array(); // Inicializa el array de errores
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
 
@@ -27,10 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-
-
-
-
+    $errores=[];
     // Validar el nombre del album
     if (!isset($_POST['titulo']) || empty($_POST['titulo'])) {
         $errores['titulo'] = 'El titulo del grupo es obligatorio.';
@@ -58,13 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (count($errores) === 0) {
         try {
-
-
-
-
-
-
-
             // Comprobamos que la conexión se ha establecido correctamente
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
@@ -79,13 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':formato', $_POST['formato']);
             $stmt->bindParam(':fechacompra', $_POST['fechacompra']);
             $stmt->bindParam(':precio', $_POST['precio']);
-            echo 'Query: ' . $stmt->queryString . '<br>';
+            
 
             $stmt->execute();
-
             echo 'Inserción exitosa.';
-            var_dump($_POST);
-
             header('Location: /group/' . $_POST['codigo']);
         } catch (Exception $e) {
             echo 'Error en la base de datos: ' . $e->getMessage();
@@ -104,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/STYLE/style.css">
-    <?php echo $_GET['codigo']; ?>
+   
 
 
     <title>Discografía - TuNombre</title>
@@ -112,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="info">
-    <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
+    <h1><a href="/index">Discografía - Ivan Torres</a></h1>
 
     <?php
     if (isset($_GET['codigo'])) {
@@ -125,8 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($conexion) {
                 $codigo = $_GET['codigo'];
                 $stmt = $conexion->prepare('SELECT * FROM grupos WHERE codigo = :codigo');
-                $stmt->bindParam(':codigo', $codigo);
-                $stmt->execute();
+                $stmt->execute([':codigo' => $codigo]);
                 $grupo = $stmt->fetch(PDO::FETCH_ASSOC);
                 $codigo_value=$grupo['codigo'];
 
@@ -139,8 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Consulta para obtener los álbumes del grupo
                     $stmt = $conexion->prepare('SELECT * FROM albumes WHERE grupo = :codigo');
-                    $stmt->bindParam(':codigo', $codigo);
-                    $stmt->execute();
+                    $stmt->execute([':codigo' => $codigo]);
                     $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -218,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
     <br>
-    <a href="/index.php">Volver a la lista de grupos</a>
+    <a href="/index">Volver a la lista de grupos</a>
 
 
 </body>

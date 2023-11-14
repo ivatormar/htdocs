@@ -1,6 +1,14 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.3
+ * @description Codigo principal para el insert de nuevos grupos
+ *
+ */
+
+
 include_once(__DIR__ . '/INC/connection.inc.php');
-$errores = array(); // Inicializa el array de errores
+
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
 
@@ -24,8 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Error en la base de datos: ' . $e->getMessage();
         }
     }
-
-
 
 
 
@@ -102,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="info">
-    <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
+    <h1><a href="/index">Discografía - Ivan Torres</a></h1>
 
     <?php
     try {
