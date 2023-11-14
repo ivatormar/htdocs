@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-
+$errores=[];
 
     // Validar el nombre del grupo
     if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
