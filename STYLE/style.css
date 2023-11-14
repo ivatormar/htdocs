@@ -1,0 +1,16 @@
+form{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    grid-column: 2;
+    
+}
+html{
+    background-color: rgb(141, 175, 236);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  
+}
+.info{
+    grid-column: 1;
+}

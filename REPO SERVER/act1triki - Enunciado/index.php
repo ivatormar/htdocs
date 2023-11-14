@@ -8,9 +8,12 @@
  *	@description Implementamos "facilmenete" el uso de las cookies en esta app
  */
 
-if (!isset($_COOKIE['theme'])) {
-	setcookie('theme', 'dark', time() + 60);
-}
+ if(!isset($_COOKIE['theme'])){
+	setcookie('theme','dark',time()+60);
+ }
+
+
+
 
 if (isset($_GET['accept'])) {
 	if ($_GET['accept'] == true) {
@@ -19,6 +22,7 @@ if (isset($_GET['accept'])) {
 		exit;
 	}
 }
+
 
 //Si el theme es true, y clicamos en el boton de light me setea el css al de light, sino dark
 if (isset($_GET['theme'])) {
@@ -34,12 +38,13 @@ if (isset($_GET['theme'])) {
 }
 
 //Si recibimos por get el delete al clicar, me borra las cookies de theme creada previamente
-if (isset($_GET['delete'])) {
-	setcookie('theme', '', time() - 1);
-	setcookie('accept', '', time() - 1);
+if(isset($_GET['delete'])){
+		setcookie('theme','',time()-1);
+		setcookie('accept','',time()-1);
 
-	header('location:index.php');
-	exit;
+		header('location:index.php');
+		exit;
+
 }
 
 ?>
