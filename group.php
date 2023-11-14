@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     ?>
     </div>
-    <form action="" method="post">
+    <form  class=formulario action="" method="post">
 
         <input type="hidden" name="codigo" value="<?php echo $codigo_value; ?>">
 

@@ -102,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <div class="info">
     <h1><a href="/index.php">Discografía - Ivan Torres</a></h1>
 
     <?php
@@ -170,7 +171,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Código de álbum no válido.';
     }
     ?>
-    <form action="" method="post">
+    </div>
+
+    <form class="formulario" method="post">
         <input type="hidden" name="codigo" value="<?php echo $codigo_album ?>">
         <input type="hidden" name="posicion" value="<?php echo $posicion; ?>">
 

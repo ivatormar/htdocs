@@ -63,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (count($errores) === 0) {
         try {
-           
             // Comprobamos que la conexión se ha establecido correctamente
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
@@ -84,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
 
@@ -103,11 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <div class="info">
     <h1><a href="index.php">Discografía - Ivan Torres</a></h1>
 
     <?php
-
-
     try {
         $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
         $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
@@ -145,7 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Error en la base de datos: ' . $e->getMessage();
     }
     ?>
-    <form action="index.php" method="post">
+    </div>
+    <form class=formulario action="index.php" method="post">
         <label for="nombre">Nombre del grupo:</label>
         <input type="text" name="nombre" id="nombre" required>
 
@@ -162,9 +160,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             for ($i = 1990; $i <= date('Y'); $i++) {
                 echo '<option value="' . $i . '">' . $i . '</option>';
             }
-
-
-
             ?>
         </select>
 

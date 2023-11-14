@@ -1,16 +1,40 @@
-form{
-    display: flex;
-    flex-direction: column;
-    width: 15%;
-    grid-column: 2;
-    
-}
 html{
+    font-size: 1.5vw; /* El tamaño del texto será el 2% del ancho de la ventana */
     background-color: rgb(141, 175, 236);
+}
+
+body{
     display: grid;
     grid-template-columns: 1fr 1fr;
-  
 }
+
 .info{
     grid-column: 1;
+    margin: auto;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    grid-column: 2;
+    vertical-align: middle;
+    justify-content: center;   
+    text-align:center ;
+    margin:auto;
+    padding: 1em; /* El relleno será igual al tamaño de la fuente del elemento */
+    border:2px solid black;
+    border-radius: 0.4vw;
+    font-size: 1.65vw;
+
+}
+.formulario input{
+    height: 2vw;
+    font-size: 1.15vw;
+
+}
+.formulario select{
+    height: 2vw;
+    font-size: 1.15vw;
+
 }
