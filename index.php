@@ -1,6 +1,6 @@
 <?php
 $login = false;
-$errors = array("usuario" => "", "email" => "", "contrasenya" => "");
+
 $success_message = "You have been registered, yay :)";
 
 include_once(__DIR__ . '/INC/connection.inc.php');
@@ -15,8 +15,8 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica si se ha enviado el formulario
-
+   
+    $errors = array("usuario" => "", "email" => "", "contrasenya" => "");
     // Validación del campo "User"
     if (empty($_POST['usuario'])) {
         $errors["usuario"] = "El campo de usuario es obligatorio.";
@@ -41,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
         $success_message = "¡Registro exitoso!";
     }
+
+    echo "Antes del count de errors";
+
 
     if (count($errors) === 0) {
         try {
