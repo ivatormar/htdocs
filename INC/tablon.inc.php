@@ -90,46 +90,6 @@
                         fugiat quo deleniti.
                     </div>
                 </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
             </div>
         </main>
         <footer class="footer">

@@ -1,22 +1,40 @@
 <?php
+session_start();
+include_once(__DIR__ . '/connection.inc.php');
 $login = false;
 $errors = array("user" => "", "password" => "");
 
-include_once(__DIR__ . '/INC/connection.inc.php');
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
 
-function validarUsuarioYContraseña($user, $password) {
-    // Aquí deberías implementar la lógica de validación de usuario y contraseña
-    // Puedes verificar las credenciales en una base de datos o utilizar otro método de autenticación.
-    // Si las credenciales son válidas, devuelve true; de lo contrario, devuelve false.
-    if ($user === 'usuario' && $password === 'contraseña') {
-        return true;
-    } else {
+
+if ($conexion->errorCode() != PDO::ERR_NONE) {
+    echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
+    exit;
+}
+
+
+function validarUsuarioYContraseña($user, $password, $conexion) {
+    try {
+        $stmt = $conexion->prepare('SELECT * FROM users WHERE usuario = :usuario');
+        $stmt->bindParam(':usuario', $user);
+        $stmt->execute();
+        $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user_data && password_verify($password, $user_data['contrasenya'])) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        // Manejar el error de la base de datos, si es necesario
         return false;
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+    $user = $_POST['user'];
+    $password = $_POST['password'];
 
     // Validación del campo "User"
     if (empty($user)) {
@@ -34,22 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($errors["user"]) && empty($errors["password"])) {
         // Aquí puedes realizar la validación de usuario y contraseña en tu base de datos
-        // Si la validación es exitosa, establece $login en true
-        // De lo contrario, muestra un mensaje de error
-        if (validarUsuarioYContraseña($user, $password)) {
+        if (validarUsuarioYContraseña($user, $password, $conexion)) {
+            $_SESSION['user_id'] = $user_data['id']; // Guarda el ID del usuario en la sesión
             $login = true;
+            // Redirige al usuario a la página que desees
+            header('Location: /index.php');
+            exit; // Asegura que el script se detenga después de la redirección
         } else {
-            // Comprueba si el usuario o la contraseña son incorrectos
-            if ($user !== 'usuario') {
-                $errors["user"] = "Usuario incorrecto.";
-            }
-            if ($password !== 'contraseña') {
-                $errors["password"] = "Contraseña incorrecta.";
-            }
+            
+            $errors["password"] = "Usuario o contraseña incorrectos.";
         }
-    }
+}
 }
 ?>
+
+
 
 
 

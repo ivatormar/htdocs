@@ -1,12 +1,18 @@
 <?php
-$login = false;
-
-$success_message = "You have been registered, yay :)";
-
+session_start();
 include_once(__DIR__ . '/INC/connection.inc.php');
+$login = false;
+$registration_successful = false;
+
+if (isset($_SESSION['user_id'])) {
+    // El usuario está logueado
+    $login = true;
+}
 
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
+$errors = array("usuario" => "", "email" => "", "contrasenya" => "");
+
 
 if ($conexion->errorCode() != PDO::ERR_NONE) {
     echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
@@ -15,8 +21,6 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   
-    $errors = array("usuario" => "", "email" => "", "contrasenya" => "");
     // Validación del campo "User"
     if (empty($_POST['usuario'])) {
         $errors["usuario"] = "El campo de usuario es obligatorio.";
@@ -38,23 +42,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors["contrasenya"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 
+        // Verificación adicional: Usuario y correo electrónico no deben existir
+        $existing_user_query = $conexion->prepare('SELECT COUNT(*) FROM users WHERE usuario = :usuario OR email = :email');
+        $existing_user_query->execute(array(':usuario' => $_POST['usuario'], ':email' => $_POST['email']));
+        $existing_user_count = $existing_user_query->fetchColumn();
+    
+        if ($existing_user_count > 0) {
+            $errors["usuario"] = "El usuario  ya está registrado.";
+            $errors["email"] = "El  el correo electrónico ya están registrado.";
+            $_POST['usuario'] = '';//Limpimaos campos de los forms
+            $_POST['email'] = '';//Limpimaos campos de los forms
+        }
+
+
     if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
-        $success_message = "¡Registro exitoso!";
+        $success_message = "¡Ya puedes loguearte!";
     }
 
-    echo "Antes del count de errors";
-
-
-    if (count($errors) === 0) {
+    if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
         try {
-            // Comprobamos que la conexión se ha establecido correctamente
+            
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
             }
             echo "Antes del var_dump";
             $hashedPassword = password_hash($_POST['contrasenya'], PASSWORD_DEFAULT);
 
-            $stmt = $conexion->prepare('INSERT INTO usuarios (usuario, contrasenya, email) VALUES (:usuario, :contrasenya, :email)');
+            $stmt = $conexion->prepare('INSERT INTO users (usuario, contrasenya, email) VALUES (:usuario, :contrasenya, :email)');
             var_dump($_POST['usuario'], $hashedPassword, $_POST['email']);
 
             $stmt->bindParam(':usuario', $_POST['usuario']);
@@ -62,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':email', $_POST['email']);
 
             $stmt->execute();
+            $registration_successful = true;
 
-            header('Location: /INC/login.inc.php');
         } catch (Exception $e) {
             echo 'Error en la base de datos: ' . $e->getMessage();
         }
@@ -116,31 +130,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </nav>
+<?php
+if($login===true){
+    include_once(__DIR__.'/INC/tablon.inc.php');
+}else{
 
+?>
     <!-- REGISTER FORM -->
-    <div class="login-page">
-        <div class="form">
-            <h2>¡Welcome to Revels, SIGN UP!</h2>
-            <form class="login-form" method="post" action="">
+    <div class="register-page">
+    <div class="form">
+        <h2>¡Welcome to Revels, SIGN UP!</h2>
+        <form class="register-form" action="" method="post">
+            <input type="text" name="usuario" placeholder="User" id="usuario" required
+                   value="<?php echo ($registration_successful) ? '' : (isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''); ?>" />
+            <p class="error-message"><?php echo $errors["usuario"]; ?></p>
 
-                <input type="text" name="usuario" placeholder="User" id="usuario" required />
-                <p class="error-message"><?php echo $errors["usuario"]; ?></p>
+            <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
+            <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
 
-                <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
-                <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
+            <input type="text" name="email" placeholder="Email" id="email" required
+                   value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
+            <p class="error-message"><?php echo $errors["email"]; ?></p>
 
-                <input type="text" name="email" placeholder="Email" id="email" required />
-                <p class="error-message"><?php echo $errors["email"]; ?></p>
-
-                <input type="submit" value="Sign up" class="registerBtn">
-                <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
-                <?php if (!empty($success_message)) : ?>
-                    <p class="success-message"><?php echo $success_message; ?></p>
-                <?php endif; ?>
-            </form>
-        </div>
+            <input type="submit" value="Sign up" class="registerBtn">
+            <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
+        </form>
+        <?php
+        // Display success message if registration was successful
+        if ($registration_successful) {
+            echo '<p class="success-message">¡Registro exitoso! ¡Ya puedes loguearte!</p>';
+        }
+        ?>
     </div>
-
+</div>
+<?php } ?>
 </body>
 
 </html>
