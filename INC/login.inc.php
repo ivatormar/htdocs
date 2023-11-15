@@ -2,6 +2,8 @@
 $login = false;
 $errors = array("user" => "", "password" => "");
 
+include_once(__DIR__ . '/INC/connection.inc.php');
+
 function validarUsuarioYContraseña($user, $password) {
     // Aquí deberías implementar la lógica de validación de usuario y contraseña
     // Puedes verificar las credenciales en una base de datos o utilizar otro método de autenticación.
@@ -14,9 +16,7 @@ function validarUsuarioYContraseña($user, $password) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica si se ha enviado el formulario
-    $user = $_POST["user"];
-    $password = $_POST["password"];
+    
 
     // Validación del campo "User"
     if (empty($user)) {
@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/MEDIA-REVELS-LOGO/logo-meouwth.png" alt="logoNav">
+            <a class="navbar-brand" href="/index.php">
+                <img src="/MEDIA-REVELS-LOGO/logo-navbar.png" alt="logoNav">
             </a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- LOGIN FORM -->
     <div class="login-page">
         <div class="form">
-            <h2>¡ Revel yourself !</h2>
+            <h2>¡Revel yourself!</h2>
             <form class="login-form" method="POST">
                 <input type="text" name="user" placeholder="User" required />
                 <p class="error-message"><?php echo $errors["user"]; ?></p>

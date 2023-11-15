@@ -1,177 +1,142 @@
 <?php
-/**
- * @author Ivan Torres Marcos
- * @version 1.3
- * @description Codigo principal para el insert de nuevos grupos
- *
- */
-
+$login = false;
+$errors = array("usuario" => "", "email" => "", "contrasenya" => "");
+$success_message = "You have been registered, yay :)";
 
 include_once(__DIR__ . '/INC/connection.inc.php');
 
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-$conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
+$conexion = connection('revels', 'revel', 'lever', $utf8);
 
 if ($conexion->errorCode() != PDO::ERR_NONE) {
     echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if (isset($_POST['delete_grupo'])) {
-        try {
-            $codigo_grupo = $_POST['delete_grupo'];
-            $stmt = $conexion->prepare('DELETE FROM grupos WHERE codigo = :codigo');
-            $stmt->bindParam(':codigo', $codigo_grupo);
-            $stmt->execute();
-            $codigo_grupo = $_GET['codigo'];
-            header('Location: /index');
-            exit();
-        } catch (Exception $e) {
-            echo 'Error en la base de datos: ' . $e->getMessage();
-        }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifica si se ha enviado el formulario
+
+    // Validación del campo "User"
+    if (empty($_POST['usuario'])) {
+        $errors["usuario"] = "El campo de usuario es obligatorio.";
+    } elseif (!preg_match("/^[a-zA-Z0-9_]+$/", $_POST['usuario'])) {
+        $errors["usuario"] = "El usuario solo puede contener letras, números y guiones bajos (_).";
     }
 
-
-$errores=[];
-
-    // Validar el nombre del grupo
-    if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
-        $errores['nombre'] = 'El nombre del grupo es obligatorio.';
-    } else if (strlen($_POST['nombre']) > 50) {
-        $errores['nombre'] = 'El nombre del grupo no puede tener más de 50 caracteres.';
+    // Validación del campo "Email"
+    if (empty($_POST['email'])) {
+        $errors["email"] = "El campo de correo electrónico es obligatorio.";
+    } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors["email"] = "El correo electrónico no es válido.";
     }
 
-    // Validar el género del grupo
-    if (!isset($_POST['genero']) || empty($_POST['genero'])) {
-        $errores['genero'] = 'El género del grupo es obligatorio.';
-    } else if (strlen($_POST['genero']) > 50) {
-        $errores['genero'] = 'El género del grupo no puede tener más de 50 caracteres.';
+    // Validación del campo "Password"
+    if (empty($_POST['contrasenya'])) {
+        $errors["contrasenya"] = "El campo de contraseña es obligatorio.";
+    } elseif (strlen($_POST['contrasenya']) < 6) {
+        $errors["contrasenya"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 
-    // Validar el país del grupo
-    if (!isset($_POST['pais']) || empty($_POST['pais'])) {
-        $errores['pais'] = 'El país del grupo es obligatorio.';
-    } else if (strlen($_POST['pais']) > 20) {
-        $errores['pais'] = 'El país del grupo no puede tener más de 20 caracteres.';
+    if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
+        $success_message = "¡Registro exitoso!";
     }
 
-    if (!isset($_POST['inicio']) || empty($_POST['inicio'])) {
-        $errores['inicio'] = 'El año de inicio del grupo es obligatorio.';
-    }
-
-    if (count($errores) > 0) {
-        foreach ($errores as $error) {
-            echo '<div class="alert alert-danger">' . $error . '</div>';
-        }
-    }
-
-    if (count($errores) === 0) {
+    if (count($errors) === 0) {
         try {
             // Comprobamos que la conexión se ha establecido correctamente
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
             }
+            echo "Antes del var_dump";
+            $hashedPassword = password_hash($_POST['contrasenya'], PASSWORD_DEFAULT);
 
-            $stmt = $conexion->prepare('INSERT INTO grupos (nombre, genero, pais, inicio) VALUES (:nombre, :genero, :pais, :inicio)');
+            $stmt = $conexion->prepare('INSERT INTO usuarios (usuario, contrasenya, email) VALUES (:usuario, :contrasenya, :email)');
+            var_dump($_POST['usuario'], $hashedPassword, $_POST['email']);
 
-            $stmt->bindParam(':nombre', $_POST['nombre']);
-            $stmt->bindParam(':genero', $_POST['genero']);
-            $stmt->bindParam(':pais', $_POST['pais']);
-            $stmt->bindParam(':inicio', $_POST['inicio']);
+            $stmt->bindParam(':usuario', $_POST['usuario']);
+            $stmt->bindParam(':contrasenya', $hashedPassword);
+            $stmt->bindParam(':email', $_POST['email']);
 
             $stmt->execute();
 
-            header('Location: /index');
+            header('Location: /INC/login.inc.php');
         } catch (Exception $e) {
             echo 'Error en la base de datos: ' . $e->getMessage();
         }
     }
 }
+
+
 ?>
 
-
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/STYLE/style.css">
-
-    <title>Discografía - Ivan Torres</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>REVELS</title>
 </head>
 
-<body>
-    <div class="info">
-    <h1><a href="/index">Discografía - Ivan Torres</a></h1>
-
-    <?php
-    try {
-        $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-        $conexion = connection('discografia', 'vetustamorla', '15151', $utf8);
-
-        if ($conexion) {
-            $result = $conexion->query('SELECT * FROM grupos');
-
-            if ($result) {
-                $grupos = $result->fetchAll(PDO::FETCH_ASSOC);
-
-                if ($grupos) {
-                    echo '<h2>Lista de Grupos:</h2>';
-                    echo '<ol>';
-
-                    foreach ($grupos as $grupo) {
-                        echo '<li><a href="group/' . $grupo['codigo'] . '">' . $grupo['nombre'] . '</a>  <form action="" method="post" style="display:inline;">
-                        <input type="hidden" name="delete_grupo" value="' . $grupo['codigo'] . '">
-                        <button type="submit" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este grupo?\')">
-                            <i class="bx bxs-trash"></i>
-                        </button>
-                    </form></li>';
-                    }
-
-                    echo '</ol>';
-                } else {
-                    echo 'No hay grupos disponibles actualmente.';
-                }
-            } else {
-                echo 'No se pudo ejecutar la consulta SQL.';
-            }
-        } else {
-            echo 'La conexión a la base de datos no se estableció correctamente.';
-        }
-    } catch (Exception $e) {
-        echo 'Error en la base de datos: ' . $e->getMessage();
-    }
-    ?>
-    </div>
-    <form class=formulario action="index.php" method="post">
-        <label for="nombre">Nombre del grupo:</label>
-        <input type="text" name="nombre" id="nombre" required>
-
-        <label for="genero">Género:</label>
-        <input type="text" name="genero" id="genero" required>
-
-        <label for="pais">País:</label>
-        <input type="text" name="pais" id="pais" required>
-
-        <label for="inicio">Año de inicio:</label>
-        <select name="inicio" id="inicio">
+<body cz-shortcut-listen="true">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">
+                <img src="/MEDIA-REVELS-LOGO/logo-navbar.png" alt="logoNav">
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="me-3">
+                    <div class="form-white input-group" style="width: 250px;">
+                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
+                    </div>
+                </form>
+            </div>
             <?php
-
-            for ($i = 1990; $i <= date('Y'); $i++) {
-                echo '<option value="' . $i . '">' . $i . '</option>';
+            if ($login === true) {
+                echo '
+                <div class="login">
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Salir </button>
+                </div>';
             }
             ?>
-        </select>
+            <div class="button-container">
+                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/INC/login.inc.php">LOGIN</a></button>
+            </div>
+        </div>
+    </nav>
 
-        <input type="submit" value="Crear grupo">
-    </form>
+    <!-- REGISTER FORM -->
+    <div class="login-page">
+        <div class="form">
+            <h2>¡Welcome to Revels, SIGN UP!</h2>
+            <form class="login-form" method="post" action="">
 
+                <input type="text" name="usuario" placeholder="User" id="usuario" required />
+                <p class="error-message"><?php echo $errors["usuario"]; ?></p>
+
+                <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
+                <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
+
+                <input type="text" name="email" placeholder="Email" id="email" required />
+                <p class="error-message"><?php echo $errors["email"]; ?></p>
+
+                <input type="submit" value="Sign up" class="registerBtn">
+                <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
+                <?php if (!empty($success_message)) : ?>
+                    <p class="success-message"><?php echo $success_message; ?></p>
+                <?php endif; ?>
+            </form>
+        </div>
+    </div>
 
 </body>
 
