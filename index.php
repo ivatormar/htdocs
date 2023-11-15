@@ -42,17 +42,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors["contrasenya"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 
-        // Verificación adicional: Usuario y correo electrónico no deben existir
-        $existing_user_query = $conexion->prepare('SELECT COUNT(*) FROM users WHERE usuario = :usuario OR email = :email');
-        $existing_user_query->execute(array(':usuario' => $_POST['usuario'], ':email' => $_POST['email']));
-        $existing_user_count = $existing_user_query->fetchColumn();
-    
-        if ($existing_user_count > 0) {
-            $errors["usuario"] = "El usuario  ya está registrado.";
-            $errors["email"] = "El  el correo electrónico ya están registrado.";
-            $_POST['usuario'] = '';//Limpimaos campos de los forms
-            $_POST['email'] = '';//Limpimaos campos de los forms
-        }
+    // Verificación adicional: Usuario y correo electrónico no deben existir
+    $existing_user_query = $conexion->prepare('SELECT COUNT(*) FROM users WHERE usuario = :usuario OR email = :email');
+    $existing_user_query->execute(array(':usuario' => $_POST['usuario'], ':email' => $_POST['email']));
+    $existing_user_count = $existing_user_query->fetchColumn();
+
+    if ($existing_user_count > 0) {
+        $errors["usuario"] = "El usuario  ya está registrado.";
+        $errors["email"] = "El  el correo electrónico ya están registrado.";
+        $_POST['usuario'] = ''; //Limpimaos campos de los forms
+        $_POST['email'] = ''; //Limpimaos campos de los forms
+    }
 
 
     if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
         try {
-            
+
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
             }
@@ -77,7 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt->execute();
             $registration_successful = true;
-
         } catch (Exception $e) {
             echo 'Error en la base de datos: ' . $e->getMessage();
         }
@@ -121,7 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="login">
                     <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
                     <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Salir </button>
+                    <form method="post" action="/INC/logout.inc.php">
+                    <button type="submit" class="btn btn-danger"> Salir </button>
+                </form>
                 </div>';
             }
             ?>
@@ -130,40 +131,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </nav>
-<?php
-if($login===true){
-    include_once(__DIR__.'/INC/tablon.inc.php');
-}else{
+    <?php
+    if ($login === true) {
+        include_once(__DIR__ . '/INC/tablon.inc.php');
+    } else {
 
-?>
-    <!-- REGISTER FORM -->
-    <div class="register-page">
-    <div class="form">
-        <h2>¡Welcome to Revels, SIGN UP!</h2>
-        <form class="register-form" action="" method="post">
-            <input type="text" name="usuario" placeholder="User" id="usuario" required
-                   value="<?php echo ($registration_successful) ? '' : (isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''); ?>" />
-            <p class="error-message"><?php echo $errors["usuario"]; ?></p>
+    ?>
+        <!-- REGISTER FORM -->
+        <div class="login-page">
+            <div class="form">
+                <h2>¡Welcome to Revels, SIGN UP!</h2>
+                <form class="login-form" action="" method="post">
+                    <input type="text" name="usuario" placeholder="User" id="usuario" required value="<?php echo ($registration_successful) ? '' : (isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''); ?>" />
+                    <p class="error-message"><?php echo $errors["usuario"]; ?></p>
 
-            <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
-            <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
+                    <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
+                    <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
 
-            <input type="text" name="email" placeholder="Email" id="email" required
-                   value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
-            <p class="error-message"><?php echo $errors["email"]; ?></p>
+                    <input type="text" name="email" placeholder="Email" id="email" required value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
+                    <p class="error-message"><?php echo $errors["email"]; ?></p>
 
-            <input type="submit" value="Sign up" class="registerBtn">
-            <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
-        </form>
-        <?php
-        // Display success message if registration was successful
-        if ($registration_successful) {
-            echo '<p class="success-message">¡Registro exitoso! ¡Ya puedes loguearte!</p>';
-        }
-        ?>
-    </div>
-</div>
-<?php } ?>
+                    <input type="submit" value="Sign up" class="registerBtn">
+                    <p class="message">Do you have an account? <a href="/INC/login.inc.php">Login</a></p>
+                </form>
+                <?php
+                // Display success message if registration was successful
+                if ($registration_successful) {
+                    echo '<p class="success-message">¡Registro exitoso! ¡Ya puedes loguearte!</p>';
+                }
+                ?>
+            </div>
+        </div>
+    <?php }; ?>
 </body>
 
 </html>
