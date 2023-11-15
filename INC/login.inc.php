@@ -51,22 +51,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($errors["user"]) && empty($errors["password"])) {
-        // Aquí puedes realizar la validación de usuario y contraseña en tu base de datos
         if (validarUsuarioYContraseña($user, $password, $conexion)) {
+            // Vuelve a obtener los datos del usuario después de validar el inicio de sesión
+            $stmt = $conexion->prepare('SELECT * FROM users WHERE usuario = :usuario');
+            $stmt->bindParam(':usuario', $user);
+            $stmt->execute();
+            $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+        
             $_SESSION['user_id'] = $user_data['id']; // Guarda el ID del usuario en la sesión
             $login = true;
             // Redirige al usuario a la página que desees
             header('Location: /index.php');
             exit; // Asegura que el script se detenga después de la redirección
         } else {
-            
             $errors["password"] = "Usuario o contraseña incorrectos.";
         }
 }
 }
 ?>
-
-
 
 
 
