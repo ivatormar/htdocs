@@ -10,9 +10,18 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
     exit;
 }
 
-// Consultar todas las revels
-$stmt = $conexion->query('SELECT * FROM revels');
+// Consultar todas las revels del usuario actual y de los usuarios a los que sigue
+$userId = $_SESSION['user_id'];
+
+$stmt = $conexion->prepare('SELECT r.*, u.usuario AS autor_usuario
+                            FROM revels r
+                            INNER JOIN users u ON r.userid = u.id
+                            WHERE r.userid = :userId OR r.userid IN (SELECT userfollowed FROM follows WHERE userid = :userId)
+                            ORDER BY r.fecha DESC');
+$stmt->bindParam(':userId', $userId);
+$stmt->execute();
 $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -72,30 +81,15 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($revels as $revel) {
                 echo '<div class="revel">';
                 echo '<div class="revel-box">';
-                echo '<p class="revel-text">' . htmlspecialchars($revel['texto']) . '</p>';
-                echo '<p class="revel-info">Publicado por Usuario ID: ' . htmlspecialchars($revel['userid']) . ' - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
-
-                // Mostrar comentarios relacionados con esta revel
-                $stmtComments = $conexion->prepare('SELECT * FROM comments WHERE revelid = :revelid');
-                $stmtComments->bindParam(':revelid', $revel['id']);
-                $stmtComments->execute();
-                $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
-
-                echo '<div class="comments-container">';
-                foreach ($comments as $comment) {
-                    echo '<div class="comment">';
-                    echo '<p class="comment-text">' . htmlspecialchars($comment['texto']) . '</p>';
-                    echo '<p class="comment-info">Comentado por Usuario ID: ' . htmlspecialchars($comment['userid']) . ' - Fecha: ' . htmlspecialchars($comment['fecha']) . '</p>';
-                    echo '</div>';
-                }
-                echo '</div>'; // Cierre del contenedor de comentarios
-
+                echo '<p class="revel-text"><a href="/revel.php?id=' . $revel['id'] . '">' . htmlspecialchars($revel['texto']) . '</a></p>';
+                echo '<p class="revel-info">Publicado por <a href="/user.php?usuario=' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
+                // Agregar las imágenes para indicar si gusta o no aquí
+                // Y también el número de comentarios
                 echo '</div>';
                 echo '</div>';
             }
             ?>
         </div>
-
     </div>
 </body>
 
