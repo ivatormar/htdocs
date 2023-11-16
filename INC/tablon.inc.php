@@ -1,102 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/tablon.css">
-    <title>TABLON</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Revels.</title>
 </head>
-<body cz-shortcut-listen="true">
-    <div class="container">
-        <input type="checkbox" id="nav-switch">
-        <header class="header">
-            <label for="nav-switch" id="nav-icon">
-                <i class="fa fa-bars"></i>
-            </label>
-            <p class="title"><i class="logo fa-brands fa-css3"></i> Header</p>
-            <div class="searchbar">
-                <input type="text" id="search-box" placeholder="Search...">
-                <label for="search-box"><i class="fa fa-search"></i></label>
-            </div>
-        </header>
-        <nav class="nav">
-            <ul>
-                <li><a href="#home"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#install"><i class="fa fa-download"></i> Installation</a></li>
-                <li><a href="#guide"><i class="fa fa-book"></i> Guide</a></li>
-                <li><a href="#documents"><i class="fa fa-file"></i> Documents</a></li>
-                <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-            </ul>
-        </nav>
-        <main class="main">
-            <div class="gridwrap cols-3 g-2">
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <p>Card title</p>
-                    </div>
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, rem. Ipsum reprehenderit
-                        enim, earum sit quasi corporis quas illum minus. Quibusdam cum possimus nihil, qui minus nisi
-                        fugiat quo deleniti.
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer class="footer">
-            <p>Footer</p>
-        </footer>
-    </div>
 
+<body cz-shortcut-listen="true">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index.php">
+                <img src="/MEDIA-REVELS-LOGO/logo-navbar.png" alt="logoNav">
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="me-3">
+                    <div class="form-white input-group" style="width: 250px;">
+                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
+                    </div>
+                </form>
+            </div>
+
+                <div class="login">
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
+                    <form method="post" action="/INC/logout.inc.php">
+                    <button type="submit" class="btn btn-danger"> Salir </button>
+                </form>
+                </div>';
+
+        </div>
+    </nav>
+
+    <!-- LOGIN FORM -->
+   
 
 </body>
+
 </html>

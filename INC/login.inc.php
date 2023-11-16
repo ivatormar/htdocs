@@ -94,23 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="me-3">
-                    <div class="form-white input-group" style="width: 250px;">
-                        <input type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
-                    </div>
-                </form>
-            </div>
-            <?php 
-            if($login === true){
-                echo '
-                <div class="login">
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Salir </button>
-                </div>';
-            }
-            ?>
+            
             <div class="button-container">
                 <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index.php">REGISTER</a></button>
             </div>
