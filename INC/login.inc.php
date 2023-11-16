@@ -27,7 +27,6 @@ function validarUsuarioYContraseña($user, $password, $conexion) {
             return false;
         }
     } catch (PDOException $e) {
-        // Manejar el error de la base de datos, si es necesario
         return false;
     }
 }
@@ -57,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':usuario', $user);
             $stmt->execute();
             $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+            $_SESSION['usuario']=$user_data['usuario'];
             $_SESSION['user_id'] = $user_data['id']; // Guarda el ID del usuario en la sesión
             $login = true;
             // Redirige al usuario a la página que desees
@@ -80,6 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Revels.</title>
 </head>

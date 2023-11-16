@@ -1,15 +1,32 @@
+<?php
+
+// Realizar la conexión a la base de datos
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
+
+// Verificar si hay errores de conexión
+if ($conexion->errorCode() != PDO::ERR_NONE) {
+    echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
+    exit;
+}
+
+// Consultar todas las revels
+$stmt = $conexion->query('SELECT * FROM revels');
+$revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/CSS/tablon.css">
+    <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Revels.</title>
 </head>
 
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" class="body">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
         <div class="container-fluid">
@@ -26,21 +43,60 @@
                     </div>
                 </form>
             </div>
-
-                <div class="login">
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
-                    <button type="button" class="btn btn-danger" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
-                    <form method="post" action="/INC/logout.inc.php">
-                    <button type="submit" class="btn btn-danger"> Salir </button>
+            <h3>
+                ¡Bienvenido, <?php echo $_SESSION['usuario'] ?>!
+            </h3>
+            <div class="buttons">
+                <button type="button" class="btn button-33" data-mdb-ripple-color="#ffffff"> Mi perfil </button>
+                <button type="button" class="btn button-33" data-mdb-ripple-color="#ffffff"> Nuevo Revel </button>
+                <form method="post" action="/INC/logout.inc.php">
+                    <button type="submit" class="btn button-33"> Salir </button>
                 </form>
-                </div>';
-
+            </div>
         </div>
     </nav>
+    <div class="content">
+        <aside class="sidebar">
+            <div class="followedUsers">
+                <h2>Usuarios que sigues</h2>
+                <ul>
+                    <li><i></i> Usuario 1</li>
+                    <li><i></i> Usuario 2</li>
+                    <!-- Agrega más usuarios según sea necesario -->
+                </ul>
+            </div>
+        </aside>
+        <!-- Mostrar las revels -->
+        <div class="revels-container">
+            <?php
+            foreach ($revels as $revel) {
+                echo '<div class="revel">';
+                echo '<div class="revel-box">';
+                echo '<p class="revel-text">' . htmlspecialchars($revel['texto']) . '</p>';
+                echo '<p class="revel-info">Publicado por Usuario ID: ' . htmlspecialchars($revel['userid']) . ' - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
 
-    <!-- LOGIN FORM -->
-   
+                // Mostrar comentarios relacionados con esta revel
+                $stmtComments = $conexion->prepare('SELECT * FROM comments WHERE revelid = :revelid');
+                $stmtComments->bindParam(':revelid', $revel['id']);
+                $stmtComments->execute();
+                $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 
+                echo '<div class="comments-container">';
+                foreach ($comments as $comment) {
+                    echo '<div class="comment">';
+                    echo '<p class="comment-text">' . htmlspecialchars($comment['texto']) . '</p>';
+                    echo '<p class="comment-info">Comentado por Usuario ID: ' . htmlspecialchars($comment['userid']) . ' - Fecha: ' . htmlspecialchars($comment['fecha']) . '</p>';
+                    echo '</div>';
+                }
+                echo '</div>'; // Cierre del contenedor de comentarios
+
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+
+    </div>
 </body>
 
 </html>

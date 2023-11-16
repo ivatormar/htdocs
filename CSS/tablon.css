@@ -1,292 +1,114 @@
-/* Font Awesome Icons - https://fontawesome.com */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-*::selection {
-  background-color: #39e;
-  color: white;
-}
-
-.card {
-  background-color: #eff7fe;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 3px 1px 0 #95acbf;
-  border: 1px solid #95acbf;
-}
-.card > .header {
-  background: #95acbf;
-  padding: 0.3em 0.5em;
-}
-.card > .header p {
-  padding: 0;
-  margin: 0;
-  color: #fff;
-  font-size: 1.2em;
-}
-.card .text {
-  color: #333;
-  padding: 0.5em;
-  font-size: 0.8em;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.nav li {
-  display: block;
-  list-style: none;
-}
-.nav li a {
-  display: block;
-  color: #333;
-  text-decoration: none;
-  padding: 1em;
-  transition: background-color 0.2s ease-out;
-}
-.nav li a:hover {
-  background-color: #95acbf;
-}
-.nav li a:active {
-  background-color: #7593ac;
-}
-
-#nav-icon {
-  cursor: pointer;
-  display: none;
-  padding: 0.8rem;
-  transform: rotate(90deg);
-}
-#nav-icon:hover {
-  background-color: #4ba5f0;
-}
-#nav-icon:active {
-  background-color: #39e;
-}
-
-#nav-switch:checked ~ * #nav-icon {
-  background-color: #333;
-  color: white;
-}
-
-#nav-switch {
-  display: none;
-}
-
-@media screen and (max-width: 960px) {
-  .nav li {
-    display: inline-block;
-  }
-}
-@media screen and (max-width: 700px) {
-  .nav {
-    transition: all 0.2s ease-in-out;
-    flex-shrink: 1;
-    overflow: hidden;
-  }
-  .nav ul {
-    width: 100%;
-  }
-  .nav ul li {
-    display: block;
-  }
-  #nav-icon {
-    display: block;
-    transform: rotate(0deg);
-  }
-  #nav-switch:checked ~ .nav {
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-  }
-  #nav-switch:checked ~ .nav focus-within {
-    display: none;
-  }
-}
-body {
-  height: 100vh;
-  font-size: 1.2em;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #fff;
-}
-
-/* ----- Layout ----- */
-.container {
-  margin: 0 auto;
+html {
   height: 100%;
-  max-width: 1280px;
-  min-width: 350px;
-  display: grid;
-  grid-template-areas: "header header" "nav main" "footer footer";
-  grid-template-columns: repeat(min-content 1fr);
-  grid-template-rows: min-content auto min-content;
-}
-.container > .header {
-  grid-area: header;
-  background-color: #62b1f2;
-  color: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  font-size: 1.5em;
-  transition: ease all 0.5s;
-}
-.container > .header .title {
-  margin: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-}
-.container .nav {
-  grid-area: nav;
-  background-color: #c0e0fa;
-}
-.container .nav li > a {
-  padding: 0.5em 2em 0.5em 1em;
-}
-.container .main {
-  grid-area: main;
-  background-color: #fff;
-  padding: 1em;
-}
-.container .footer {
-  padding: 0.5rem;
-  grid-area: footer;
-  background-color: #62b1f2;
-  color: #fff;
+  margin: 0;
 }
 
-.searchbar {
-  margin: 0 auto;
+.mask-custom {
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-brand {
+  font-size: 1.75rem;
+  letter-spacing: 3px;
+}
+
+.body {
+  height: 100vh;
+  background-color: #fee9ef;
+  color: #321d23;
+  display: grid;
+  grid-template-rows: 10% 90%  ; /* Tres filas: la primera ajustada al navbar, la segunda toma el resto, y la tercera para el pie de página u otras partes */
+}
+.navbar {
+  grid-row: 1;
+}
+.content{
+ background-image: 
+  linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.658),
+      rgba(255, 255, 255, 0.658)
+    ),url(/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png);
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  height: 100%;
+
+}
+.sidebar{
+margin: 0.4vw 0.4vw 0vw 0.4vw;
+background-color: #fee9ef;
+height: 100%;
+border: 2px solid #fee9ef;
+border-radius: 0.7vw;
+}
+
+
+button {
+  margin-right: 10px;
+}
+
+/* DIV PARA LOS BUTTONS */
+.buttons{
   display: flex;
-  align-items: center;
-  color: #fff;
+  gap: 1rem;
+  margin-right: 5%;
+  margin-left: 12%;
 }
-.searchbar label {
-  color: #fff;
-  position: relative;
-  right: -2em;
-  font-size: 0.8em;
-  pointer-events: none;
-  order: -1;
+.followedUsers{
+  padding-left: 1.5vw;
 }
-.searchbar input {
-  width: 200px;
-  padding: 0.3em;
-  padding-left: 2.5em;
-  border: none;
-  outline: none;
-  border-radius: 0.5em;
-  font-size: 0.8em;
-  background-color: #7abcf4;
-  transition: background-color 0.2s linear, width 0.2s ease-in-out;
+
+/* CLASE PARA BUTTONS */
+/* .buttons button{
+border: 2px solid white;
+background-color: #321d23;
+color: #fff;
+} */
+
+.revels-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
-.searchbar input::placeholder {
-  color: #fff;
+
+.revel {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
 }
-.searchbar input:focus, .searchbar input:not(:placeholder-shown) {
+
+.revel-box {
   width: 100%;
-  color: #333;
-  background-color: #fff;
-}
-.searchbar input:focus ~ label i, .searchbar input:not(:placeholder-shown) ~ label i {
-  color: #333;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-/* ----- Helper classes ----- */
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+
+
+/* BUTTON 33 */
+.button-33 {
+  background-color: #000000;
+  border-radius: 100px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -25px 18px -14px inset,rgba(153, 152, 152, 0.25) 0 1px 2px,rgba(153, 152, 152, 0.25) 0 2px 4px,rgba(153, 152, 152, 0.25) 0 4px 8px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-.g-2 {
-  gap: 2em;
-}
-
-.cols-1 {
-  grid-template-columns: 1fr;
-}
-
-.cols-2 {
-  grid-template-columns: 1fr, 1fr;
-}
-
-.cols-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* ----- Container elements ----- */
-.flexwrap {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.gridwrap {
-  display: grid;
-  justify-content: space-around;
-  align-items: center;
-  justify-items: center;
-}
-
-@media screen and (max-width: 960px) {
-  .container {
-    display: flex;
-    flex-direction: column;
-  }
-  .container .nav li > a {
-    padding: 0.5em;
-  }
-  .cols-2 {
-    grid-template-columns: 1fr;
-  }
-  .cols-3 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media screen and (max-width: 700px) {
-  .cols-3 {
-    grid-template-columns: 1fr;
-  }
-  .container .header {
-    flex-wrap: nowrap;
-  }
-  .container .header:focus-within #nav-icon,
-  .container .header:focus-within .title {
-    display: none;
-  }
-  .searchbar {
-    margin: 0.8rem auto;
-    display: flex;
-    align-items: center;
-    color: #fff;
-  }
-  .searchbar input {
-    width: 0px;
-    padding: 0.3em;
-    padding-left: 2.5em;
-    transition: none;
-  }
-  .searchbar input::placeholder {
-    color: #fff;
-  }
-  .searchbar input:focus, .searchbar input:not(:placeholder-shown) {
-    width: 100%;
-    color: #333;
-    background-color: #fff;
-    justify-content: flex-start;
-  }
-  .searchbar input:focus ~ i, .searchbar input:not(:placeholder-shown) ~ i {
-    color: #333;
-  }
+.button-33:hover {
+  transform: scale(1.05) rotate(-1deg);
 }
