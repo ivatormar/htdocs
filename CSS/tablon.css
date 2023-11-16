@@ -24,7 +24,7 @@ html {
   grid-row: 1;
 }
 .content{
- background-image: 
+background-image: 
   linear-gradient(
       to right,
       rgba(255, 255, 255, 0.658),
@@ -37,11 +37,12 @@ html {
 
 }
 .sidebar{
-margin: 0.4vw 0.4vw 0vw 0.4vw;
+margin: 0.4vw;
 background-color: #fee9ef;
-height: 100%;
+height: 95%;
 border: 2px solid #fee9ef;
 border-radius: 0.7vw;
+align-self: center;
 }
 
 

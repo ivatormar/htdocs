@@ -20,9 +20,6 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
 }
 
 
-
-
-
 ?>
 
 <!DOCTYPE html>
