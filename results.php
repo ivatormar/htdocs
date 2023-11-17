@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['follow']) || isset($
             ?>
         </div>
     </div>
-    <a href="/index.php">Volver al Tablón</a>
+    <a href="/index.php">Volver al tablón</a>
 </body>
 
 </html>
