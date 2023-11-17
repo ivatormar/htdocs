@@ -1,12 +1,12 @@
 <?php
-// Verificar si se han enviado datos del formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Procesar los datos del formulario
-    $texto = $_POST['texto'];  // Obtener el texto de la revelación, asegúrate de validar y limpiar los datos
-    $userid = $_SESSION['user_id'];  // Obtener el ID del usuario actual, asumiendo que ya ha iniciado sesión
+session_start();
+include_once(__DIR__.'/INC/connection.inc.php');
 
-    // Validar y procesar los datos antes de almacenarlos en la base de datos
-    // ...
+// Verificar si se han enviado datos del formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
+    // Procesar los datos del formulario
+    $texto = $_POST['texto'];
+    $userid = $_SESSION['user_id'];
 
     // Realizar la conexión a la base de datos
     $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $revelId = $conexion->lastInsertId();
 
         // Redirigir a la página de la nueva revelación
-        header("Location: /INC/revel.php?id=$revelId");
+        header("Location:/revel.php?id=$revelId");
         exit;
     } else {
         echo 'Error al guardar la revelación en la base de datos.';
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Si no se han enviado datos, mostrar el formulario
+// Si no se han enviado datos o si 'texto' no está definido en $_POST, mostrar el formulario
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary">Publicar Revel</button>
         </form>
     </div>
-
+    <a href="/index.php">Volver al Tablón</a>
 </body>
 
 </html>

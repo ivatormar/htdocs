@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once(__DIR__ . '/connection.inc.php');
+include_once(__DIR__ . '/INC/connection.inc.php');
 $login = false;
 $errors = array("user" => "", "password" => "");
 
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validación del campo "Password"
     if (empty($password)) {
         $errors["password"] = "El campo de contraseña es obligatorio.";
-    } elseif (strlen($password) < 5) {
+    } elseif (strlen($password) < 2) {
         $errors["password"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 
