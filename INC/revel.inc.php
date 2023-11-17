@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once(__DIR__.'/connection.inc.php');
 // Realizar la conexión a la base de datos
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
@@ -50,7 +52,7 @@ if (isset($_GET['id'])) {
 
             if ($stmt->execute()) {
                 // Redirigir para evitar el reenvío del formulario al actualizar la página
-                header("Location: /revel.php?id=$revelId");
+                header("Location: /INC/revel.inc.php?id=$revelId");
                 exit;
             } else {
                 echo 'Error al guardar el comentario en la base de datos.';
@@ -77,7 +79,7 @@ if (isset($_GET['id'])) {
             <div class="revel-container">
                 <div class="revel-box">
                     <p class="revel-text"><?php echo htmlspecialchars($revel['texto']); ?></p>
-                    <p class="revel-info">Publicado por <a href="/user.php?id=<?php echo $revel['userid']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
+                    <p class="revel-info">Publicado por <a href="/INC/user.inc.php?id=<?php echo $revel['userid']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
                 </div>
             </div>
 
@@ -88,7 +90,7 @@ if (isset($_GET['id'])) {
                 foreach ($comentarios as $comentario) {
                     echo '<div class="comentario">';
                     echo '<p class="comentario-text">' . htmlspecialchars($comentario['texto']) . '</p>';
-                    echo '<p class="comentario-info">Comentado por <a href="/user.php?id=' . $comentario['userid'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
+                    echo '<p class="comentario-info">Comentado por <a href="/INC/user.inc.php?id=' . $comentario['userid'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
                     echo '</div>';
                 }
                 ?>
@@ -97,7 +99,7 @@ if (isset($_GET['id'])) {
             <!-- Formulario para agregar comentario -->
             <div class="nuevo-comentario-form">
                 <h3>Agregar Comentario:</h3>
-                <form method="post" action="/revel.php?id=<?php echo $revelId; ?>">
+                <form method="post" action="">
                     <div class="mb-3">
                         <label for="textoComentario" class="form-label">Texto del Comentario:</label>
                         <textarea class="form-control" id="textoComentario" name="textoComentario" rows="3" required></textarea>
@@ -105,7 +107,7 @@ if (isset($_GET['id'])) {
                     <button type="submit" class="btn btn-primary">Agregar Comentario</button>
                 </form>
             </div>
-
+            <a href="/index.php">Volver al Tablón</a>
         </body>
 
         </html>

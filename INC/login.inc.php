@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validación del campo "Password"
     if (empty($password)) {
         $errors["password"] = "El campo de contraseña es obligatorio.";
-    } elseif (strlen($password) < 6) {
+    } elseif (strlen($password) < 5) {
         $errors["password"] = "La contraseña debe tener al menos 6 caracteres.";
     }
 

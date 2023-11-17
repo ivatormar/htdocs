@@ -81,8 +81,8 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($revels as $revel) {
                 echo '<div class="revel">';
                 echo '<div class="revel-box">';
-                echo '<p class="revel-text"><a href="/revel.php?id=' . $revel['id'] . '">' . htmlspecialchars($revel['texto']) . '</a></p>';
-                echo '<p class="revel-info">Publicado por <a href="/user.php?usuario=' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
+                echo '<p class="revel-text"><a href="/INC/revel.inc.php?id=' . $revel['id'] . '">' . htmlspecialchars($revel['texto']) . '</a></p>';
+                echo '<p class="revel-info">Publicado por <a href="/INC/user.inc.php?usuario=' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
                 // Agregar las imágenes para indicar si gusta o no aquí
                 // Y también el número de comentarios
                 echo '</div>';

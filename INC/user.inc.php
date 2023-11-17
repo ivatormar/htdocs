@@ -1,10 +1,24 @@
 <?php
-// Obtener el ID del usuario del parámetro de la URL
-$userID = $_GET['id']; // Asegúrate de validar y sanitizar esta entrada
+session_start();
+
+include_once(__DIR__.'/connection.inc.php');  // Asegúrate de incluir el archivo de conexión
+
+// Realizar la conexión a la base de datos
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
+
+// Verificar si hay errores de conexión
+if ($conexion->errorCode() != PDO::ERR_NONE) {
+    echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
+    exit;
+}
+
+// Obtener el nombre de usuario del parámetro de la URL
+$username = $_GET['usuario']; // Asegúrate de validar y sanitizar esta entrada
 
 // Consultar la información del usuario
-$stmtUser = $conexion->prepare('SELECT * FROM users WHERE id = :userID');
-$stmtUser->bindParam(':userID', $userID);
+$stmtUser = $conexion->prepare('SELECT * FROM users WHERE usuario = :username');
+$stmtUser->bindParam(':username', $username);
 $stmtUser->execute();
 $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
@@ -51,7 +65,7 @@ $userRevels = $stmtRevels->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($userRevels as $revel) : ?>
                 <li>
                     <!-- Enlace a la página revel -->
-                    <a href="/revel.php?id=<?php echo $revel['revel_id']; ?>">
+                    <a href="/INC/revel.inc.php?id=<?php echo $revel['revel_id'];?>">
                         <!-- Primeros 50 caracteres del texto de la revel -->
                         <?php echo htmlspecialchars(substr($revel['revel_texto'], 0, 50)); ?>
                     </a>
