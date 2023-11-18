@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
         $revelId = $conexion->lastInsertId();
 
         // Redirigir a la página de la nueva revelación
-        header("Location:/revel.php?id=$revelId");
+        header("Location:/revel/$revelId");
         exit;
     } else {
         echo 'Error al guardar la revelación en la base de datos.';
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
     </div>
     </div>
     <div class="volver">
-    <a href="/index.php">Volver al Tablón</a>
+    <a href="/index">Volver al Tablón</a>
     </div>
     </div>
 </body>

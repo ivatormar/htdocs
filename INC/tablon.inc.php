@@ -89,42 +89,9 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Revels.</title>
 </head>
 
-<body cz-shortcut-listen="true" class="body">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/index.php">
-                <img src="/MEDIA-REVELS-LOGO/logo-navbar.png" alt="logoNav">
-            </a>
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Agrega esto en tu formulario de búsqueda en tablon.inc.php -->
-                <form method="post" action="/results.php" class="me-3">
-                    <div class="form-white input-group" style="width: 250px;">
-                        <input type="search" class="form-control rounded" placeholder="Search..." name="search_query" aria-label="Search" aria-describedby="search-addon">
-                        <button id="btnSearch" type="submit" class="btn button-33">Buscar</button>
-                    </div>
-                </form>
 
-            </div>
-            <h3 id='bienvenido'>
-                ¡Bienvenid@, <?php echo $_SESSION['usuario'] ?>!
-            </h3>
-            <div class="buttons">
-                <form method="post" action="/user.php?usuario=<?php echo urlencode($_SESSION['usuario']); ?>">
-                    <button type="submit" class="btn button-33"> Mi perfil </button>
-                </form>
-                <form method="post" action="/new.php">
-                    <button type="submit" class="btn button-33"> Nuevo Revel </button>
-                </form>
-                <form method="post" action="/close.php">
-                    <button type="submit" class="btn button-33"> Salir </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+<?php include_once(__DIR__.'/headNavbarTablon.inc.php')?>
+    <body cz-shortcut-listen="true" class="body">
     <div class="content">
         <?php include_once(__DIR__ . '/sidebar.inc.php') ?>
 
@@ -134,8 +101,8 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($revels as $revel) {
                 echo '<div class="revel">';
                 echo '<div class="revel-box">';
-                echo '<p class="revel-text"><a href="/revel.php?id=' . $revel['id'] . '">' . htmlspecialchars($revel['texto']) . '</a></p>';
-                echo '<p class="revel-info">Publicado por <a href="/user.php?usuario=' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
+                echo '<p class="revel-text"><a href="/revel/' . $revel['id'] . '">' . htmlspecialchars($revel['texto']) . '</a></p>';
+                echo '<p class="revel-info">Publicado por <a href="/user/' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
 
                 // Agregar botones o iconos para indicar me gusta y no me gusta
                 echo '<div class="revel-actions">';

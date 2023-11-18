@@ -52,7 +52,7 @@ if (isset($_GET['id'])) {
 
             if ($stmt->execute()) {
                 // Redirigir para evitar el reenvío del formulario al actualizar la página
-                header("Location: /revel.php?id=$revelId");
+                header("Location: /revel/$revelId");
                 exit;
             } else {
                 echo 'Error al guardar el comentario en la base de datos.';
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
                     <div class="revel-container">
                         <div class="revel-box">
                             <p class="revel-text"><?php echo htmlspecialchars($revel['texto']); ?></p>
-                            <p class="revel-info">Publicado por <a href="/user.php?usuario=<?php echo $revel['autor_usuario']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
+                            <p class="revel-info">Publicado por <a href="/user/<?php echo $revel['autor_usuario']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
                         </div>
                     </div>
 
@@ -86,7 +86,7 @@ if (isset($_GET['id'])) {
                         foreach ($comentarios as $comentario) {
                             echo '<div class="comentario">';
                             echo '<p class="comentario-text">' . htmlspecialchars($comentario['texto']) . '</p>';
-                            echo '<p class="comentario-info">Comentado por <a href="/user.php?usuario=' . $comentario['autor_usuario'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
+                            echo '<p class="comentario-info">Comentado por <a href="/user/' . $comentario['autor_usuario'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
                             echo '</div>';
                         }
                         ?>
@@ -105,7 +105,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="volver">
-                    <a href="/index.php">Volver al Tablón</a>
+                    <a href="/index">Volver al Tablón</a>
                 </div>
             </div>
         </body>

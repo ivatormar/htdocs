@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $user_data['id']; // Guarda el ID del usuario en la sesión
             $login = true;
             // Redirige al usuario a la página que desees
-            header('Location: /index.php');
+            header('Location: /index');
             exit; // Asegura que el script se detenga después de la redirección
         } else {
             $errors["password"] = "Usuario o contraseña incorrectos.";
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index.php">
+            <a class="navbar-brand" href="/index">
                 <img src="/MEDIA-REVELS-LOGO/logo-navbar.png" alt="logoNav">
             </a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             
             <div class="button-container">
-                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index.php">REGISTER</a></button>
+                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index">REGISTER</a></button>
             </div>
         </div>
     </nav>
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="password" placeholder="Password" required />
                 <p class="error-message"><?php echo $errors["password"]; ?></p>
                 <input type="submit" value="Login" class="loginBtn">
-                <p class="message">Don't have an account?<a href="/index.php"> Create one </a></p>
+                <p class="message">Don't have an account?<a href="/index"> Create one </a></p>
             </form>
         </div>
     </div>

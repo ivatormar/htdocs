@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['follow']) || isset($
     // Si ya sigue al usuario y se hizo clic en "Dejar de seguir", eliminar el seguimiento
     if ($is_following && isset($_POST['unfollow'])) {
         $stmt_unfollow = $conexion->query("DELETE FROM follows WHERE userid = $follower_id AND userfollowed = $user_to_follow_id");
-        header('Location:/index.php');
+        header('Location:/index');
         exit();
     }
     // Si no sigue al usuario y se hizo clic en "Seguir", agregar el seguimiento
     elseif (!$is_following && isset($_POST['follow'])) {
         $stmt_follow = $conexion->query("INSERT INTO follows (userid, userfollowed) VALUES ($follower_id, $user_to_follow_id)");
-        header('Location:/index.php');
+        header('Location:/index');
         exit();
     }
 }
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['follow']) || isset($
             ?>
         </div>
         <div class="volver">
-        <a href="/index.php">Volver al tablón</a>
+        <a href="/index">Volver al tablón</a>
         </div>
     </div>
 </body>

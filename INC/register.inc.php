@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             
             <div class="button-container">
-                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/login.php">LOGIN</a></button>
+                <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/login">LOGIN</a></button>
             </div>
         </div>
     </nav>
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p class="error-message"><?php echo $errors["email"]; ?></p>
 
                     <input type="submit" value="Sign up" class="registerBtn">
-                    <p class="message">Do you have an account? <a href="/login.php">Login</a></p>
+                    <p class="message">Do you have an account? <a href="/login">Login</a></p>
                 </form>
                 <?php
                 // Display success message if registration was successful

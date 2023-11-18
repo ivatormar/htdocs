@@ -20,7 +20,7 @@ if ($stmt->execute()) {
         <h2>Usuarios que sigues</h2>
         <ul>
             <?php foreach ($usuariosSeguidos as $usuario) : ?>
-                <li><a href="/user.php?usuario=<?php echo $usuario['usuario']; ?>"><i class='bx bx-user'></i><?php echo htmlspecialchars($usuario['usuario']); ?></a></li>
+                <li><a href="/user/<?php echo $usuario['usuario']; ?>"><i class='bx bx-user'></i><?php echo htmlspecialchars($usuario['usuario']); ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtUpdate->execute();
         $_SESSION['usuario'] = $newUsername; // Volvemos a asignar a la variable usuario el nuevo usuario
 
-        header('Location: /user.php?usuario=' . urlencode($newUsername));
+        header('Location: /user/' . urlencode($newUsername));
         exit();
 
 
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conexion->commit();
 
             // Redirigir o realizar otras acciones después de la eliminación
-            header('Location: /user.php?usuario=' . urlencode($userData['usuario']));
+            header('Location: /user/' . urlencode($userData['usuario']));
             exit();
         } catch (PDOException $e) {
             // Revertir la transacción si algo salió mal
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_destroy();
 
                 // Redirigir a la página de inicio
-                header('Location: /index.php');
+                header('Location: /index');
                 exit();
             } catch (PDOException $e) {
                 // Revertir la transacción si algo salió mal
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($_SESSION['user_id'] == $userData['id']) : ?>
                 <div class="update-profile-container">
                     <h2>Modificar Perfil</h2>
-                    <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
+                    <form method="post" action="/user/<?php echo urlencode($userData['usuario']); ?>">
                         <label for="new_username">Nuevo Nombre de Usuario:</label>
                         <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($userData['usuario']); ?>" required>
                         <br>
@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Formulario de eliminación de cuenta -->
                 <div class="delete-account-container">
                     <h2>Eliminar Cuenta</h2>
-                    <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
+                    <form method="post" action="/user/<?php echo urlencode($userData['usuario']); ?>">
                         <label>
                             <input type="checkbox" name="confirm_checkbox" required>
                             Confirmo que deseo eliminar mi cuenta y toda la información asociada.
@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <li>
                             <!-- Enlace a la página revel -->
-                            <a href="/revel.php?id=<?php echo $revel['revel_id']; ?>">
+                            <a href="/revel/<?php echo $revel['revel_id']; ?>">
                                 <!-- Primeros 50 caracteres del texto de la revel -->
                                 <?php echo htmlspecialchars(substr($revel['revel_texto'], 0, 50)); ?>
                             </a>
@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
         <div class="volver">
-            <a href="/index.php">Volver al Tablón</a>
+            <a href="/index">Volver al Tablón</a>
         </div>
     </div>
 </body>
