@@ -7,8 +7,12 @@ $stmt = $conexion->prepare('SELECT u.id, u.usuario
                             INNER JOIN follows f ON u.id = f.userfollowed
                             WHERE f.userid = :userId');
 $stmt->bindParam(':userId', $userId);
-$stmt->execute();
-$usuariosSeguidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($stmt->execute()) {
+    $usuariosSeguidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}else{
+    echo 'Error al ejecutar la consulta';
+}
 ?>
 
 <aside class="sidebar">
@@ -16,7 +20,7 @@ $usuariosSeguidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h2>Usuarios que sigues</h2>
         <ul>
             <?php foreach ($usuariosSeguidos as $usuario) : ?>
-                <li><i></i> <a href="/user.php?usuario=<?php echo $usuario['usuario']; ?>"><?php echo htmlspecialchars($usuario['usuario']); ?></a></li>
+                <li><a href="/user.php?usuario=<?php echo $usuario['usuario']; ?>"><i class='bx bx-user'></i><?php echo htmlspecialchars($usuario['usuario']); ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>

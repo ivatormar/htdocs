@@ -24,9 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtCheckOwnRevel->execute();
         $resultCheckOwnRevel = $stmtCheckOwnRevel->fetch(PDO::FETCH_ASSOC);
 
-        if ($resultCheckOwnRevel['userid'] !== $userId) {
+        if ($resultCheckOwnRevel['userid'] != $userId) {
             // El usuario no está intentando dar like o dislike a su propia revelación
-
             // Eliminar cualquier like o dislike previo del usuario para esta revelación
             $stmtDeletePrevious = $conexion->prepare('DELETE FROM likes WHERE revelid = :revelId AND userid = :userId');
             $stmtDeletePrevious->bindParam(':revelId', $revelId);
@@ -84,6 +83,7 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/tablon.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Revels.</title>
@@ -104,13 +104,13 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <form method="post" action="/results.php" class="me-3">
                     <div class="form-white input-group" style="width: 250px;">
                         <input type="search" class="form-control rounded" placeholder="Search..." name="search_query" aria-label="Search" aria-describedby="search-addon">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button id="btnSearch" type="submit" class="btn button-33">Buscar</button>
                     </div>
                 </form>
 
             </div>
-            <h3>
-                ¡Bienvenido, <?php echo $_SESSION['usuario'] ?>!
+            <h3 id='bienvenido'>
+                ¡Bienvenid@, <?php echo $_SESSION['usuario'] ?>!
             </h3>
             <div class="buttons">
                 <form method="post" action="/user.php?usuario=<?php echo urlencode($_SESSION['usuario']); ?>">
@@ -141,11 +141,11 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo '<div class="revel-actions">';
                 echo '<form method="post">';
                 echo '<input type="hidden" name="revel_id" value="' . $revel['id'] . '">';
-                echo '<button type="submit" name="like" class="btn-like">Me gusta</button>';
+                echo '<button type="submit" name="like" class="btn-like"><i class="bx bxs-like"></i></button>';
                 echo '</form>';
                 echo '<form method="post">';
                 echo '<input type="hidden" name="revel_id" value="' . $revel['id'] . '">';
-                echo '<button type="submit" name="dislike" class="btn-dislike">No me gusta</button>';
+                echo '<button type="submit" name="dislike" class="btn-dislike"><i class="bx bxs-dislike"></i></button>';
                 echo '</form>';
                 echo '</div>';
 

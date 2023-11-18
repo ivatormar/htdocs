@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once(__DIR__.'/INC/connection.inc.php');
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
 
 // Verificar si se han enviado datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
@@ -9,8 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
     $userid = $_SESSION['user_id'];
 
     // Realizar la conexión a la base de datos
-    $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-    $conexion = connection('revels', 'revel', 'lever', $utf8);
 
     // Verificar si hay errores de conexión
     if ($conexion->errorCode() != PDO::ERR_NONE) {
@@ -41,16 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/new.css">
-    <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Nueva Revel.</title>
-</head>
+
+<?php include_once(__DIR__.'/INC/headNavbarTablon.inc.php')?>
 
 <body cz-shortcut-listen="true" class="body">
+    <div class="content">
+    <?php include_once(__DIR__ . '/INC/sidebar.inc.php') ?>
+    <div class="revels-container">
     <!-- FORMULARIO PARA NUEVA REVEL -->
     <div class="new-revel-form">
         <form method="post" action="">
@@ -58,10 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto'])) {
                 <label for="texto" class="form-label">Texto de la Revel:</label>
                 <textarea class="form-control" id="texto" name="texto" rows="3" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Publicar Revel</button>
+            <button id="publishRevel"type="submit" class="btn button-34">Publicar Revel</button>
         </form>
     </div>
+    </div>
+    <div class="volver">
     <a href="/index.php">Volver al Tablón</a>
+    </div>
+    </div>
 </body>
 
 </html>

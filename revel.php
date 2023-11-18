@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once(__DIR__.'/INC/connection.inc.php');
+include_once(__DIR__ . '/INC/connection.inc.php');
 // Realizar la conexión a la base de datos
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
@@ -61,57 +61,57 @@ if (isset($_GET['id'])) {
         }
 
         // Mostrar la revelación y los comentarios
-        ?>
+?>
         <!DOCTYPE html>
         <html lang="es">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="/CSS/revel.css">
-            <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-            <title>Revelación.</title>
-        </head>
+        <?php include_once(__DIR__ . '/INC/headNavbarTablon.inc.php') ?>
 
         <body cz-shortcut-listen="true" class="body">
-            <!-- Mostrar la revelación -->
-            <div class="revel-container">
-                <div class="revel-box">
-                    <p class="revel-text"><?php echo htmlspecialchars($revel['texto']); ?></p>
-                    <p class="revel-info">Publicado por <a href="/user.php?usuario=<?php echo $revel['autor_usuario']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
+            <div class="content">
+                <?php include_once(__DIR__ . '/INC/sidebar.inc.php') ?>
+                <div class="revelacion">
+
+                    <!-- Mostrar la revelación -->
+                    <div class="revel-container">
+                        <div class="revel-box">
+                            <p class="revel-text"><?php echo htmlspecialchars($revel['texto']); ?></p>
+                            <p class="revel-info">Publicado por <a href="/user.php?usuario=<?php echo $revel['autor_usuario']; ?>"><?php echo htmlspecialchars($revel['autor_usuario']); ?></a> - Fecha: <?php echo htmlspecialchars($revel['fecha']); ?></p>
+                        </div>
+                    </div>
+
+                    <!-- Mostrar los comentarios -->
+                    <div class="comentarios-container">
+                        <h3>Comentarios:</h3>
+                        <?php
+                        foreach ($comentarios as $comentario) {
+                            echo '<div class="comentario">';
+                            echo '<p class="comentario-text">' . htmlspecialchars($comentario['texto']) . '</p>';
+                            echo '<p class="comentario-info">Comentado por <a href="/user.php?usuario=' . $comentario['autor_usuario'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
+
+                    <!-- Formulario para agregar comentario -->
+                    <div class="nuevo-comentario-form">
+                        <h3>Agregar Comentario:</h3>
+                        <form method="post" action="">
+                            <div class="mb-3">
+                                <label for="textoComentario" class="form-label">Texto del Comentario:</label>
+                                <textarea class="form-control" id="textoComentario" name="textoComentario" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn button-34">Agregar Comentario</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="volver">
+                    <a href="/index.php">Volver al Tablón</a>
                 </div>
             </div>
-
-            <!-- Mostrar los comentarios -->
-            <div class="comentarios-container">
-                <h3>Comentarios:</h3>
-                <?php
-                foreach ($comentarios as $comentario) {
-                    echo '<div class="comentario">';
-                    echo '<p class="comentario-text">' . htmlspecialchars($comentario['texto']) . '</p>';
-                    echo '<p class="comentario-info">Comentado por <a href="/user.php?usuario=' . $comentario['autor_usuario'] . '">' . htmlspecialchars($comentario['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($comentario['fecha']) . '</p>';
-                    echo '</div>';
-                }
-                ?>
-            </div>
-
-            <!-- Formulario para agregar comentario -->
-            <div class="nuevo-comentario-form">
-                <h3>Agregar Comentario:</h3>
-                <form method="post" action="">
-                    <div class="mb-3">
-                        <label for="textoComentario" class="form-label">Texto del Comentario:</label>
-                        <textarea class="form-control" id="textoComentario" name="textoComentario" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar Comentario</button>
-                </form>
-            </div>
-            <a href="/index.php">Volver al Tablón</a>
         </body>
 
         </html>
-        <?php
+<?php
     } else {
         echo 'La revelación no existe.';
         exit;

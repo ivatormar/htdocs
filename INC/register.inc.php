@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p class="error-message"><?php echo $errors["email"]; ?></p>
 
                     <input type="submit" value="Sign up" class="registerBtn">
-                    <p class="message">Do you have an account? <a href="/login.inc.php">Login</a></p>
+                    <p class="message">Do you have an account? <a href="/login.php">Login</a></p>
                 </form>
                 <?php
                 // Display success message if registration was successful

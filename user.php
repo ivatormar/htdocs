@@ -107,13 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmtDeleteFollows->bindParam(':userID', $_SESSION['user_id']);
                 $stmtDeleteFollows->execute();
 
+                // Eliminar los comentarios directamente asociados al usuario SIN ESTA QUERIE NO FUNCIONABA EL DELETE
+                $stmtDeleteUserComments = $conexion->prepare('DELETE FROM comments WHERE userid = :userID');
+                $stmtDeleteUserComments->bindParam(':userID', $_SESSION['user_id']);
+                $stmtDeleteUserComments->execute();
+
                 // Eliminar los comentarios asociados a las revelaciones del usuario
                 $stmtDeleteComments = $conexion->prepare('
-                DELETE c
-                FROM comments c
-                INNER JOIN revels r ON c.revelid = r.id
-                WHERE r.userid = :userID
-            ');
+                    DELETE c
+                    FROM comments c
+                    INNER JOIN revels r ON c.revelid = r.id
+                    WHERE r.userid = :userID
+                ');
                 $stmtDeleteComments->bindParam(':userID', $_SESSION['user_id']);
                 $stmtDeleteComments->execute();
 
@@ -154,73 +159,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <!-- Encabezado y estilos -->
-</head>
+<?php include_once(__DIR__ . '/INC/headNavbarTablon.inc.php') ?>
 
-<body>
-    <!-- Contenido de la página -->
-    <div>
-        <!-- Datos del usuario -->
-        <h2>Datos del Usuario</h2>
-        <p>ID: <?php echo $userData['id']; ?></p>
-        <p>Usuario: <?php echo htmlspecialchars($userData['usuario']); ?></p>
-        <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
-        <p>Seguidores: <?php echo $followersCount; ?></p>
+<body cz-shortcut-listen="true" class="body">
+    <div class="content">
 
-        <!-- Mostrar el formulario de actualización solo si el usuario actual es el propietario del perfil -->
-        <?php if ($_SESSION['user_id'] == $userData['id']) : ?>
-            <div class="update-profile-container">
-                <h2>Modificar Perfil</h2>
-                <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
-                    <label for="new_username">Nuevo Nombre de Usuario:</label>
-                    <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($userData['usuario']); ?>" required>
-                    <br>
-                    <label for="new_email">Nuevo Correo Electrónico:</label>
-                    <input type="email" id="new_email" name="new_email" value="<?php echo htmlspecialchars($userData['email']); ?>" required>
-                    <br>
-                    <input type="submit" name="update_profile" value="Guardar Cambios">
-                </form>
+        <!-- Contenido de la página -->
+        <?php include_once(__DIR__ . '/INC/sidebar.inc.php') ?>
+        <div class="revels-container">
+            <div class="datos-usuario">
+                <!-- Datos del usuario -->
+                <h2>Datos del Usuario</h2>
+                <p>ID: <?php echo $userData['id']; ?></p>
+                <p>Usuario: <?php echo htmlspecialchars($userData['usuario']); ?></p>
+                <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
+                <p>Seguidores: <?php echo $followersCount; ?></p>
             </div>
+            <!-- Mostrar el formulario de actualización solo si el usuario actual es el propietario del perfil -->
+            <?php if ($_SESSION['user_id'] == $userData['id']) : ?>
+                <div class="update-profile-container">
+                    <h2>Modificar Perfil</h2>
+                    <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
+                        <label for="new_username">Nuevo Nombre de Usuario:</label>
+                        <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($userData['usuario']); ?>" required>
+                        <br>
+                        <label for="new_email">Nuevo Correo Electrónico:</label>
+                        <input type="email" id="new_email" name="new_email" value="<?php echo htmlspecialchars($userData['email']); ?>" required>
+                        <br>
+                        <input type="submit" name="update_profile" value="Guardar Cambios" class="button-34">
+                    </form>
+                </div>
 
-            <!-- Formulario de eliminación de cuenta -->
-            <div class="delete-account-container">
-                <h2>Eliminar Cuenta</h2>
-                <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
-                    <label>
-                        <input type="checkbox" name="confirm_checkbox" required>
-                        Confirmo que deseo eliminar mi cuenta y toda la información asociada.
-                    </label>
-                    <br>
-                    <input type="submit" name="confirm_delete_account" value="Eliminar Cuenta">
-                </form>
-            </div>
-        <?php endif; ?>
+                <!-- Formulario de eliminación de cuenta -->
+                <div class="delete-account-container">
+                    <h2>Eliminar Cuenta</h2>
+                    <form method="post" action="/user.php?usuario=<?php echo urlencode($userData['usuario']); ?>">
+                        <label>
+                            <input type="checkbox" name="confirm_checkbox" required>
+                            Confirmo que deseo eliminar mi cuenta y toda la información asociada.
+                        </label>
+                        <br>
+                        <input type="submit" name="confirm_delete_account" class="button-34" value="Eliminar Cuenta">
+                    </form>
+                </div>
+            <?php endif; ?>
 
-        <!-- Lista de Revels del usuario -->
-        <h2>Revels del Usuario</h2>
-        <ul>
-            <?php foreach ($userRevels as $revel) : ?>
-                <li>
-                    <!-- Enlace a la página revel -->
-                    <a href="/revel.php?id=<?php echo $revel['revel_id']; ?>">
-                        <!-- Primeros 50 caracteres del texto de la revel -->
-                        <?php echo htmlspecialchars(substr($revel['revel_texto'], 0, 50)); ?>
-                    </a>
-                    <!-- Cantidad de me gusta y no me gusta -->
-                    <p>Likes: <?php echo $revel['likes_count']; ?>, Dislikes: <?php echo $revel['dislikes_count']; ?></p>
-                    <!-- Formulario para eliminar la revelación -->
-                    <?php if ($_SESSION['user_id'] == $userData['id']) : ?>
-                        <form method="post" action="">
-                            <input type="hidden" name="revel_id" value="<?php echo $revel['revel_id']; ?>">
-                            <input type="submit" name="delete_revel" value="Eliminar Revel">
-                        </form>
-                    <?php endif; ?>
-                </li>
+            <!-- Lista de Revels del usuario -->
+            <div class="revels-user">
+                <div class="tituloh2">
+                    <h2>Revels del Usuario</h2>
+                </div>
+                <ul>
+                    <?php foreach ($userRevels as $revel) : ?>
+
+                        <li>
+                            <!-- Enlace a la página revel -->
+                            <a href="/revel.php?id=<?php echo $revel['revel_id']; ?>">
+                                <!-- Primeros 50 caracteres del texto de la revel -->
+                                <?php echo htmlspecialchars(substr($revel['revel_texto'], 0, 50)); ?>
+                            </a>
+                            <!-- Cantidad de me gusta y no me gusta -->
+                            <p>Likes: <?php echo $revel['likes_count']; ?>, Dislikes: <?php echo $revel['dislikes_count']; ?></p>
+                        </li>
+                </ul>
+                <!-- Formulario para eliminar la revelación -->
+                <?php if ($_SESSION['user_id'] == $userData['id']) : ?>
+                    <form method="post" action="" id="deleteRevel">
+                        <input type="hidden" name="revel_id" value="<?php echo $revel['revel_id']; ?>">
+                        <input class="button-34" type="submit" name="delete_revel" value="Eliminar Revel">
+                    </form>
+                <?php endif; ?>
             <?php endforeach; ?>
-        </ul>
+            </div>
+        </div>
+        <div class="volver">
+            <a href="/index.php">Volver al Tablón</a>
+        </div>
     </div>
-    <a href="/index.php">Volver al Tablón</a>
 </body>
 
 </html>

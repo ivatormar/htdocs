@@ -49,12 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['follow']) || isset($
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <!-- Resto del código del head -->
-</head>
+<?php include_once(__DIR__.'/INC/headNavbarTablon.inc.php')?>
 
 <body cz-shortcut-listen="true" class="body">
     <div class="content">
+        <?php  include_once(__DIR__.'/INC/sidebar.inc.php')?>
         <!-- Mostrar resultados de búsqueda -->
         <div class="search-results-container">
             <?php
@@ -91,8 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['follow']) || isset($
             }
             ?>
         </div>
+        <div class="volver">
+        <a href="/index.php">Volver al tablón</a>
+        </div>
     </div>
-    <a href="/index.php">Volver al tablón</a>
 </body>
 
 </html>
