@@ -90,7 +90,7 @@
             <i class="fas fa-bars"></i>
             </button>
             <div class="button-container">
-               <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/index">REGISTER</a></button>
+               <button type="button" id="btnLogin" class="btn btn-rounded button-34"><a class="login-a" href="/index">REGISTER</a></button>
             </div>
          </div>
       </nav>
@@ -103,7 +103,7 @@
                <p class="error-message"><?php echo $errors["user"]; ?></p>
                <input type="password" name="password" placeholder="Password" required />
                <p class="error-message"><?php echo $errors["password"]; ?></p>
-               <input type="submit" value="Login" class="loginBtn">
+               <input type="submit" value="Login" class="loginBtn button-34" id="login">
                <p class="message">Don't have an account?<a href="/index"> Create one </a></p>
             </form>
          </div>

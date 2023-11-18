@@ -99,7 +99,7 @@
             <i class="fas fa-bars"></i>
             </button>
             <div class="button-container">
-               <button type="button" id="btnLogin" class="btn btn-rounded" data-mdb-ripple-color="#ffffff" style="background-color:#fc92ad"><a class="login-a" href="/login">LOGIN</a></button>
+               <button type="button" id="btnLogin" class="btn button-34"><a class="login-a" href="/login">LOGIN</a></button>
             </div>
          </div>
       </nav>
@@ -114,7 +114,7 @@
                <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
                <input type="text" name="email" placeholder="Email" id="email" required value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
                <p class="error-message"><?php echo $errors["email"]; ?></p>
-               <input type="submit" value="Sign up" class="registerBtn">
+               <input type="submit" value="Sign up" class="button-34" id="signUp">
                <p class="message">Do you have an account? <a href="/login">Login</a></p>
             </form>
             <?php
