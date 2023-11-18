@@ -4,8 +4,5 @@ RewriteEngine On
 RewriteBase /
 
 RewriteRule ^index$ index.php [L]
-RewriteRule ^user/([^/]+)$ user.php?usuario=$1 [L]
-RewriteRule ^login$ login.php [L]
-RewriteRule ^revel/([^/]+)$ revel.php?id=$1 [L]
-RewriteRule ^new$ new.php [L]
-RewriteRule ^results$ results.php [L]
+RewriteRule ^group/([0-9]+)$ group.php?codigo=$1 [L,QSA]
+RewriteRule ^album/([0-9]+)$ album.php?codigo=$1 [L,QSA]
