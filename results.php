@@ -2,7 +2,6 @@
 session_start();
 include_once(__DIR__ . '/INC/connection.inc.php');
 
-// Realizar la conexión a la base de datos
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
 

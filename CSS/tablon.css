@@ -314,12 +314,24 @@ grid-column: 1/-1;
   height: fit-content;
   margin:1vw;
   width: fit-content;
+  text-align: left;
 }
 .search-results-container li{
   display: flex;
   align-items: center;
+  padding: 8px;
+  margin: 5px;
 }
 .search-results-container li span{
 margin-right: 10px;
 font-size: 1.5rem;
+}
+.search-results-container form {
+  margin-left: auto; /* Mueve el formulario hacia la derecha */
+  display: flex;
+  align-items: center;
+}
+
+.search-results-container form button {
+  margin-left: 10px; /* Espaciado entre botones */
 }

@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once(__DIR__ . '/INC/connection.inc.php');
-// Realizar la conexión a la base de datos
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
 
@@ -42,8 +41,6 @@ if (isset($_GET['id'])) {
             $userid = $_SESSION['user_id'];  // Obtener el ID del usuario actual, asumiendo que ya ha iniciado sesión
 
             // Validar y procesar los datos antes de almacenarlos en la base de datos
-            // ...
-
             // Insertar el nuevo comentario en la base de datos
             $stmt = $conexion->prepare('INSERT INTO comments (revelid, userid, texto) VALUES (:revelId, :userid, :textoComentario)');
             $stmt->bindParam(':revelId', $revelId);
@@ -113,7 +110,7 @@ if (isset($_GET['id'])) {
         </html>
 <?php
     } else {
-        echo 'La revelación no existe.';
+        header('Location:/index');
         exit;
     }
 } else {

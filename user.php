@@ -18,6 +18,12 @@ $stmtUser->bindParam(':username', $username);
 $stmtUser->execute();
 $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
+//Por si introducen por URL un usuario que no existe
+if (!$userData) {
+    header('Location: /index');
+    exit;
+}
+
 $stmtFollowers = $conexion->prepare('SELECT COUNT(userid) AS followers FROM follows WHERE userfollowed = :userID');
 $stmtFollowers->bindParam(':userID', $userData['id']);
 $stmtFollowers->execute();
@@ -35,7 +41,7 @@ $stmtRevels->bindParam(':userID', $userData['id']);
 $stmtRevels->execute();
 $userRevels = $stmtRevels->fetchAll(PDO::FETCH_ASSOC);
 
-//* Procesar el formulario de actualización del perfil
+//Procesar el formulario de actualización del perfil
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_profile'])) {
         $newUsername = $_POST['new_username'];
@@ -52,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        //*BORRADO DE UN REVEL JUNTO CON EL BORRADO DE SUS LIKES Y DISLIKES Y COMMENTS
+        //BORRADO DE UN REVEL JUNTO CON EL BORRADO DE SUS LIKES Y DISLIKES Y COMMENTS
     } elseif (isset($_POST['delete_revel'])) {
         $revelId = $_POST['revel_id'];
 
@@ -75,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtDeleteLikes->bindParam(':revelID', $revelId);
             $stmtDeleteLikes->execute();
 
-            // Ahora puedes proceder a eliminar la revelación
+            // Eliminar la revelación
             $stmtDeleteRevel = $conexion->prepare('DELETE FROM revels WHERE id = :revelID AND userid = :userID');
             $stmtDeleteRevel->bindParam(':revelID', $revelId);
             $stmtDeleteRevel->bindParam(':userID', $_SESSION['user_id']);
@@ -146,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Revertir la transacción si algo salió mal
                 $conexion->rollBack();
 
-                // Manejar el error como desees
+                
                 echo 'Error: ' . $e->getMessage();
             }
         } else {
