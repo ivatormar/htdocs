@@ -1,31 +1,43 @@
 <?php
 session_start();
 
-include_once(__DIR__ . '/includes/dbconnection.inc.php');
+// ... Otras configuraciones ...
+include_once(__DIR__.'/includes/dbconnection.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //Validacion de campos
-    if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
+    // Recibir datos del formulario
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validar los campos
+    if (empty($username) || empty($email) || empty($password)) {
+        // Si algún campo está vacío, muestra un mensaje de error
         $_SESSION['error'] = 'Por favor, completa todos los campos.';
+        // Puedes redirigir a la página de registro nuevamente o manejarlo de acuerdo a tus necesidades
         header('Location: /signup.php');
         exit();
     }
 
-    $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    // Hash de la contraseña
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $connection = getDBConnection(); 
-    $token = uniqid();  
+    // Insertar el nuevo usuario en la base de datos
+    $connection = getDBConnection(); // Función que devuelve la conexión a la base de datos
+    $stmt = $connection->prepare("INSERT INTO users (user, email, password) VALUES (?, ?, ?)");
 
-    $stmt = $connection->prepare("INSERT INTO users (user, email, password, token) VALUES (?, ?, ?, ?)");
-
-    if ($stmt->execute([$_POST['username'], $_POST['email'], $hashedPassword, $token])) {
+    // Verificar si la ejecución fue exitosa
+    if ($stmt->execute([$username, $email, $hashedPassword])) {
+        // Registro exitoso
+        $_SESSION['message'] = 'Registro exitoso. Inicia sesión para continuar.';
         header('Location: /login.php');
         exit();
     } else {
+        // Error en el registro
         $_SESSION['error'] = 'Error al registrar el usuario.';
-        print_r($stmt->errorInfo());
     }
 
+    // Cerrar la conexión y liberar recursos
     $stmt = null;
     $connection = null;
 }
@@ -43,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <?php
-    include_once(__DIR__ . '/includes/header.inc.php');
+    include_once(__DIR__.'/includes/header.inc.php'); 
 
     ?>
 

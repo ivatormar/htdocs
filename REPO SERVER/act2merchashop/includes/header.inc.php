@@ -6,13 +6,12 @@ echo '<h1><a href="/index">MerchaShop</a></h1>';
 if (isset($_SESSION['user'])) {
     // Usuario logueado
     echo 'Bienvenido, ' . $_SESSION['user']['user'];
-     // Verificar el rol del usuario
-     if (isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] === 'admin') {
-        echo '<br><a href="/users.php">Administrar usuarios</a>';
-    }
-    echo '<br><a href="/logout.php">Cerrar sesión</a>';
+    echo '<a href="/logout.php">Cerrar sesión</a>';
 
-   
+    // Verificar el rol del usuario
+    if (isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] === 'admin') {
+        echo '<a href="/users.php">Administrar usuarios</a>';
+    }
 } else {
     // Usuario no logueado
     echo '<a href="/index">Principal</a><br>';

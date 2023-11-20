@@ -112,7 +112,6 @@ button {
   color: #000000;
   font-size: 16px;
 }
-<<<<<<< HEAD
 .form .message a {
   color: #fc92ad;
   text-decoration: none;
@@ -209,15 +208,4 @@ input .loginBtn{
 }
 p.message{
   color:black
-=======
-td {
-	border: 1px solid black;
-}
-
-#sales_image{
-	margin-top: 15%;
-	width: 200px;
-	height: 200px;
-
->>>>>>> 6525240ea77e5304f6b51e58726c22fe585fcb76
 }
