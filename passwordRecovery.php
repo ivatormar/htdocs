@@ -45,11 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
         }
 
-
         // Redirigir a una página de éxito
         $_SESSION['success'] = 'Hemos enviado instrucciones para restablecer tu contraseña a tu correo electrónico.';
-        echo "Mensaje de éxito: " . $_SESSION['success']; // Agrega esta línea para depuración
-        header('Location: /resetPassword.php');
+        header('Location: /resetPassword.php?token=' . $token . '&email=' . $email); // Pasar token y email en la URL
         exit();
     } else {
         // Si el correo electrónico no está registrado, mostrar un mensaje de error

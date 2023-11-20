@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="checkbox" id="remember" name="remember">
             <button type="submit">Iniciar Sesión</button>
         </form>
-        <a href="/reset-password.php">¿Olvidaste tu contraseña?</a>
+        <a href="/passwordRecovery.php">¿Olvidaste tu contraseña?</a>
 
     </section>
 </body>
