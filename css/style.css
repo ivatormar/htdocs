@@ -85,3 +85,10 @@ table {
 td {
 	border: 1px solid black;
 }
+
+#sales_image{
+	margin-top: 15%;
+	width: 200px;
+	height: 200px;
+
+}

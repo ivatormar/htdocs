@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-// ... Otras configuraciones ...
-
-include_once(__DIR__.'/includes/dbconnection.inc.php'); // Asegúrate de incluir el archivo con la conexión a la base de datos
-include_once(__DIR__.'/includes/header.inc.php'); 
+include_once(__DIR__ . '/includes/dbconnection.inc.php'); // Asegúrate de incluir el archivo con la conexión a la base de datos
+include_once(__DIR__ . '/includes/header.inc.php');
 
 // Procesar el formulario cuando se envíe
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,23 +22,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Consultar la base de datos para obtener el usuario
     $connection = getDBConnection(); // Función que devuelve la conexión a la base de datos
 
-    $stmt = $connection->prepare("SELECT user, email, password FROM users WHERE user = :username OR email = :username");
+    $stmt = $connection->prepare("SELECT user, email, password, rol FROM users WHERE user = :username OR email = :username");
     $stmt->bindValue(":username", $username);
     $stmt->execute();
-
-    // Fetch como un array asociativo
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
     // Verificar las credenciales
     if ($user !== false && password_verify($password, $user['password'])) {
-        // Contraseña válida, iniciar sesión
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = [
+            'user' => $user['user'],
+            'email' => $user['email'],
+            'rol' => $user['rol']
+        ];
+
+        if (isset($_POST['remember']) && $_POST['remember'] == 'on') {
+            // Generar y guardar un token en la base de datos
+            $token = uniqid();
+            $stmt = $connection->prepare("UPDATE users SET token = ? WHERE user = ?");
+            $stmt->execute([$token, $user['user']]);
+
+            // Configurar cookies para el autologin
+            setcookie('remember_user', $user['user'], time() + 86400 * 30, '/', '', true, true); // Secure y HttpOnly
+            setcookie('remember_token', $token, time() + 86400 * 30, '/', '', true, true); // Secure y HttpOnly
+        }
+
         header('Location: /index.php');
         exit();
     } else {
-        // Credenciales incorrectas
+    
         $_SESSION['error'] = 'Credenciales incorrectas.';
-        // Puedes redirigir a la página de inicio de sesión nuevamente o manejarlo de acuerdo a tus necesidades
         header('Location: /login.php');
         exit();
     }
@@ -52,15 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - MerchaShop</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
     <?php
-   include_once(__DIR__.'/includes/header.inc.php'); // Asegúrate de incluir el archivo con la conexión a la base de datos
+    include_once(__DIR__ . '/includes/header.inc.php'); // Asegúrate de incluir el archivo con la conexión a la base de datos
     ?>
 
     <section class="formulario">
@@ -71,9 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
-
+            <label for="remember">Mantener conectado:</label>
+            <input type="checkbox" id="remember" name="remember">
             <button type="submit">Iniciar Sesión</button>
         </form>
+        <a href="/passwordRecovery.php">¿Olvidaste tu contraseña?</a>
+
     </section>
 </body>
+
 </html>

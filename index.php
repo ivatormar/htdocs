@@ -1,27 +1,32 @@
 <?php
 session_start();
 
-// Verificar si el usuario no está logueado y está intentando acceder a páginas restringidas
-if (!isset($_SESSION['user']) && ($_SERVER['REQUEST_URI'] !== '/index.php' && $_SERVER['REQUEST_URI'] !== '/sales.php')) {
-    header('Location: /login.php'); // Redirigir a la página de inicio de sesión
-    exit();
-}
 
-// Verificar los roles de usuario permitidos para acceder a determinadas páginas
-if (isset($_SESSION['user']) && isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] === 'customer' && $_SERVER['REQUEST_URI'] === '/users.php') {
 
-    header('Location: /index.php'); // Redirigir al usuario a la página principal si intenta acceder a users.php
-    exit();
-}
+
+
 
 // Lógica para manejar la actualización del carrito
 if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
-    // ... (mantén esta parte igual)
+    if (isset($_GET['add']) && $_GET['add'] != '') {
+        if (!isset($_SESSION['basket'][$_GET['add']]))
+            $_SESSION['basket'][$_GET['add']] = 1;
+        else
+            $_SESSION['basket'][$_GET['add']] += 1;
+    }
+    if (isset($_GET['subtract']) && $_GET['subtract'] != '' && isset($_SESSION['basket'][$_GET['subtract']])) {
+        $_SESSION['basket'][$_GET['subtract']] -= 1;
+        if ($_SESSION['basket'][$_GET['subtract']] <= 0)
+            unset($_SESSION['basket'][$_GET['subtract']]);
+    }
+    if (isset($_GET['remove']) && $_GET['remove'] != '' && isset($_SESSION['basket'][$_GET['remove']])) {
+        unset($_SESSION['basket'][$_GET['remove']]);
+    }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,11 +35,11 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
 </head>
 
 <body>
+
+
     <?php
     require_once(__DIR__ . '/includes/header.inc.php');
-    ?>
-
-    <?php if (!isset($_SESSION['user'])) : ?>
+    if (!isset($_SESSION['user'])) : ?>
         <!-- Mostrar formulario de registro para usuarios no logueados -->
         <section class="registro">
             <h2>Registro</h2>
@@ -56,23 +61,21 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
         <!-- Enlace a sales.php -->
         <section class="sales-link">
             <a href="/sales.php">
-                <img src="/img/sales_image.jpg" alt="Ofertas">
+                <img id="sales_image" src="/img/sales_image.png" alt="Ofertas">
             </a>
         </section>
     <?php else : ?>
         <!-- Mostrar lista de productos para usuarios logueados -->
         <div id="carrito">
             <?php
-            if (!isset($_SESSION['basket'])) {
-                $productsInBasket = 0;
-            } else {
-                $productsInBasket = count($_SESSION['basket']);
-            }
-            echo $productsInBasket;
+            if (!isset($_SESSION['basket']))
+                $products = 0;
+            else
+                $products = count($_SESSION['basket']);
+            echo $products;
             echo ' producto';
-            if ($productsInBasket !== 1) {
+            if ($products > 1)
                 echo 's';
-            }
             ?>
             en el carrito.
             <a href="/basket" class="boton">Ver carrito</a>
@@ -80,10 +83,18 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
 
         <section class="productos">
             <?php
-            include_once(__DIR__.'/includes/dbconnection.inc.php'); 
+            include_once(__DIR__ . '/includes/dbconnection.inc.php');
             $connection = getDBConnection();
             $products = $connection->query('SELECT * FROM products;', PDO::FETCH_OBJ);
 
+            ?>
+            <section class="sales-link"><br>
+                <a href="/sales.php">
+                    <img id="sales_image" src="/img/sales_image.png" alt="Ofertas">
+                </a>
+            </section>
+
+            <?php
             foreach ($products as $product) {
                 echo '<article class="producto">';
                 echo '<h2>' . $product->name . '</h2>';
@@ -105,4 +116,5 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
         </section>
     <?php endif; ?>
 </body>
+
 </html>
