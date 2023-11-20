@@ -5,6 +5,25 @@
  *	@author Álex Torres
  */
 session_start();
+
+if(isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
+	if(isset($_GET['add']) && $_GET['add']!='') {
+		if(!isset($_SESSION['basket'][$_GET['add']]))
+			$_SESSION['basket'][$_GET['add']] = 1;
+		else
+			$_SESSION['basket'][$_GET['add']] += 1;
+	}
+	if(isset($_GET['subtract']) && $_GET['subtract']!='' && isset($_SESSION['basket'][$_GET['subtract']])) {
+		$_SESSION['basket'][$_GET['subtract']] -= 1;
+		if($_SESSION['basket'][$_GET['subtract']]<=0)
+			unset($_SESSION['basket'][$_GET['subtract']]);
+	}
+	if(isset($_GET['remove']) && $_GET['remove']!='' && isset($_SESSION['basket'][$_GET['remove']])) {
+		unset($_SESSION['basket'][$_GET['remove']]);
+	}
+
+	
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -19,6 +38,21 @@ session_start();
 		<?php
 			require_once('includes/header.inc.php');
 		?>
+		<div id="carrito">
+			<?php
+			if(!isset($_SESSION['basket']))
+				$products = 0;
+			else
+				$products = count($_SESSION['basket']);
+			echo $products;
+			echo ' producto';
+			if($products>1)
+				echo 's';
+			?>
+			en el carrito.
+
+			<a href="/basket" class="boton">Ver carrito</a>	
+		</div>
 
 		<h2>Carrito</h2>
 
