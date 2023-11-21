@@ -1,14 +1,18 @@
 <?php
-include_once(__DIR__.'/includes/dbconnection.inc.php');
-// Verificar si se ha enviado el formulario
+include_once(__DIR__ . '/includes/dbconnection.inc.php');
+
+// Iniciar sesión
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
     $email = $_POST['email'];
     $newPassword = $_POST['new_password'];
 
     // Validar la contraseña y realizar otras validaciones necesarias
-    if (strlen($newPassword) < 8) {
-        echo "La contraseña debe tener al menos 8 caracteres.";
+    if (strlen($newPassword) < 4) {
+        $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres.";
+        header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
         exit;
     }
 
@@ -28,24 +32,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
-        echo "¡Contraseña actualizada correctamente!";
-    } else {
-        echo "Error al actualizar la contraseña.";
-    }
+        // Eliminar el registro de recuperación de contraseña en la tabla "passwordrecovery"
+        $sql = "DELETE FROM passwordrecovery WHERE email = :email";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
 
-    // Eliminar el registro de recuperación de contraseña en la tabla "passwordrecovery"
-    $sql = "DELETE FROM passwordrecovery WHERE email = :email";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    if ($stmt->execute()) {
-        echo "Registro de recuperación de contraseña eliminado.";
-    } else {
-        echo "Error al eliminar el registro de recuperación de contraseña.";
-    }
+        // Establecer el mensaje de éxito en la sesión
+        $_SESSION['success'] = "Contraseña actualizada correctamente.";
 
-    // Cerrar la conexión
-    $conn = null;
-    exit;
+        // Redirigir al index.php
+        header('Location: /index.php');
+        exit;
+    } else {
+        $_SESSION['error'] = "Error al actualizar la contraseña.";
+        header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
+        exit;
+    }
 } else {
     // Obtener el token y el correo electrónico de la URL
     $token = $_GET['token'];
@@ -67,19 +70,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si se encontró un registro con el token y el correo electrónico proporcionados
     if ($stmt->rowCount() === 0) {
-        echo "Token o correo electrónico inválido.";
-        $conn = null;
+        $_SESSION['error'] = "Token o correo electrónico inválido.";
+        header('Location: /index.php'); // Otra página de destino si es necesario
         exit;
     }
 
     // Mostrar formulario para ingresar la nueva contraseña
-    ?>
+    // ...
+}
+?>
+
     <!DOCTYPE html>
     <html>
+
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reestablecer contraseña</title>
+        <link rel="stylesheet" href="/css/style.css">
     </head>
+
     <body>
+        <?php
+        include_once(__DIR__ . '/includes/header.inc.php');
+        ?>
         <h2>Reestablecer contraseña</h2>
         <form method="post" action="resetPassword.php">
             <input type="hidden" name="email" value="<?php echo $email; ?>">
@@ -90,11 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Guardar contraseña">
         </form>
     </body>
+
     </html>
-    <?php
+<?php
 
     // Cerrar la conexión
     $conn = null;
     exit;
-}
+
 ?>

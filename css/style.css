@@ -92,3 +92,7 @@ td {
 	height: 200px;
 
 }
+.success-message{
+	padding-top: 80px;
+	font-weight: bold;
+}

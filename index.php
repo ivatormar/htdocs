@@ -2,9 +2,12 @@
 session_start();
 
 
-
-
-
+// Verificar si hay un mensaje de éxito en la sesión, esto es para cuando venimos del resetPassword.php
+if (isset($_SESSION['success'])) {
+    echo '<div class="success-message">' . $_SESSION['success'] . '</div>';
+    // Eliminar el mensaje de éxito para que no se muestre en futuras visitas
+    unset($_SESSION['success']);
+}
 
 // Lógica para manejar la actualización del carrito
 if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
