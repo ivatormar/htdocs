@@ -212,3 +212,10 @@ p.message{
 .success-message{
 font-weight: bold;
 }
+.checkbox-container{
+font-size: 13px;
+vertical-align: middle;
+}
+.checkbox-container input{
+  width: fit-content;
+}
