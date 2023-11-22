@@ -36,5 +36,5 @@ $stmtRevels->bindParam(':userID', $userData['id']);
 $stmtRevels->execute();
 $userRevels = $stmtRevels->fetchAll(PDO::FETCH_ASSOC);
 
-include_once('user-view.php');
+include_once(__DIR__.'/user-view.php');
 ?>
