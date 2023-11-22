@@ -160,6 +160,11 @@
            }
        }
    }
+   // Por si introducen por URL un usuario que no existe o que no sigues
+if (!$userData || !$is_following) {
+   header('Location: /index');
+   exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -172,7 +177,6 @@
             <div class="datos-usuario">
                <!-- Datos del usuario -->
                <h2>Datos del Usuario</h2>
-               <p>ID: <?php echo $userData['id']; ?></p>
                <p>Usuario: <?php echo htmlspecialchars($userData['usuario']); ?></p>
                <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
                <p>Seguidores: <?php echo $followersCount; ?></p>

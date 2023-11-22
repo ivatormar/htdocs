@@ -110,14 +110,21 @@ button {
   box-sizing: border-box;
 }
 .revel-text {
+  font-weight: bold;
   font-size: 1.5rem;
 }
 .revel-text a,i{
   color: #EB6AB9;
 }
+.revel-info{
+  font-weight: 400;
+}
 .revel-info a{
   font-weight: bold;
 color:#121212;
+}
+.comentario-info{
+  font-weight: 400;
 }
 
 .revel-actions{
