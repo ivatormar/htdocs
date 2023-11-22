@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author Alex Torres 
+ * @version 1.0
+ * @description Función para establecer la conexión en la base de datos
+ *
+ */
 function getDBConnection() {
     $dsn = 'mysql:dbname=merchashop;host=127.0.0.1';
     $user = 'Lumos';
