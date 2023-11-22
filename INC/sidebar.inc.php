@@ -1,4 +1,7 @@
 <?php 
+include_once(__DIR__ . '/connection.inc.php');
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
    $userId = $_SESSION['user_id'];
    
    // Consultar a los usuarios que sigue el usuario actual
