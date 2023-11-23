@@ -1,47 +1,60 @@
-<!-- eliminará la revelación cuyo id reciba, todos los comentarios y votos de esta y redirigirá
-a la página list del usuario. -->
-
-
 <?php
 session_start();
-include_once('INC/connection.inc.php');
 
+include_once('../INC/connection.inc.php');
 
-try {
-    // Iniciar una transacción para asegurar la consistencia de los datos
-    $conexion->beginTransaction();
+$utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = connection('revels', 'revel', 'lever', $utf8);
 
-   // Eliminar los comentarios asociados a la revelación
-   $stmtDeleteComments = $conexion->prepare('DELETE FROM comments WHERE revelid = :revelID');
-   $stmtDeleteComments->bindParam(':revelID', $_POST['revel_id']);
-   $stmtDeleteComments->execute();
+if ($conexion->errorCode() != PDO::ERR_NONE) {
+    echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
+    exit;
+}
 
-   // Eliminar los dislikes asociados a la revelación
-   $stmtDeleteDislikes = $conexion->prepare('DELETE FROM dislikes WHERE revelid = :revelID');
-   $stmtDeleteDislikes->bindParam(':revelID', $_POST['revel_id']);
-   $stmtDeleteDislikes->execute();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_revel'])) {
+    $revelId = $_POST['revel_id'];
 
-   // Eliminar los likes asociados a la revelación
-   $stmtDeleteLikes = $conexion->prepare('DELETE FROM likes WHERE revelid = :revelID');
-   $stmtDeleteLikes->bindParam(':revelID', $_POST['revel_id']);
-   $stmtDeleteLikes->execute();
+    try {
+        // Iniciar una transacción para asegurar la consistencia de los datos
+        $conexion->beginTransaction();
 
-   // Eliminar la revelación
-   $stmtDeleteRevel = $conexion->prepare('DELETE FROM revels WHERE id = :revelID AND userid = :userID');
-   $stmtDeleteRevel->bindParam(':revelID', $_POST['revel_id']);
-   $stmtDeleteRevel->bindParam(':userID', $_SESSION['user_id']);
-   $stmtDeleteRevel->execute();
-    // Confirmar la transacción si todo ha ido bien
-    $conexion->commit();
+        // Eliminar los comentarios asociados a la revelación
+        $stmtDeleteComments = $conexion->prepare('DELETE FROM comments WHERE revelid = :revelID');
+        $stmtDeleteComments->bindParam(':revelID', $revelId);
+        $stmtDeleteComments->execute();
 
-    // Redirigir o realizar otras acciones después de la eliminación
-    header('Location: /user/' . urlencode($userData['usuario']));
-    exit();
-} catch (PDOException $e) {
-    // Revertir la transacción si algo salió mal
-    $conexion->rollBack();
+        // Eliminar los dislikes asociados a la revelación
+        $stmtDeleteDislikes = $conexion->prepare('DELETE FROM dislikes WHERE revelid = :revelID');
+        $stmtDeleteDislikes->bindParam(':revelID', $revelId);
+        $stmtDeleteDislikes->execute();
 
-    // Manejar el error como desees
-    echo 'Error: ' . $e->getMessage();
+        // Eliminar los likes asociados a la revelación
+        $stmtDeleteLikes = $conexion->prepare('DELETE FROM likes WHERE revelid = :revelID');
+        $stmtDeleteLikes->bindParam(':revelID', $revelId);
+        $stmtDeleteLikes->execute();
+
+        // Eliminar la revelación
+        $stmtDeleteRevel = $conexion->prepare('DELETE FROM revels WHERE id = :revelID AND userid = :userID');
+        $stmtDeleteRevel->bindParam(':revelID', $revelId);
+        $stmtDeleteRevel->bindParam(':userID', $_SESSION['user_id']);
+        $stmtDeleteRevel->execute();
+
+        // Confirmar la transacción si todo ha ido bien
+        $conexion->commit();
+
+        // Redirigir o realizar otras acciones después de la eliminación
+        header('Location: /user/' . urlencode($_SESSION['usuario']));
+        exit();
+    } catch (PDOException $e) {
+        // Revertir la transacción si algo salió mal
+        $conexion->rollBack();
+
+        // Manejar el error como desees
+        echo 'Error: ' . $e->getMessage();
+    }
+} else {
+    // Manejar el caso en el que no se ha enviado la solicitud adecuada o falta el parámetro necesario
+    echo 'Acceso no permitido.';
+    exit;
 }
 ?>
