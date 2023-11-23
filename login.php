@@ -104,7 +104,7 @@
                <input type="password" name="password" placeholder="Password" required />
                <p class="error-message"><?php echo $errors["password"]; ?></p>
                <input type="submit" value="Login" class="loginBtn button-34" id="login">
-               <p class="message">Don't have an account?<a href="/index"> Create one </a></p>
+               <p class="message">¿No tienes cuenta?<a href="/index"> Regístrate </a></p>
             </form>
          </div>
       </div>

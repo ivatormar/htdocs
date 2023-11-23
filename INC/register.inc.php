@@ -4,8 +4,7 @@ $registration_successful = false;
 
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
-$errors = array("usuario" => "", "email" => "", "contrasenya" => "");
-
+$errors = array("usuario" => "", "email" => "", "contrasenya" => "" ,"terminos"=>"");
 
 if ($conexion->errorCode() != PDO::ERR_NONE) {
     echo 'Error al conectar a la base de datos: ' . $conexion->errorInfo()[2];
@@ -40,20 +39,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $existing_user_count = $existing_user_query->fetchColumn();
 
     if ($existing_user_count > 0) {
-        $errors["usuario"] = "El usuario  ya está registrado.";
+        $errors["usuario"] = "El usuario ya está registrado.";
         $errors["email"] = "El correo electrónico ya está registrado.";
-        $_POST['usuario'] = ''; //Limpimaos campos de los forms
-        $_POST['email'] = ''; //Limpimaos campos de los forms
+        $_POST['usuario'] = ''; // Limpimaos campos de los forms
+        $_POST['email'] = ''; // Limpimaos campos de los forms
     }
 
+    // Verificación del checkbox de términos y condiciones
+    if (!isset($_POST['terminos'])) {
+        $errors["terminos"] = "Debes aceptar los términos y condiciones.";
+    }
 
-    if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
+    // Procesar el formulario si no hay errores
+    if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"]) && empty($errors["terminos"])) {
         $success_message = "¡Ya puedes loguearte!";
-    }
-
-    if (empty($errors["usuario"]) && empty($errors["email"]) && empty($errors["contrasenya"])) {
         try {
-
             if ($conexion->errorCode() != PDO::ERR_NONE) {
                 throw new Exception('Error al conectar a la base de datos: ' . $conexion->errorInfo()[2]);
             }
@@ -74,10 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -119,6 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="checkbox-container">
                     <input type="checkbox" id="terminos" name="terminos">
                     <label for="terminos">Acepte los términos y condiciones</label>
+                    <p class="error-message"><?php echo $errors["terminos"]; ?></p>
                 </div>
 
                 <input type="submit" value="Sign up" class="button-34" id="signUp">
