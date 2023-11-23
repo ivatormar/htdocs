@@ -10,8 +10,10 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
     exit;
 }
 
+
 // Consultar todas las revels del usuario actual y de los usuarios a los que sigue
 $userId = $_SESSION['user_id'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar si se hizo clic en el botón "Me gusta" o "No me gusta"
@@ -91,6 +93,7 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo '<p class="revel-info">Publicado por <a href="/user/' . urlencode($revel['autor_usuario']) . '">' . htmlspecialchars($revel['autor_usuario']) . '</a> - Fecha: ' . htmlspecialchars($revel['fecha']) . '</p>';
 
                 // Agregar botones o iconos para indicar me gusta y no me gusta
+                echo '<div class="DisLikeComment">';
                 echo '<div class="revel-actions">';
                 echo '<form method="post">';
                 echo '<input type="hidden" name="revel_id" value="' . $revel['id'] . '">';
@@ -105,9 +108,10 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 // Mostrar el número de likes y dislikes
                 echo '<p class="like-info">Likes: ' . $revel['likes'] . '</p>';
                 echo '<p class="dislike-info">Dislikes: ' . $revel['dislikes'] . '</p>';
+                echo '<p class="comment-info">Comentarios: ' . obtenerNumeroComentarios($revel['id'], $conexion) . '</p>';
+                echo '</div>';
 
                 // Mostrar el número de comentarios
-                echo '<p class="comment-info">Comentarios: ' . obtenerNumeroComentarios($revel['id'], $conexion) . '</p>';
 
                 echo '</div>';
                 echo '</div>';

@@ -2,12 +2,13 @@
 /**
  * @author Ivan Torres Marcos
  * @version 2.9
- * @description Sé que el jefe dijo que teníamos que implementar el BACKEND con su account.php ,list.php, delete.php y cancel.php, 
- * pero en lugar de moduralizarlo lo que he hecho es comprobar si el user es el mismo que el que está logueado, y en base a eso,
- * implementamos todas las MISMAS funciones que tendría que tener el BACKEND, es decir, si el user es el mismo que está logueado podré eliminar 
- * las revels propias del propietario de la cuenta, podré eliminar directamente la cuenta y podré modificar tanto su nombre como su mail. De verdad,
- * que he procurado moduralizarlo implementar el BACKEND etc, con mas tiempo, quizás hubiese sido capaz, pero me surgió una situación familiar
- * algo deliacada la semana última y no tenía la cabeza yo para mucho trote, disculpas jefe.
+ ** @description Sé que el jefe dijo que teníamos que implementar el BACKEND con su account.php ,list.php, delete.php y cancel.php, 
+ ** pero en lugar de moduralizarlo lo que he hecho es comprobar si el user es el mismo que el que está logueado, y en base a eso,
+ ** implementamos todas las MISMAS funciones que tendría que tener el BACKEND, es decir, si el user es el mismo que está logueado podré eliminar 
+ ** las revels propias del propietario de la cuenta, podré eliminar directamente la cuenta y podré modificar tanto su nombre como su mail. De verdad,
+ ** que he procurado moduralizarlo implementar el BACKEND etc, con mas tiempo, quizás hubiese sido capaz, pero me surgió una situación familiar
+ ** algo deliacada la semana última y no tenía la cabeza yo para mucho trote y teía que continuar con el otro proyecto de JS,
+ ** disculpas jefe.
  *
  */
 
@@ -36,6 +37,7 @@
        header('Location: /index');
        exit;
    }
+   
    
    $stmtFollowers = $conexion->prepare('SELECT COUNT(userid) AS followers FROM follows WHERE userfollowed = :userID');
    $stmtFollowers->bindParam(':userID', $userData['id']);
