@@ -50,44 +50,44 @@
    <body cz-shortcut-listen="true" class="body">
       <div class="content">
          <?php include_once(__DIR__ . '/INC/sidebar.inc.php') ?>
-         <!-- Mostrar resultados de búsqueda -->
          <div class="search-results-container">
-         <?php
-      if (isset($search_results) && !empty($search_results)) {
-          echo '<h2>Resultados de búsqueda:</h2>';
-          echo '<ul>';
-          foreach ($search_results as $user) {
-              // Excluir tu propia cuenta de los resultados
-              if ($user['id'] != $_SESSION['user_id']) {
-                  echo '<li>';
-                  echo '<span>' . htmlspecialchars($user['usuario']) . '</span>';
-  
-                  // Verificar si el usuario está siendo seguido
-                  $user_id = $user['id'];
-                  $stmt_follow = $conexion->query("SELECT * FROM follows WHERE userid = {$_SESSION['user_id']} AND userfollowed = $user_id");
-                  $is_following = $stmt_follow->fetch(PDO::FETCH_ASSOC);
-  
-                  // Mostrar botón de seguir o dejar de seguir
-                  echo '<form method="post" action="">';
-                  echo '<input type="hidden" name="user_id" value="' . $user['id'] . '">';
-  
-                  if ($is_following) {
-                      // Si ya sigue al usuario, mostrar botón para dejar de seguir
-                      echo '<button type="submit" name="unfollow" class="btn btn-danger">Dejar de seguir</button>';
-                  } else {
-                      // Si no sigue al usuario, mostrar botón para seguir
-                      echo '<button type="submit" name="follow" class="btn btn-primary">Seguir</button>';
-                  }
-  
-                  echo '</form>';
-                  echo '</li>';
-              }
-          }
-          echo '</ul>';
-      } else {
-          echo '<p>No se encontraron resultados.</p>';
-      }
-   ?>
+            <?php
+               if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query']) && trim($_POST['search_query']) !== '') {
+                   // Resto del código de búsqueda
+                   echo '<h2>Resultados de búsqueda:</h2>';
+                   echo '<ul>';
+                   foreach ($search_results as $user) {
+                       // Excluir tu propia cuenta de los resultados
+                       if ($user['id'] != $_SESSION['user_id']) {
+                           echo '<li>';
+                           echo '<span>' . htmlspecialchars($user['usuario']) . '</span>';
+   
+                           // Verificar si el usuario está siendo seguido
+                           $user_id = $user['id'];
+                           $stmt_follow = $conexion->query("SELECT * FROM follows WHERE userid = {$_SESSION['user_id']} AND userfollowed = $user_id");
+                           $is_following = $stmt_follow->fetch(PDO::FETCH_ASSOC);
+   
+                           // Mostrar botón de seguir o dejar de seguir
+                           echo '<form method="post" action="">';
+                           echo '<input type="hidden" name="user_id" value="' . $user['id'] . '">';
+   
+                           if ($is_following) {
+                               // Si ya sigue al usuario, mostrar botón para dejar de seguir
+                               echo '<button type="submit" name="unfollow" class="btn btn-danger">Dejar de seguir</button>';
+                           } else {
+                               // Si no sigue al usuario, mostrar botón para seguir
+                               echo '<button type="submit" name="follow" class="btn btn-primary">Seguir</button>';
+                           }
+   
+                           echo '</form>';
+                           echo '</li>';
+                       }
+                   }
+                   echo '</ul>';
+               } else {
+                   echo '<h2>No se encontraron resultados</h2>';
+               }
+            ?>
          </div>
          <div class="volver">
             <a href="/index">Volver al tablón</a>

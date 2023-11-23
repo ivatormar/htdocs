@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-// Verificar si el usuario ha iniciado sesión
+
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /index'); // Redirigir a la página de inicio si no ha iniciado sesión
-    exit();
+    header('Location: /index');
 }
 
 include_once('../INC/connection.inc.php');
@@ -31,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
     $stmtRevels->execute();
     $userRevels = $stmtRevels->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    // Manejar el caso en el que $_SESSION['user_id'] no está definido
+
     echo 'No se ha iniciado sesión.';
     exit;
 }
@@ -44,7 +43,7 @@ if (isset($_SESSION['user_id'])) {
 
 <body cz-shortcut-listen="true" class="body">
     <div class="content">
-        <!-- Contenido de la página -->
+ 
         <?php include_once('../INC/sidebar.inc.php') ?>
         <div class="revels-container">
             <div class="revels-user">
