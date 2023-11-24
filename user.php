@@ -60,46 +60,66 @@ $userRevels = $stmtRevels->fetchAll(PDO::FETCH_ASSOC);
 //Procesar el formulario de actualización del perfil
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    if (isset($_POST['update_profile'])) {
-      $newUsername = $_POST['new_username'];
-      $newEmail = $_POST['new_email'];
-      $stmtUpdate = $conexion->prepare('UPDATE users SET usuario = :newUsername, email = :newEmail WHERE id = :userID');
-      $stmtUpdate->bindParam(':newUsername', $newUsername);
-      $stmtUpdate->bindParam(':newEmail', $newEmail);
-      $stmtUpdate->bindParam(':userID', $_SESSION['user_id']);
-      $stmtUpdate->execute();
-      $_SESSION['usuario'] = $newUsername; // Volvemos a asignar a la variable usuario el nuevo usuario
-
-      header('Location: /user/' . urlencode($newUsername));
-      exit();
+      if (isset($_POST['update_profile'])) {
+         $newUsername = $_POST['new_username'];
+         $newEmail = $_POST['new_email'];
+   
+         // Verificar si el nuevo nombre de usuario ya existe
+         $stmtCheckUsername = $conexion->prepare('SELECT id FROM users WHERE usuario = :newUsername AND id != :userID');
+         $stmtCheckUsername->bindParam(':newUsername', $newUsername);
+         $stmtCheckUsername->bindParam(':userID', $_SESSION['user_id']);
+         $stmtCheckUsername->execute();
+   
+         // Verificar si el nuevo correo electrónico ya existe
+         $stmtCheckEmail = $conexion->prepare('SELECT id FROM users WHERE email = :newEmail AND id != :userID');
+         $stmtCheckEmail->bindParam(':newEmail', $newEmail);
+         $stmtCheckEmail->bindParam(':userID', $_SESSION['user_id']);
+         $stmtCheckEmail->execute();
+   
+         if ($stmtCheckUsername->rowCount() > 0) {
+            $updateChangeMessage= "El nombre de usuario ya está en uso. Por favor, elige otro.";
+         } elseif ($stmtCheckEmail->rowCount() > 0) {
+            $updateChangeMessage= "El correo electrónico ya está en uso. Por favor, elige otro.";
+         } else {
+            // Si no hay conflictos, proceder con la actualización del perfil
+            $stmtUpdate = $conexion->prepare('UPDATE users SET usuario = :newUsername, email = :newEmail WHERE id = :userID');
+            $stmtUpdate->bindParam(':newUsername', $newUsername);
+            $stmtUpdate->bindParam(':newEmail', $newEmail);
+            $stmtUpdate->bindParam(':userID', $_SESSION['user_id']);
+            $stmtUpdate->execute();
+            $_SESSION['usuario'] = $newUsername; // Volvemos a asignar a la variable usuario el nuevo usuario
+   
+            header('Location: /user/' . urlencode($newUsername));
+            exit();
+         }
+      }
 
 
 
       //BORRADO DE UN REVEL JUNTO CON EL BORRADO DE SUS LIKES Y DISLIKES Y COMMENTS
    } elseif (isset($_POST['delete_revel'])) {
-      $revelId = $_POST['revel_id'];
-
       try {
          // Iniciar una transacción para asegurar la consistencia de los datos
          $conexion->beginTransaction();
 
          // Eliminar los comentarios asociados a la revelación
          $stmtDeleteComments = $conexion->prepare('DELETE FROM comments WHERE revelid = :revelID');
-         $stmtDeleteComments->bindParam(':revelID', $revelId);
+         $stmtDeleteComments->bindParam(':revelID', $_POST['revel_id']);
          $stmtDeleteComments->execute();
 
          // Eliminar los dislikes asociados a la revelación
          $stmtDeleteDislikes = $conexion->prepare('DELETE FROM dislikes WHERE revelid = :revelID');
-         $stmtDeleteDislikes->bindParam(':revelID', $revelId);
+         $stmtDeleteDislikes->bindParam(':revelID', $_POST['revel_id']);
          $stmtDeleteDislikes->execute();
 
          // Eliminar los likes asociados a la revelación
          $stmtDeleteLikes = $conexion->prepare('DELETE FROM likes WHERE revelid = :revelID');
-         $stmtDeleteLikes->bindParam(':revelID', $revelId);
+         $stmtDeleteLikes->bindParam(':revelID', $_POST['revel_id']);
          $stmtDeleteLikes->execute();
 
          // Eliminar la revelación
          $stmtDeleteRevel = $conexion->prepare('DELETE FROM revels WHERE id = :revelID AND userid = :userID');
-         $stmtDeleteRevel->bindParam(':revelID', $revelId);
+         $stmtDeleteRevel->bindParam(':revelID', $_POST['revel_id']);
          $stmtDeleteRevel->bindParam(':userID', $_SESSION['user_id']);
          $stmtDeleteRevel->execute();
 
@@ -231,6 +251,11 @@ if (!$userData && !$is_following && $_SESSION['user_id'] != $user_to_follow_id) 
             <div class="update-profile-container">
                <div class="change-user-mail-container">
                   <h2>Modificar Perfil</h2>
+                  <?php
+                  if (isset($updateChangeMessage)) {
+                     echo '<p class="password-change-message">' . $updateChangeMessage . '</p>';
+                  }
+                  ?>
                   <form method="post" action="/user/<?php echo urlencode($userData['usuario']); ?>">
                      <label for="new_username">Nuevo Nombre de Usuario:</label>
                      <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($userData['usuario']); ?>">

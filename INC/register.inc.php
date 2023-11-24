@@ -68,8 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashedPassword = password_hash($_POST['contrasenya'], PASSWORD_DEFAULT);
 
             $stmt = $conexion->prepare('INSERT INTO users (usuario, contrasenya, email) VALUES (:usuario, :contrasenya, :email)');
-            var_dump($_POST['usuario'], $hashedPassword, $_POST['email']);
-
+          
             $stmt->bindParam(':usuario', $_POST['usuario']);
             $stmt->bindParam(':contrasenya', $hashedPassword);
             $stmt->bindParam(':email', $_POST['email']);
