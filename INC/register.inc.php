@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificación del checkbox de términos y condiciones
     if (!isset($_POST['terminos'])) {
-        $errors["terminos"] = "Debes aceptar los términos y condiciones.";
+        $errors["terminos"] = "Debe aceptar los términos y condiciones.";
     }
 
     // Procesar el formulario si no hay errores
@@ -114,11 +114,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form">
             <h2>¡Welcome to Revels, SIGN UP!</h2>
             <form class="login-form" action="" method="post">
-                <input type="text" name="usuario" placeholder="User" id="usuario" required value="<?php echo ($registration_successful) ? '' : (isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''); ?>" />
+                <input type="text" name="usuario" placeholder="User" id="usuario"  value="<?php echo ($registration_successful) ? '' : (isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''); ?>" />
                 <p class="error-message"><?php echo $errors["usuario"]; ?></p>
-                <input type="password" name="contrasenya" placeholder="Password" id="contrasenya" required />
+                <input type="password" name="contrasenya" placeholder="Password" id="contrasenya"  />
                 <p class="error-message"><?php echo $errors["contrasenya"]; ?></p>
-                <input type="text" name="email" placeholder="Email" id="email" required value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
+                <input type="text" name="email" placeholder="Email" id="email"  value="<?php echo ($registration_successful) ? '' : (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''); ?>" />
                 <p class="error-message"><?php echo $errors["email"]; ?></p>
                 <div class="checkbox-container">
                     <input type="checkbox" id="terminos" name="terminos">
