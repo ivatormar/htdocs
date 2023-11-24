@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.3
+ * @description En register.php lo que hacemos es hacer un formulario de registro "básico" con toda la validación de los inputs y las queries necesarias en
+ * la base de datos para hacer el INSERT apropiado, además de comprobar si el usuario existe o no junto a su mail.
+ *
+ */
 include_once(__DIR__ . '/connection.inc.php');
 $registration_successful = false;
 

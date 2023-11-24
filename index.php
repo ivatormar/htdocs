@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.2
+ * @description En index.php comprobaremos si el usuario está logueado o no, para mostrar en función de esto, el formulario de registro o el tablón con 
+ * las revelaciones. 
+ *
+ */
    session_start();
    include_once(__DIR__ . '/INC/connection.inc.php');
    $login = false;

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.1
+ * @description Pequeña función la cual estaba el tablon.inc.php para poder obtener el numero de comentarios.
+ *
+ */
 
 function obtenerNumeroComentarios($revelId, $conexion)
 {

@@ -1,3 +1,13 @@
+<?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.2
+ * @description Php en el cual incluimos toda la NAVBAR y head propia de la parte del usuario ya logueado (tablón).
+ *
+ */
+?>
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

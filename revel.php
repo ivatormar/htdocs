@@ -1,4 +1,14 @@
 <?php
+   /**
+    * @author Ivan Torres Marcos
+    * @version 1.4
+    * @description En este php lo que hacemos es realizar las queries necesarias junto a su front para poder visualizar la Revel en la que clicamos del 
+    * usuario elegido. Mostraremos los comentarios, el titulo de la Revel /Revelación, junto a sus autores y fecha de subida. Tambien nos da la opción
+    * de añadir un comentario.
+    *
+    */
+
+
    session_start();
    include_once(__DIR__ . '/INC/connection.inc.php');
    $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');

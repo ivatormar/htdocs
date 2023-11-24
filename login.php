@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.0
+ * @description En login.php permitimos que el usuario registrado se pueda loguear, y también permite que si has introducido el nombre
+ * o el password mal, te lo indica de manera general.
+ *
+ */
    session_start();
    include_once(__DIR__ . '/INC/connection.inc.php');
    $login = false;

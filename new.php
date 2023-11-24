@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.5
+ * @description En new.php lo que hacemos es crear una nueva Revelación, y en cuanto la creamos reidirigimos directamente al nuevo Revel
+ *
+ */
    session_start();
    include_once(__DIR__.'/INC/connection.inc.php');
    $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -9,8 +15,6 @@
        // Procesar los datos del formulario
        $texto = $_POST['texto'];
        $userid = $_SESSION['user_id'];
-   
-       // Realizar la conexión a la base de datos
    
        // Verificar si hay errores de conexión
        if ($conexion->errorCode() != PDO::ERR_NONE) {
@@ -35,8 +39,6 @@
            exit;
        }
    }
-   
-   // Si no se han enviado datos o si 'texto' no está definido en $_POST, mostrar el formulario
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.5
+ * @description En tablon.inc.php lo que hacemos es mostrar las revelaciones de todos los usuarios y las personales y damos la posibilidad de poder dar me gusta 
+ * o no me gusta, con un contador para poder visualiza si le hemos dado me gusa o no, además, el numero de comentarios junto a enlaces del autor y de la Revel misma
+ *
+ */
 // Realizar la conexión a la base de datos
 include_once(__DIR__ . '/obtenerNumeroComments.inc.php');
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -68,16 +75,6 @@ $revels = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/tablon.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcut icon" href="/MEDIA-REVELS-LOGO/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Revels.</title>
-</head>
 <?php include_once(__DIR__ . '/headNavbarTablon.inc.php') ?>
 
 <body cz-shortcut-listen="true" class="body">

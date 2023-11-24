@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.3
+ * @description En results.php su principal funcionalidad es la de buscar usuarios según lo introducido en el input de búsuqeda, hemos corregido ciertas cosas
+ * como la de si presionas Enter o buscar que no aparezcan todos los resultados, entre otras cosas.
+ *
+ */
    session_start();
    include_once(__DIR__ . '/INC/connection.inc.php');
    

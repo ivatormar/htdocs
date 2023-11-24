@@ -42,6 +42,7 @@ background-image:
       rgba(255, 255, 255, 0.658),
       rgba(255, 255, 255, 0.658)
     ),url(/MEDIA-REVELS-LOGO/BACKGROUNDIMGREVELS.png);
+     background-repeat: repeat;
   grid-row: 2;
   display: grid;
   grid-template-columns: 15% 85%;

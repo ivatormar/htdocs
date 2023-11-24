@@ -8,7 +8,7 @@
  ** implementamos todas las MISMAS funciones que tendría que tener el BACKEND, es decir, si el user es el mismo que está logueado podré eliminar 
  ** las revels propias del propietario de la cuenta, podré eliminar directamente la cuenta y podré modificar tanto su nombre como su mail. De verdad,
  ** que he procurado moduralizarlo implementar el BACKEND etc, con mas tiempo, quizás hubiese sido capaz, pero me surgió una situación familiar
- ** algo deliacada la semana última y no tenía la cabeza yo para mucho trote y teía que continuar con el otro proyecto de JS,
+ ** algo deliacada la semana última y no tenía la cabeza yo para mucho trote y tenía que continuar con el otro proyecto de JS,
  ** disculpas jefe.
  *
  */
@@ -175,32 +175,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          echo "Debes marcar la casilla de confirmación para eliminar la cuenta.";
       }
    } elseif (isset($_POST['change_password'])) {
-      $currentPassword = $_POST['current_password'];
-      $newPassword = $_POST['new_password'];
-      $confirmNewPassword = $_POST['confirm_new_password'];
-
-      // Verificar si la contraseña actual es correcta
-      $stmtCheckPassword = $conexion->prepare('SELECT contrasenya FROM users WHERE id = :userID');
-      $stmtCheckPassword->bindParam(':userID', $_SESSION['user_id']);
-      $stmtCheckPassword->execute();
-      $storedHashedPassword = $stmtCheckPassword->fetchColumn();
-
-      if (password_verify($currentPassword, $storedHashedPassword)) {
-         // Verificar si las nuevas contraseñas coinciden
-         if ($newPassword === $confirmNewPassword) {
-            // Actualizar la contraseña en la base de datos
-            $hashedNewPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-            $stmtUpdatePassword = $conexion->prepare('UPDATE users SET contrasenya = :newPassword WHERE id = :userID');
-            $stmtUpdatePassword->bindParam(':newPassword', $hashedNewPassword);
-            $stmtUpdatePassword->bindParam(':userID', $_SESSION['user_id']);
-            $stmtUpdatePassword->execute();
-
-            $passwordChangeMessage = "Contraseña actualizada correctamente.";
-         } else {
-            $passwordChangeMessage = "Las nuevas contraseñas no coinciden.";
-         }
+      if (empty($_POST['new_password'])) {
+         $passwordChangeMessage = "La contraseña nueva no puede estar vacía.";
       } else {
-         $passwordChangeMessage = "Contraseña actual incorrecta.";
+         // Verificar si la contraseña actual es correcta
+         $stmtCheckPassword = $conexion->prepare('SELECT contrasenya FROM users WHERE id = :userID');
+         $stmtCheckPassword->bindParam(':userID', $_SESSION['user_id']);
+         $stmtCheckPassword->execute();
+         $storedHashedPassword = $stmtCheckPassword->fetchColumn();
+
+         if (password_verify($_POST['current_password'], $storedHashedPassword)) {
+            // Verificar si las nuevas contraseñas coinciden
+            if ($_POST['new_password'] === $_POST['confirm_new_password']) {
+               // Actualizar la contraseña en la base de datos
+               $hashedNewPassword = password_hash($_POST['new_password'], PASSWORD_BCRYPT);
+               $stmtUpdatePassword = $conexion->prepare('UPDATE users SET contrasenya = :newPassword WHERE id = :userID');
+               $stmtUpdatePassword->bindParam(':newPassword', $hashedNewPassword);
+               $stmtUpdatePassword->bindParam(':userID', $_SESSION['user_id']);
+               $stmtUpdatePassword->execute();
+
+               $passwordChangeMessage = "Contraseña actualizada correctamente.";
+            } else {
+               $passwordChangeMessage = "Las nuevas contraseñas no coinciden.";
+            }
+         } else {
+            $passwordChangeMessage = "Contraseña actual incorrecta.";
+         }
       }
    }
 }

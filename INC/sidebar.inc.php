@@ -1,4 +1,11 @@
 <?php 
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.2
+ * @description En sidebar.inc.php lo que hacemos es implementar un elemento <aside> HTML con un poco de php con tal de poder mostrar los usuarios que sigue 
+ * el user logueado.
+ *
+ */
 include_once(__DIR__ . '/connection.inc.php');
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = connection('revels', 'revel', 'lever', $utf8);
