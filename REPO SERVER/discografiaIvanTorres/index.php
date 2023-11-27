@@ -18,7 +18,7 @@ if ($conexion->errorCode() != PDO::ERR_NONE) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 
     if (isset($_POST['delete_grupo'])) {
         try {
