@@ -106,9 +106,9 @@
          <div class="form">
             <h2>¡Revel yourself!</h2>
             <form class="login-form" method="POST">
-               <input type="text" name="user" placeholder="User" required />
+               <input type="text" name="user" placeholder="User" />
                <p class="error-message"><?php echo $errors["user"]; ?></p>
-               <input type="password" name="password" placeholder="Password" required />
+               <input type="password" name="password" placeholder="Password" />
                <p class="error-message"><?php echo $errors["password"]; ?></p>
                <input type="submit" value="Login" class="loginBtn button-34" id="login">
                <p class="message">¿No tienes cuenta?<a href="/index"> Regístrate </a></p>
