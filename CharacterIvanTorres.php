@@ -56,7 +56,7 @@ if (isset($_SESSION['language'])) {
 
 <body>
     <div class="content">
-    <div class="tenor-gif-embed" data-postid="20976953" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/jujutsu-kaisen-aoi-todo-gif-20976953">Jujutsu Kaisen Aoi Todo GIF</a>from <a href="https://tenor.com/search/jujutsu+kaisen-gifs">Jujutsu Kaisen GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <div class="tenor-gif-embed" data-postid="20976953" data-share-method="host" data-aspect-ratio="1.77778" data-width="60%"><a href="https://tenor.com/view/jujutsu-kaisen-aoi-todo-gif-20976953">Jujutsu Kaisen Aoi Todo GIF</a>from <a href="https://tenor.com/search/jujutsu+kaisen-gifs">Jujutsu Kaisen GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
         <?php
         $currentLanguage = $_SESSION['language'];
         echo '<h1> Aoi Todou </h1>';
