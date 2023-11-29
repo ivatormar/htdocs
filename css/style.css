@@ -96,3 +96,17 @@ td {
 	padding-top: 80px;
 	font-weight: bold;
 }
+.flags{
+	display: flex;
+	width: fit-content;
+	margin-left: auto; /* Agrega esta línea */
+	gap:1rem;
+	padding: 5px;
+	border: 3px solid black;
+	border-radius: 8px;
+}
+.sales-link{
+	display: flex;
+	align-self: center;
+	align-items: center; 
+}
