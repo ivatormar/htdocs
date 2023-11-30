@@ -6,43 +6,9 @@
  * @description Indice donde mostramos y añadimos la funcionalidad de los productos
  *
  */
-
-
 session_start();
-if (isset($_GET['lang'])) {
-   // Validate and set the language based on the parameter
-   $allowedLanguages = ['es', 'val', 'en'];
-   $selectedLanguage = $_GET['lang'];
+require_once(__DIR__.'/includes/language_utils.inc.php');
 
-   if (in_array($selectedLanguage, $allowedLanguages)) {
-      $_SESSION['language'] = $selectedLanguage;
-
-      // Set a cookie to remember the selected language
-      setcookie('preferred_language', $selectedLanguage, time() + (365 * 24 * 60 * 60), '/');
-   }
-} elseif (isset($_COOKIE['preferred_language'])) {
-   // Use the language stored in the cookie
-   $_SESSION['language'] = $_COOKIE['preferred_language'];
-}
-
-// Include the language file based on the selected language or use the default language
-$language = isset($_SESSION['language']) ? $_SESSION['language'] : 'en'; // Default to English if no language is set
-
-// Load the appropriate language file
-switch ($language) {
-   case 'es':
-      require_once(__DIR__ . '/includes/es_ES.lang.php');
-      break;
-   case 'en':
-      require_once(__DIR__ . '/includes/en_EN.inc.php');
-      break;
-   case 'val':
-      require_once(__DIR__ . '/includes/ca_CA.inc.php');
-      break;
-   default:
-      // Fallback to English if the language is not recognized
-      require_once(__DIR__ . '/includes/en_EN.inc.php');
-}
 
 // Verificar si hay un mensaje de éxito en la sesión, esto es para cuando venimos del resetPassword.php
 if (isset($_SESSION['success'])) {
@@ -89,8 +55,11 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
          <!-- Replace static content with translations -->
          <h2><?php echo $lang['registro']; ?></h2>
          <label for="username"><?php echo $lang['usuario']; ?>:</label>
+         <input type="text" id="username" name="username">
          <label for="email"><?php echo $lang['correo']; ?>:</label>
+         <input type="text" id="email" name="email">
          <label for="password"><?php echo $lang['contraseña']; ?>:</label>
+         <input type="text" id="password" name="password">
          <button type="submit"><?php echo $lang['registrarse']; ?></button>
          <p><?php echo $lang['cuenta']; ?> <a href="/login.php"><?php echo $lang['iniciar_sesion']; ?></a>.</p>
 
@@ -110,12 +79,13 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
          else
             $products = count($_SESSION['basket']);
          echo $products;
-         echo ' producto';
+         echo $lang['producto'];
          if ($products > 1)
             echo 's';
+            echo $lang['carrito'];
          ?>
-         en el carrito.
-         <a href="/basket" class="boton">Ver carrito</a>
+         
+         <a href="/basket" class="boton"><?php echo $lang['ver']?></a>
       </div>
       <section class="productos">
          <?php

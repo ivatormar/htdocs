@@ -9,6 +9,7 @@
    session_start();
    include_once(__DIR__ . '/includes/dbconnection.inc.php'); 
    include_once(__DIR__ . '/includes/header.inc.php');
+   require_once(__DIR__.'/includes/language_utils.inc.php');
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        // Validar los campos
@@ -66,7 +67,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Iniciar Sesión - MerchaShop</title>
+      <title><?php echo $lang['h2Login']?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -74,17 +75,17 @@
          include_once(__DIR__ . '/includes/header.inc.php'); 
         ?>
       <section class="formulario">
-         <h2>Iniciar Sesión</h2>
+         <h2><?php echo $lang['h2Login']?></h2>
          <form action="/login.php" method="post">
-            <label for="username">Usuario o Email:</label>
+            <label for="username"><?php echo $lang['usuario']?>:</label>
             <input type="text" id="username" name="username" required>
-            <label for="password">Contraseña:</label>
+            <label for="password"><?php echo $lang['contraseña']?>:</label>
             <input type="password" id="password" name="password" required>
-            <label for="remember">Mantener conectado:</label>
+            <label for="remember"><?php echo $lang['conectado']?>:</label>
             <input type="checkbox" id="remember" name="remember">
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit"><?php echo $lang['h2Login']?></button>
          </form>
-         <a href="/passwordRecovery.php">¿Olvidaste tu contraseña?</a>
+         <a href="/passwordRecovery.php"><?php echo $lang['recuperar']?></a>
       </section>
    </body>
 </html>

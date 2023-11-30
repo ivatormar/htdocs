@@ -30,7 +30,7 @@
             <?php
                foreach ($users as $user) {
                    echo '<li>';
-                   echo '<strong>Usuario:</strong> ' . $user->user . '<br>';
+                   echo '<strong>'.$lang['usuario'].':</strong> ' . $user->user . '<br>';
                    echo '<strong>Email:</strong> ' . $user->email . '<br>';
                    echo '<strong>Rol:</strong> ' . $user->rol . '<br>';
                    echo '</li><br>';
