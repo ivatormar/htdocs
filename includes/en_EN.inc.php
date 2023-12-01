@@ -14,18 +14,36 @@ $lang = array(
     'principal' => 'Home',
     //LOGIN
     'h2Login' => 'Log in',
-    'conectado'=>'Stay Connected',
-    'recuperar'=>'Did you forget your password?',
-    'incorrecto'=>'Wrong user or password',
-     //CARRITO
-    'producto'=>' product',
-    'carrito'=>' in your cart.',
-    'ver'=>'See your cart',
+    'conectado' => 'Stay Connected',
+    'recuperar' => 'Did you forget your password?',
+    'incorrecto' => 'Wrong user or password',
+    //CARRITO
+    'producto' => ' product',
+    'carrito' => ' in your cart.',
+    'ver' => 'See your cart',
+    'h2Carrito'=>'Cart',
+    'carritoVacio'=>'Your cart is empty',
+    'volverCarrito'=>'Return',
+
+
     // OFERTAS
-    'h2Ofertas'=>'Sales',
-     //ADMINISTRAR USUARIOS
-     'usuarios'=>'Users',
-     'rol'=>'Role'
- 
+    'h2Ofertas' => 'Sales',
+    //ADMINISTRAR USUARIOS
+    'usuarios' => 'Users',
+    'rol' => 'Role',
+    //RESET PASSWORD
+    'caracteresError' => 'The password must have at least 4 characters',
+    'contraseñaExito' => 'Password updated successfully.',
+    'updateError' => 'Error updating the password.',
+    'tokenError' => 'Invalid Token or email.',
+    'h2ResetPassword' => 'Reset password',
+    'nuevaContraseña'=>'New password',
+    'guardarContraseña'=>'Save password',
+    //PASSWORD RECOVERY
+    'ingresaCorreo'=>'Please, enter your e-mail address.',
+    'errorCuentaAsociada'=>'No account was found associated with this email address.',
+    'h2RecoverPassword'=>'Recover Password',
+    'enviarInstrucciones'=>'Send instructions',
+    'volverInicioSesion'=>'Return to login',
 
 );

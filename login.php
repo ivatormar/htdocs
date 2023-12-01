@@ -87,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ?>
       <form action="/login.php" method="post">
          <label for="username"><?php echo $lang['usuario'] ?>:</label>
-         <input type="text" id="username" name="username" required>
+         <input type="text" id="username" name="username" >
          <label for="password"><?php echo $lang['contraseña'] ?>:</label>
-         <input type="password" id="password" name="password" required>
+         <input type="password" id="password" name="password" >
          <label for="remember"><?php echo $lang['conectado'] ?>:</label>
          <input type="checkbox" id="remember" name="remember">
          <button type="submit"><?php echo $lang['h2Login'] ?></button>

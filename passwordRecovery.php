@@ -9,11 +9,13 @@
    session_start();
    
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
+
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        // Validar el campo
        if (empty( $_POST['email'])) {
-           $_SESSION['error'] = 'Por favor, ingresa tu dirección de correo electrónico.';
+           $_SESSION['error'] = $lang['ingresaCorreo'];
            header('Location: /passwordRecovery.php');
            exit();
        }
@@ -49,13 +51,11 @@
                $stmt->execute();
            }
    
-           // Redirigir a una página de éxito
-           $_SESSION['success'] = 'Hemos enviado instrucciones para restablecer tu contraseña a tu correo electrónico.';
            header('Location: /resetPassword.php?token=' . $token . '&email=' .  $_POST['email']); // Pasar token y email en la URL
            exit();
        } else {
            // Si el correo electrónico no está registrado, mostrar un mensaje de error
-           $_SESSION['error'] = 'No se encontró ninguna cuenta asociada a ese correo electrónico.';
+           $_SESSION['error'] = $lang['errorCuentaAsociada'];
            header('Location: /passwordRecovery.php');
            exit();
        }
@@ -67,7 +67,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Recuperar Contraseña - MerchaShop</title>
+      <title><?=$lang['h2RecoverPassword'] ?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -75,7 +75,7 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="formulario">
-         <h2>Recuperar Contraseña</h2>
+         <h2><?=$lang['h2RecoverPassword'] ?></h2>
          <?php
             if (isset($_SESSION['error'])) {
                 echo '<p class="error-message">' . $_SESSION['error'] . '</p>';
@@ -87,11 +87,11 @@
             }
             ?>
          <form action="/passwordRecovery.php" method="post">
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <button type="submit">Enviar Instrucciones</button>
+            <label for="email"><?=$lang['correo'] ?>:</label>
+            <input type="email" id="email" name="email" >
+            <button type="submit"><?=$lang['enviarInstrucciones']?></button>
          </form>
-         <a href="/login.php">Volver al Inicio de Sesión</a>
+         <a href="/login.php"><?=$lang['volverInicioSesion'] ?></a>
       </section>
    </body>
 </html>

@@ -90,11 +90,11 @@
             ?>
          <form action="" method="post">
             <label for="username"><?=$lang['usuario']?>:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" >
             <label for="email"><?=$lang['correo']?>:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" >
             <label for="password"><?=$lang['contraseña']?>:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" >
             <button type="submit"><?=$lang['registrarse']?></button>
          </form>
       </section>

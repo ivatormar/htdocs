@@ -30,7 +30,7 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>MerchaShop - carrito</title>
+      <title>MerchaShop - <?=$lang['h2Carrito'] ?></title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -44,18 +44,18 @@
             else
             	$products = count($_SESSION['basket']);
             echo $products;
-            echo ' producto';
+            echo $lang['producto'];
             if($products>1)
             	echo 's';
+            $lang['carrito']
             ?>
-         en el carrito.
-         <a href="/basket" class="boton">Ver carrito</a>	
+         <a href="/basket" class="boton"><?=$lang['ver']?></a>	
       </div>
-      <h2>Carrito</h2>
+      <h2><?=$lang['h2Carrito'] ?></h2>
       <section>
          <?php
             if(!isset($_SESSION['basket']) || count($_SESSION['basket'])==0)
-            	echo '<div>El carrito está vacío.</div>';
+            	echo '<div>'.$lang['carritoVacio'].'</div>';
             else 
             {
             	require_once('includes/dbconnection.inc.php');
@@ -87,7 +87,7 @@
             }
             ?>
          <br><br>
-         <a href="/index" class="boton">Volver</a>				
+         <a href="/index" class="boton"><?=$lang['volverCarrito'] ?></a>				
       </section>
    </body>
 </html>

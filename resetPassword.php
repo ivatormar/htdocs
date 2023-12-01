@@ -11,7 +11,7 @@
 
    
    // Iniciar sesión
-   session_start();
+  
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        // Obtener datos del formulario
@@ -89,21 +89,31 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reestablecer contraseña</title>
+      <title><?= $lang['h2ResetPassword']?></title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
       <?php
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
-      <h2>Reestablecer contraseña</h2>
+      <h2><?= $lang['h2ResetPassword']?></h2>
+      <?php
+      if (isset($_SESSION['error'])) {
+         echo '<p>' . $_SESSION['error'] . '</p>';
+         unset($_SESSION['error']); // Clear the error message after displaying it
+      }
+      if (isset($_SESSION['success'])) {
+         echo '<p>' . $_SESSION['success'] . '</p>';
+         unset($_SESSION['success']); // Clear the error message after displaying it
+      }
+      ?>
       <form method="post" action="resetPassword.php">
-         <input type="hidden" name="email" value="<?php echo $email; ?>">
-         <input type="hidden" name="token" value="<?php echo $token; ?>">
-         <label for="new_password">Nueva contraseña:</label>
+         <input type="hidden" name="email" value="<?= $email; ?>">
+         <input type="hidden" name="token" value="<?= $token; ?>">
+         <label for="new_password"><?= $lang['nuevaContraseña']?>:</label>
          <input type="password" name="new_password" id="new_password">
          <br>
-         <input type="submit" value="Guardar contraseña">
+         <input type="submit" value="<?= $lang['guardarContraseña']?>">
       </form>
    </body>
 </html>
