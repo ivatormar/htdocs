@@ -16,9 +16,16 @@ $lang = array(
     'h2Login' => 'Log in',
     'conectado'=>'Stay Connected',
     'recuperar'=>'Did you forget your password?',
-
+    'incorrecto'=>'Wrong user or password',
      //CARRITO
     'producto'=>' product',
     'carrito'=>' in your cart.',
-    'ver'=>'See your cart'
+    'ver'=>'See your cart',
+    // OFERTAS
+    'h2Ofertas'=>'Sales',
+     //ADMINISTRAR USUARIOS
+     'usuarios'=>'Users',
+     'rol'=>'Role'
+ 
+
 );

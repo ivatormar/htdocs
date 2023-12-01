@@ -9,6 +9,7 @@
    
    session_start();
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
    
    try {
        // Obtener productos en oferta
@@ -25,7 +26,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Ofertas - MerchaShop</title>
+      <title><?= $lang['h2Ofertas'] ?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -33,7 +34,7 @@
          include_once(__DIR__ . '/includes/header.inc.php');
         ?>
       <section class="productos">
-         <h2>Ofertas</h2>
+         <h2><?= $lang['h2Ofertas'] ?></h2>
          <?php
             foreach ($salesProducts as $product) {
                 echo '<article class="producto">';

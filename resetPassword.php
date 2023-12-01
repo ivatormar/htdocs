@@ -7,6 +7,8 @@
     *
     */
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
+
    
    // Iniciar sesión
    session_start();
@@ -18,7 +20,7 @@
    
        // Validar la contraseña y realizar otras validaciones necesarias
        if (strlen($newPassword) < 4) {
-           $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres.";
+           $_SESSION['error'] = $lang['caracteresError'];
            header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
            exit;
        }
@@ -45,13 +47,13 @@
            $stmt->execute();
    
            // Establecer el mensaje de éxito en la sesión
-           $_SESSION['success'] = "Contraseña actualizada correctamente.";
+           $_SESSION['success'] = $lang['contraseñaExito'];
    
            // Redirigir al index.php
            header('Location: /index.php');
            exit;
        } else {
-           $_SESSION['error'] = "Error al actualizar la contraseña.";
+           $_SESSION['error'] = $lang['updateError'];
            header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
            exit;
        }
@@ -76,7 +78,7 @@
    
        // Verificar si se encontró un registro con el token y el correo electrónico proporcionados
        if ($stmt->rowCount() === 0) {
-           $_SESSION['error'] = "Token o correo electrónico inválido.";
+           $_SESSION['error'] = $lang['tokenError'];
            header('Location: /index.php'); // Otra página de destino si es necesario
            exit;
        }
@@ -99,7 +101,7 @@
          <input type="hidden" name="email" value="<?php echo $email; ?>">
          <input type="hidden" name="token" value="<?php echo $token; ?>">
          <label for="new_password">Nueva contraseña:</label>
-         <input type="password" name="new_password" id="new_password" required>
+         <input type="password" name="new_password" id="new_password">
          <br>
          <input type="submit" value="Guardar contraseña">
       </form>

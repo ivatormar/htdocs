@@ -17,10 +17,17 @@ $lang = array(
     'h2Login'=>'Iniciar Sesión',
     'conectado'=>'Mantener conectado',
     'recuperar'=>'¿Olvidaste la contraseña?',
+    'incorrecto'=>'Usuario o password incorrecto',
     //CARRITO
     'producto'=>' producto',
     'carrito'=>' en el carrito',
-    'ver'=>'Ver carrito'
+    'ver'=>'Ver carrito',
+    // OFERTAS
+    'h2Ofertas'=>'Ofertas',
+    //ADMINISTRAR USUARIOS
+    'usuarios'=>'Usuarios',
+    'rol'=>'Rol'
+
 
 
     

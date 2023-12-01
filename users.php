@@ -7,6 +7,8 @@
     */
    session_start();
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
+
    
    // Obtener la lista de usuarios
    $connection = getDBConnection();
@@ -25,14 +27,14 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="usuarios">
-         <h2>Usuarios</h2>
+         <h2><?=$lang['usuarios'];?></h2>
          <ul>
             <?php
                foreach ($users as $user) {
                    echo '<li>';
                    echo '<strong>'.$lang['usuario'].':</strong> ' . $user->user . '<br>';
-                   echo '<strong>Email:</strong> ' . $user->email . '<br>';
-                   echo '<strong>Rol:</strong> ' . $user->rol . '<br>';
+                   echo '<strong>'.$lang['correo'].':</strong> ' . $user->email . '<br>';
+                   echo '<strong>'.$lang['rol'].':</strong> ' . $user->rol . '<br>';
                    echo '</li><br>';
                }
                ?>

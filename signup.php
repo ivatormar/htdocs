@@ -8,6 +8,9 @@
    
    session_start();
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
+
+   
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        try {
@@ -71,7 +74,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?php echo $lang['registro']?> - MerchaShop</title>
+      <title><?=$lang['registro']?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -79,20 +82,20 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="formulario">
-         <h2><?php echo $lang['registro']?></h2>
+         <h2><?=$lang['registro']?></h2>
          <?php
             if (!empty($errorMsg)) {
                 echo '<p class="error-message">' . $errorMsg . '</p>';
             }
             ?>
          <form action="" method="post">
-            <label for="username"><?php echo $lang['usuario']?>:</label>
+            <label for="username"><?=$lang['usuario']?>:</label>
             <input type="text" id="username" name="username" required>
-            <label for="email"><?php echo $lang['correo']?>:</label>
+            <label for="email"><?=$lang['correo']?>:</label>
             <input type="email" id="email" name="email" required>
-            <label for="password"><?php echo $lang['contraseña']?>:</label>
+            <label for="password"><?=$lang['contraseña']?>:</label>
             <input type="password" id="password" name="password" required>
-            <button type="submit"><?php echo $lang['registrarse']?></button>
+            <button type="submit"><?=$lang['registrarse']?></button>
          </form>
       </section>
    </body>
