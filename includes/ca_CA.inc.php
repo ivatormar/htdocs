@@ -25,6 +25,11 @@ $lang = array(
     'h2Carrito'=>'Carret',
     'carritoVacio'=>'El teu carret està buit',
     'volverCarrito'=>'Retorna',
+
+    'tablaProducto'=>'Producte',
+    'unidades'=>'Unitats',
+    'precio'=>'Preu',
+    'subtotal'=>'Subtotal',
     
     //OFERTAS
     'h2Ofertas' => 'Ofertes',

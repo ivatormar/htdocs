@@ -22,15 +22,20 @@ if (strpos($preferredLanguage, 'es') !== false) {
 
 
 require_once(__DIR__.'/language_utils.inc.php');
-setLanguage();
+
 echo '<header>';
 echo '<h1><a href="/index">MerchaShop</a></h1>';
 
+
+
 echo '<div class="flags">';
-echo '<a href="?lang=es" class="spainFlag"><img src="/img/bandera_españa.png" style="width:50px"></a>';
-echo '<a href="?lang=en" class="englishFlag"><img src="/img/bandera_inglaterra.jpg" style="width:50px"></a>';
-echo '<a href="?lang=val" class="valencianFlag"><img src="/img/bandera_valencia.png" style="width:50px"></a>';
+echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=es" class="' . (isLanguageSet('es') ? 'flagDisabled' : '') . '"><img src="/img/bandera_españa.png" style="width:50px"></a>';
+echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=en" class="' . (isLanguageSet('en') ? 'flagDisabled' : '') . '"><img src="/img/bandera_inglaterra.jpg" style="width:50px"></a>';
+echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=val" class="' . (isLanguageSet('val') ? 'flagDisabled' : '') . '"><img src="/img/bandera_valencia.png" style="width:50px"></a>';
 echo '</div>';
+
+
+
 
 echo '</div>';
 

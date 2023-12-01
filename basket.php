@@ -5,6 +5,8 @@
     *	@author Álex Torres
     */
    session_start();
+   require_once(__DIR__ . '/includes/language_utils.inc.php');
+
    
    if(isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
    	if(isset($_GET['add']) && $_GET['add']!='') {
@@ -64,7 +66,7 @@
             	$basketTotal = 0;
             
             	echo '<table>';
-            	echo '<tr><td>Producto</td><td>Unidades</td><td>Precio</td><td>Subtotal</td></tr>';
+            	echo '<tr><td>'.$lang['tablaProducto'].'</td><td>'.$lang['unidades'].'</td><td>'.$lang['precio'].'</td><td>'.$lang['subtotal'].'</td></tr>';
             	foreach($_SESSION['basket'] as $productId => $quantity) {
             		$product = $connection->query('SELECT name, price FROM products WHERE id='. $productId .';', PDO::FETCH_OBJ);
             		$product = $product->fetch();
