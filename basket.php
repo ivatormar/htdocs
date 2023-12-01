@@ -64,24 +64,33 @@
             	$connection = getDBConnection();
             
             	$basketTotal = 0;
-            
+               if ($_SESSION['language'] === 'en') {
+                  // Convert the basket total to pounds
+                  $basketTotal *= 0.85; // Assuming 1 Euro is equal to 0.85 pounds
+              }
+             
             	echo '<table>';
             	echo '<tr><td>'.$lang['tablaProducto'].'</td><td>'.$lang['unidades'].'</td><td>'.$lang['precio'].'</td><td>'.$lang['subtotal'].'</td></tr>';
             	foreach($_SESSION['basket'] as $productId => $quantity) {
             		$product = $connection->query('SELECT name, price FROM products WHERE id='. $productId .';', PDO::FETCH_OBJ);
             		$product = $product->fetch();
+                  if ($_SESSION['language'] === 'en') {
+                     $product->price*=0.85;
+                     
+                    }
             		echo '<tr>';
             		echo '<td>'. $product->name .'</td>';
             		echo '<td>'. $quantity .'</td>';
-            		echo '<td>'. $product->price .' €/unidad</td>';
-            		echo '<td>'. $quantity*$product->price .' €</td>';
+            		echo '<td>'. $product->price .' '.$lang['moneda'].' / '.$lang['unidad'].' </td>';
+            		echo '<td> '. $quantity*$product->price .' '.$lang['moneda'].'</td>';
             
             		$basketTotal += $product->price * $quantity;
             		
             		echo '</tr>';
             	}
+             
             	
-            	echo '<tr><td></td><td></td><td>Total</td><td>'. $basketTotal .' €</td></tr>';
+            	echo '<tr><td></td><td></td><td>Total</td><td>'. $basketTotal .' '.$lang['moneda'].' </td></tr>';
             	echo '</table>';
             	
             	unset($product);

@@ -30,6 +30,10 @@ $lang = array(
     'unidades'=>'Unitats',
     'precio'=>'Preu',
     'subtotal'=>'Subtotal',
+    'moneda'=>'€',
+    'unidad'=>'Unitat',
+
+
     
     //OFERTAS
     'h2Ofertas' => 'Ofertes',

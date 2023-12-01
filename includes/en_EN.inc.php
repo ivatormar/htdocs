@@ -21,14 +21,17 @@ $lang = array(
     'producto' => ' product',
     'carrito' => ' in your cart.',
     'ver' => 'See your cart',
-    'h2Carrito'=>'Cart',
-    'carritoVacio'=>'Your cart is empty',
-    'volverCarrito'=>'Return',
+    'h2Carrito' => 'Cart',
+    'carritoVacio' => 'Your cart is empty',
+    'volverCarrito' => 'Return',
 
-'tablaProducto'=>'Product',
-    'unidades'=>'Units',
-    'precio'=>'Price',
-    'subtotal'=>'Subtotal',
+    'tablaProducto' => 'Product',
+    'unidades' => 'Units',
+    'precio' => 'Price',
+    'subtotal' => 'Subtotal',
+    'moneda' => '£',
+    'unidad'=>'Unit',
+
 
     // OFERTAS
     'h2Ofertas' => 'Sales',
@@ -41,13 +44,13 @@ $lang = array(
     'updateError' => 'Error updating the password.',
     'tokenError' => 'Invalid Token or email.',
     'h2ResetPassword' => 'Reset password',
-    'nuevaContraseña'=>'New password',
-    'guardarContraseña'=>'Save password',
+    'nuevaContraseña' => 'New password',
+    'guardarContraseña' => 'Save password',
     //PASSWORD RECOVERY
-    'ingresaCorreo'=>'Please, enter your e-mail address.',
-    'errorCuentaAsociada'=>'No account was found associated with this email address.',
-    'h2RecoverPassword'=>'Recover Password',
-    'enviarInstrucciones'=>'Send instructions',
-    'volverInicioSesion'=>'Return to login',
+    'ingresaCorreo' => 'Please, enter your e-mail address.',
+    'errorCuentaAsociada' => 'No account was found associated with this email address.',
+    'h2RecoverPassword' => 'Recover Password',
+    'enviarInstrucciones' => 'Send instructions',
+    'volverInicioSesion' => 'Return to login',
 
 );

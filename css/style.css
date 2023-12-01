@@ -111,6 +111,7 @@ td {
 	align-items: center; 
 }
 
+/* Clase para no poder clicar en las banderas */
 .flags a.flagDisabled {
     opacity: 0.5; /* Ajusta la opacidad según sea necesario */
     pointer-events: none; /* Desactiva los eventos del mouse */

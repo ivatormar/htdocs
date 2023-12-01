@@ -9,7 +9,7 @@
 
 
 $preferredLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-
+$languages = ['es', 'en', 'val'];
 $defaultLanguage = 'es';
 
 // Check if the preferred language is available
@@ -29,9 +29,13 @@ echo '<h1><a href="/index">MerchaShop</a></h1>';
 
 
 echo '<div class="flags">';
-echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=es" class="' . (isLanguageSet('es') ? 'flagDisabled' : '') . '"><img src="/img/bandera_españa.png" style="width:50px"></a>';
-echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=en" class="' . (isLanguageSet('en') ? 'flagDisabled' : '') . '"><img src="/img/bandera_inglaterra.jpg" style="width:50px"></a>';
-echo '<a href="'.  $_SERVER['PHP_SELF'] .'?lang=val" class="' . (isLanguageSet('val') ? 'flagDisabled' : '') . '"><img src="/img/bandera_valencia.png" style="width:50px"></a>';
+
+foreach ($languages as $language) {
+    $class = isLanguageSet($language) ? 'flagDisabled' : '';
+    $image = '/img/bandera_' . $language . '.png';
+    $url = $_SERVER['PHP_SELF'] . '?lang=' . $language;
+    echo '<a href="' . $url . '" class="' . $class . '"><img src="' . $image . '" style="width:50px"></a>';
+}
 echo '</div>';
 
 

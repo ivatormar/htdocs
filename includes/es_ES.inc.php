@@ -24,11 +24,14 @@ $lang = array(
     'ver' => 'Ver carrito',
     'h2Carrito'=>'Carrito',
     'volverCarrito'=>'Volver',
-
     'tablaProducto'=>'Producto',
     'unidades'=>'Unidades',
     'precio'=>'Precio',
     'subtotal'=>'Subtotal',
+    'moneda'=>'€',
+    'unidad'=>'Unidad',
+
+    
 
     // OFERTAS
     'h2Ofertas' => 'Ofertas',
