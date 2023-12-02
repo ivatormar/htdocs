@@ -1,4 +1,12 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.1
+ * @description Php que contiene un único array con todas las variables del idioma inglés,
+ * sé que tendría que haber hecho las keys en inglés, pero no me daba tiempo, este finde
+ * tenía el entierro y el resto de cosas.
+ *
+ */
 $lang = array(
     'registro' => 'Register',
     'usuario' => 'User',
@@ -24,15 +32,12 @@ $lang = array(
     'h2Carrito' => 'Cart',
     'carritoVacio' => 'Your cart is empty',
     'volverCarrito' => 'Return',
-
     'tablaProducto' => 'Product',
     'unidades' => 'Units',
     'precio' => 'Price',
     'subtotal' => 'Subtotal',
     'moneda' => '£',
-    'unidad'=>'Unit',
-
-
+    'unidad' => 'Unit',
     // OFERTAS
     'h2Ofertas' => 'Sales',
     //ADMINISTRAR USUARIOS
@@ -52,5 +57,4 @@ $lang = array(
     'h2RecoverPassword' => 'Recover Password',
     'enviarInstrucciones' => 'Send instructions',
     'volverInicioSesion' => 'Return to login',
-
 );

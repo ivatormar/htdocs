@@ -1,8 +1,9 @@
 <?php
    /**
     * @author Ivan Torres Marcos
-    * @version 1.0
+    * @version 1.3
     * @description En este php visualizaremos a todos los usuarios existentes, pero solo lo podrá ver el usuario cuyo rol sea admin.
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     *
     */
    session_start();
@@ -19,7 +20,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Usuarios - MerchaShop</title>
+      <title><?=$lang['usuarios'];?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -30,6 +31,7 @@
          <h2><?=$lang['usuarios'];?></h2>
          <ul>
             <?php
+               //Recorremos los usuarios que existan en nuestra DB, y mostramos su
                foreach ($users as $user) {
                    echo '<li>';
                    echo '<strong>'.$lang['usuario'].':</strong> ' . $user->user . '<br>';

@@ -1,7 +1,7 @@
 <?php
    /**
     *	Script que implementa un carrito de la compra con variables de sesión
-    * 
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     *	@author Álex Torres
     */
    session_start();
@@ -64,16 +64,14 @@
             	$connection = getDBConnection();
             
             	$basketTotal = 0;
-               if ($_SESSION['language'] === 'en') {
-                  // Convert the basket total to pounds
-                  $basketTotal *= 0.85; // Assuming 1 Euro is equal to 0.85 pounds
-              }
+               
              
             	echo '<table>';
             	echo '<tr><td>'.$lang['tablaProducto'].'</td><td>'.$lang['unidades'].'</td><td>'.$lang['precio'].'</td><td>'.$lang['subtotal'].'</td></tr>';
             	foreach($_SESSION['basket'] as $productId => $quantity) {
             		$product = $connection->query('SELECT name, price FROM products WHERE id='. $productId .';', PDO::FETCH_OBJ);
             		$product = $product->fetch();
+                  //Si el idioma de la sesión es el en (inglés), multiplicamos el precio x 0.85 para que se convierta a pounds
                   if ($_SESSION['language'] === 'en') {
                      $product->price*=0.85;
                      
@@ -89,7 +87,7 @@
             		echo '</tr>';
             	}
              
-            	
+            	//Ponemos la variables $lang['moneda'] para cuando esté en inglés poner el simbolo de pounds
             	echo '<tr><td></td><td></td><td>Total</td><td>'. $basketTotal .' '.$lang['moneda'].' </td></tr>';
             	echo '</table>';
             	

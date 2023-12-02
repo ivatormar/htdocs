@@ -4,7 +4,7 @@
  * @author Ivan Torres Marcos
  * @version 1.2
  * @description En este php hacemos el login del usuario ademaás, damos la posibilidad de recuperar la contraseña
- *
+ * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
  */
 
 session_start();

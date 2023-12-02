@@ -1,52 +1,69 @@
 <?php
+/**
+ * @author Ivan Torres Marcos
+ * @version 1.2
+ * @description Php en el que comprobamos el lenguaje "seteado", lo "seteamos", cargamos el "language" correspondiente, y finalmente
+ * llamamos a las funciones.
+ *
+ */
 
-// Define the available languages
+
+
+// Definimos los idiomas disponibles
 $availableLanguages = ['es', 'val', 'en'];
 
-function isLanguageSet($language) {
+//Función para comprobar que lenguaje está "puesto".
+function isLanguageSet($language)
+{
     return isset($_SESSION['language']) && $_SESSION['language'] === $language;
 }
 
-function setLanguage() {
+
+//Función para "poner" el lenguaje creando la cookie o cogiendo el 'lang' de la sesión del usuario, o en su defecto, si no
+// hay cookie alguna loseteamos a 'es'
+function setLanguage()
+{
+    //Utilizamos global para poder coger los $availableLanguages previos
     global $availableLanguages;
 
-    // Check if the language is set in the session
+    // Comprobamos si el lenguaje está en la sesión
     if (isset($_GET['lang']) && in_array($_GET['lang'], $availableLanguages)) {
         if (!isLanguageSet($_GET['lang'])) {
             $_SESSION['language'] = $_GET['lang'];
 
-            // Set a cookie to remember the selected language
+            // "Seteamos" la cookie para recordar que lenguaje tenemos
             setcookie('preferred_language', $_GET['lang'], time() + (365 * 24 * 60 * 60), '/');
-            header('Location:'.$_SERVER['PHP_SELF']);
+            header('Location:' . $_SERVER['PHP_SELF']);
             exit;
         }
     } elseif (isset($_COOKIE['preferred_language']) && in_array($_COOKIE['preferred_language'], $availableLanguages)) {
-        // Use the language stored in the cookie
+        // Utilizamos el 'language' que esté en la cookie
         if (!isLanguageSet($_COOKIE['preferred_language'])) {
             $_SESSION['language'] = $_COOKIE['preferred_language'];
         }
     } else {
-        // If no cookie, set default language to 'es'
+        // Si no hay cookie, "seteamos" el language a 'es'.
         if (!isset($_SESSION['language'])) {
             $_SESSION['language'] = 'es';
         }
     }
 
-    // Include the language file based on the selected language or use the default language
-    $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es'; // Default to Spanish if no language is set
+    // Incluímos el fichero del language basandonos en el seleccionado o sino, por defecto, el 'es'
+    $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es';
     loadLanguageFile($language);
 }
 
 
-function loadLanguageFile($language) {
+function loadLanguageFile($language)
+{
     global $availableLanguages, $lang;
 
-    // Check if the language is available
+    // Comprobar si existe el idioma seleccionado, sino, 'es'
     if (!in_array($language, $availableLanguages)) {
-        $language = 'es'; // Fallback to Spanish if the language is not recognized
+        $language = 'es';
     }
 
-    // Load the appropriate language file
+    // Cargamos el php apropiado
     switch ($_SESSION['language']) {
         case 'es':
             require_once(__DIR__ . '/es_ES.inc.php');
@@ -62,8 +79,4 @@ function loadLanguageFile($language) {
     }
 }
 
-
-// Call setLanguage to set the language and load the language file
- setLanguage();
-
-?>
+setLanguage();

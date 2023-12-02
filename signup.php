@@ -1,9 +1,9 @@
 <?php
    /**
     * @author Ivan Torres Marcos
-    * @version 1.0
+    * @version 1.2
     * @description En este php procederemos a realizar el registro de usuarios
-    *
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     */
    
    session_start();
@@ -14,7 +14,7 @@
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        try {
-           // Validacion de campos
+           // Validación de campos
            if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
                $_SESSION['error'] = 'Por favor, completa todos los campos.';
                header('Location: /signup.php');
@@ -25,7 +25,7 @@
    
            $connection = getDBConnection();
    
-           // Comenzar una transacción
+           // Comenzamos una transacción
            $connection->beginTransaction();
    
            $token = uniqid();

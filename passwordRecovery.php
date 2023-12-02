@@ -1,10 +1,10 @@
 <?php
    /**
     * @author Ivan Torres Marcos
-    * @version 1.3
+    * @version 1.4
     * @description Con este php solicitamos el correo del cual quiere cambiar la contraseña, y hacer como si le enviamos las instrucciones de recuperación de contraseña
     * pero simplemente le redirigimos a otro PHP, denominado resetPassword.php, el cual si que te cambia la contraseña.
-    *
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     */
    session_start();
    
@@ -61,7 +61,7 @@
        }
    }
 ?>
-<!-- Resto del HTML para el formulario de recuperación de contraseña -->
+
 <!DOCTYPE html>
 <html lang="es">
    <head>

@@ -3,7 +3,7 @@
     * @author Ivan Torres Marcos
     * @version 1.2
     * @description En este php mostraremos aquellos productos los cuales tengan en el campo sale >0
-    *
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     */
    
    

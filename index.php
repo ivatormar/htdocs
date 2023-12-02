@@ -2,9 +2,9 @@
 
 /**
  * @author Alex Torres 
- * @version 1.0
- * @description Indice donde mostramos y añadimos la funcionalidad de los productos
- *
+ * @version 1.1
+ * @description Indice donde mostramos y añadimos la funcionalidad de los productos.
+ * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
  */
 session_start();
 require_once(__DIR__.'/includes/language_utils.inc.php');
@@ -64,7 +64,6 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
          <p><?php echo $lang['cuenta']; ?> <a href="/login.php"><?php echo $lang['iniciar_sesion']; ?></a>.</p>
 
       </section>
-      <!-- Enlace a sales.php -->
       <section class="sales-link">
          <a href="/sales.php">
             <img id="sales_image" src="/img/sales_image.png" alt="Ofertas">

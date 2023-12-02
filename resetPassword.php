@@ -1,16 +1,15 @@
 <?php
    /**
     * @author Ivan Torres Marcos
-    * @version 1.3
+    * @version 1.4
     * @description Con este php solicitamos simplemente nos pasan por URL el token y el mail el cual solicita el cambio de 
     * password y hacemos un UPDATE.
-    *
+    * En esta nueva versión hemos añadido todas las variables correspondientes para hacer la "internacionalización".
     */
    include_once(__DIR__ . '/includes/dbconnection.inc.php');
    require_once(__DIR__ . '/includes/language_utils.inc.php');
 
-   
-   // Iniciar sesión
+
   
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
