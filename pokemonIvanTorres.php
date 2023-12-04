@@ -36,7 +36,7 @@ try {
         $stmt->bindParam(':id_tipo', $_GET['/api/type/id']);
     } else {
         echo '<h1>Pokemon API - Iván Torres</h1>
-            <h2>Introduce por URL lo siguiente:</h2>
+              <h2>Añade por URL lo siguiente:</h2>
                 <ul>
                     <li>/api/pokemon/$id</li>
                     <li>/api/type</li>
