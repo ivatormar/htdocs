@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>JSON - Iván Torres</title>
-   </head>
-   <body>
-      <?php
+<?php
       /**
        * @author Ivan Torres Marcos
        * @version 1.2
@@ -31,11 +23,10 @@
              $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
              // Generar JSON y mostrarlo
              $jsonString = json_encode($result);
-             print_r($jsonString);
+             header('Content-Type: application/json; charset=utf-8');
+             echo($jsonString);
          } catch (PDOException $e) {
              // Manejo de errores de la base de datos
              echo 'Error de conexión: ' . $e->getMessage();
          }
-         ?>
-   </body>
-</html>
+?>
