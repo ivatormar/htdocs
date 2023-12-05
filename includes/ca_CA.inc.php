@@ -3,9 +3,7 @@ $lang = array(
     /**
  * @author Ivan Torres Marcos
  * @version 1.1
- * @description Php que contiene un único array con todas las variables del idioma valenciano,
- * sé que tendría que haber hecho las keys en inglés, pero no me daba tiempo, este finde
- * tenía el entierro y el resto de cosas.
+ * @description Php que contiene un único array con todas las variables del idioma valenciano.
  *
  */
  // INDEX
