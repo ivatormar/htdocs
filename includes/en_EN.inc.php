@@ -30,8 +30,8 @@ $lang = array(
     'incorrect_credentials' => 'Wrong user or password',
     
     // CART
-    'product' => 'product',
-    'in_cart' => 'in your cart.',
+    'product' => ' product',
+    'in_cart' => ' in your cart.',
     'view_cart' => 'See your cart',
     'cart_heading' => 'Cart',
     'empty_cart' => 'Your cart is empty',

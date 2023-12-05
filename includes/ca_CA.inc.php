@@ -30,8 +30,8 @@ $lang = array(
  'incorrect_credentials' => 'Usuari o contrasenya incorrecta',
  
  // CART
- 'product' => 'producte',
- 'in_cart' => 'en el carret.',
+ 'product' => ' producte',
+ 'in_cart' => ' en el carret.',
  'view_cart' => 'Visualitza el teu carret',
  'cart_heading' => 'Carret',
  'empty_cart' => 'El teu carret està buit',
