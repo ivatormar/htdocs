@@ -8,53 +8,63 @@
  *
  */
 $lang = array(
-    'registro' => 'Register',
-    'usuario' => 'User',
-    'correo' => 'Email',
-    'contraseña' => 'Password',
-    'registrarse' => 'Sign up',
-    'cuenta' => 'Do you have an account?',
-    //HEADER
-    'iniciar_sesion' => 'Login here',
-    'bienvenido' => 'Welcome',
-    'administrar_usuarios' => 'Manage users',
-    'cerrar_sesion' => 'Log out',
-    'principal' => 'Home',
-    //LOGIN
-    'h2Login' => 'Log in',
-    'conectado' => 'Stay Connected',
-    'recuperar' => 'Did you forget your password?',
-    'incorrecto' => 'Wrong user or password',
-    //CARRITO
-    'producto' => ' product',
-    'carrito' => ' in your cart.',
-    'ver' => 'See your cart',
-    'h2Carrito' => 'Cart',
-    'carritoVacio' => 'Your cart is empty',
-    'volverCarrito' => 'Return',
-    'tablaProducto' => 'Product',
-    'unidades' => 'Units',
-    'precio' => 'Price',
+    // INDEX
+    'register' => 'Register',
+    'user' => 'User',
+    'email' => 'Email',
+    'password' => 'Password',
+    'sign_up' => 'Sign up',
+    'have_account' => 'Do you have an account?',
+    
+    // HEADER
+    'login' => 'Login here',
+    'welcome' => 'Welcome',
+    'manage_users' => 'Manage users',
+    'logout' => 'Log out',
+    'main' => 'Home',
+    
+    // LOGIN
+    'login_heading' => 'Log in',
+    'stay_connected' => 'Stay Connected',
+    'forgot_password' => 'Did you forget your password?',
+    'incorrect_credentials' => 'Wrong user or password',
+    
+    // CART
+    'product' => 'product',
+    'in_cart' => 'in your cart.',
+    'view_cart' => 'See your cart',
+    'cart_heading' => 'Cart',
+    'empty_cart' => 'Your cart is empty',
+    'return_cart' => 'Return',
+    'product_table' => 'Product',
+    'units' => 'Units',
+    'price' => 'Price',
     'subtotal' => 'Subtotal',
-    'moneda' => '£',
-    'unidad' => 'Unit',
-    // OFERTAS
-    'h2Ofertas' => 'Sales',
-    //ADMINISTRAR USUARIOS
-    'usuarios' => 'Users',
-    'rol' => 'Role',
-    //RESET PASSWORD
-    'caracteresError' => 'The password must have at least 4 characters',
-    'contraseñaExito' => 'Password updated successfully.',
-    'updateError' => 'Error updating the password.',
-    'tokenError' => 'Invalid Token or email.',
-    'h2ResetPassword' => 'Reset password',
-    'nuevaContraseña' => 'New password',
-    'guardarContraseña' => 'Save password',
-    //PASSWORD RECOVERY
-    'ingresaCorreo' => 'Please, enter your e-mail address.',
-    'errorCuentaAsociada' => 'No account was found associated with this email address.',
-    'h2RecoverPassword' => 'Recover Password',
-    'enviarInstrucciones' => 'Send instructions',
-    'volverInicioSesion' => 'Return to login',
+    'currency' => '£',
+    'unit' => 'Unit',
+    
+    // OFFERS
+    'offers_heading' => 'Sales',
+    
+    // MANAGE USERS
+    'users' => 'Users',
+    'role' => 'Role',
+    
+    // RESET PASSWORD
+    'password_length_error' => 'The password must have at least 4 characters',
+    'password_update_success' => 'Password updated successfully.',
+    'password_update_error' => 'Error updating the password.',
+    'token_email_error' => 'Invalid Token or email.',
+    'reset_password_heading' => 'Reset password',
+    'new_password' => 'New password',
+    'save_password' => 'Save password',
+    
+    // PASSWORD RECOVERY
+    'enter_email' => 'Please, enter your e-mail address.',
+    'no_account_error' => 'No account was found associated with this email address.',
+    'recover_password_heading' => 'Recover Password',
+    'send_instructions' => 'Send instructions',
+    'back_to_login' => 'Return to login',
 );
+
+

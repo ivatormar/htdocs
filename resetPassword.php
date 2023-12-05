@@ -19,7 +19,7 @@
    
        // Validar la contraseña y realizar otras validaciones necesarias
        if (strlen($newPassword) < 4) {
-           $_SESSION['error'] = $lang['caracteresError'];
+           $_SESSION['error'] = $lang['password_length_error'];
            header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
            exit;
        }
@@ -46,13 +46,13 @@
            $stmt->execute();
    
            // Establecer el mensaje de éxito en la sesión
-           $_SESSION['success'] = $lang['contraseñaExito'];
+           $_SESSION['success'] = $lang['password_update_success'];
    
            // Redirigir al index.php
            header('Location: /index.php');
            exit;
        } else {
-           $_SESSION['error'] = $lang['updateError'];
+           $_SESSION['error'] = $lang['password_update_error'];
            header('Location: /resetPassword.php?token=' . $_POST['token'] . '&email=' . $email);
            exit;
        }
@@ -77,7 +77,7 @@
    
        // Verificar si se encontró un registro con el token y el correo electrónico proporcionados
        if ($stmt->rowCount() === 0) {
-           $_SESSION['error'] = $lang['tokenError'];
+           $_SESSION['error'] = $lang['token_email_error'];
            header('Location: /index.php'); // Otra página de destino si es necesario
            exit;
        }
@@ -88,14 +88,14 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?= $lang['h2ResetPassword']?></title>
+      <title><?= $lang['reset_password_heading']?></title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
       <?php
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
-      <h2><?= $lang['h2ResetPassword']?></h2>
+      <h2><?= $lang['reset_password_heading']?></h2>
       <?php
       if (isset($_SESSION['error'])) {
          echo '<p>' . $_SESSION['error'] . '</p>';
@@ -109,10 +109,10 @@
       <form method="post" action="resetPassword.php">
          <input type="hidden" name="email" value="<?= $email; ?>">
          <input type="hidden" name="token" value="<?= $token; ?>">
-         <label for="new_password"><?= $lang['nuevaContraseña']?>:</label>
+         <label for="new_password"><?= $lang['new_password']?>:</label>
          <input type="password" name="new_password" id="new_password">
          <br>
-         <input type="submit" value="<?= $lang['guardarContraseña']?>">
+         <input type="submit" value="<?= $lang['save_password']?>">
       </form>
    </body>
 </html>

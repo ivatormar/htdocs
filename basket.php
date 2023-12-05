@@ -32,7 +32,7 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>MerchaShop - <?=$lang['h2Carrito'] ?></title>
+      <title>MerchaShop - <?=$lang['cart_heading'] ?></title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -46,18 +46,18 @@
             else
             	$products = count($_SESSION['basket']);
             echo $products;
-            echo $lang['producto'];
+            echo $lang['product'];
             if($products>1)
             	echo 's';
-            $lang['carrito']
+            $lang['in_cart']
             ?>
-         <a href="/basket" class="boton"><?=$lang['ver']?></a>	
+         <a href="/basket" class="boton"><?=$lang['view_cart']?></a>	
       </div>
-      <h2><?=$lang['h2Carrito'] ?></h2>
+      <h2><?=$lang['cart_heading'] ?></h2>
       <section>
          <?php
             if(!isset($_SESSION['basket']) || count($_SESSION['basket'])==0)
-            	echo '<div>'.$lang['carritoVacio'].'</div>';
+            	echo '<div>'.$lang['empty_cart'].'</div>';
             else 
             {
             	require_once('includes/dbconnection.inc.php');
@@ -67,7 +67,7 @@
                
              
             	echo '<table>';
-            	echo '<tr><td>'.$lang['tablaProducto'].'</td><td>'.$lang['unidades'].'</td><td>'.$lang['precio'].'</td><td>'.$lang['subtotal'].'</td></tr>';
+            	echo '<tr><td>'.$lang['product_table'].'</td><td>'.$lang['units'].'</td><td>'.$lang['price'].'</td><td>'.$lang['subtotal'].'</td></tr>';
             	foreach($_SESSION['basket'] as $productId => $quantity) {
             		$product = $connection->query('SELECT name, price FROM products WHERE id='. $productId .';', PDO::FETCH_OBJ);
             		$product = $product->fetch();
@@ -79,8 +79,8 @@
             		echo '<tr>';
             		echo '<td>'. $product->name .'</td>';
             		echo '<td>'. $quantity .'</td>';
-            		echo '<td>'. $product->price .' '.$lang['moneda'].' / '.$lang['unidad'].' </td>';
-            		echo '<td> '. $quantity*$product->price .' '.$lang['moneda'].'</td>';
+            		echo '<td>'. $product->price .' '.$lang['currency'].' / '.$lang['unit'].' </td>';
+            		echo '<td> '. $quantity*$product->price .' '.$lang['currency'].'</td>';
             
             		$basketTotal += $product->price * $quantity;
             		
@@ -88,7 +88,7 @@
             	}
              
             	//Ponemos la variables $lang['moneda'] para cuando esté en inglés poner el simbolo de pounds
-            	echo '<tr><td></td><td></td><td>Total</td><td>'. $basketTotal .' '.$lang['moneda'].' </td></tr>';
+            	echo '<tr><td></td><td></td><td>Total</td><td>'. $basketTotal .' '.$lang['currency'].' </td></tr>';
             	echo '</table>';
             	
             	unset($product);
@@ -96,7 +96,7 @@
             }
             ?>
          <br><br>
-         <a href="/index" class="boton"><?=$lang['volverCarrito'] ?></a>				
+         <a href="/index" class="boton"><?=$lang['return_cart'] ?></a>				
       </section>
    </body>
 </html>

@@ -35,20 +35,20 @@ echo '<header>';
 // Verificar si el usuario está logueado
 if (isset($_SESSION['user'])) {
     // Usuario logueado
-    echo $lang['bienvenido'] . ', ' . $_SESSION['user']['user'];
+    echo $lang['welcome'] . ', ' . $_SESSION['user']['user'];
 
     // Verificar el rol del usuario
     if (isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] === 'admin') {
-        echo '<br><a href="/users.php">' . $lang['administrar_usuarios'] . '</a>';
+        echo '<br><a href="/users.php">' . $lang['manage_users'] . '</a>';
     }
 
-    echo '<br><a href="/logout.php">' . $lang['cerrar_sesion'] . '</a>';
+    echo '<br><a href="/logout.php">' . $lang['logout'] . '</a>';
 } else {
     // Usuario no logueado
-    echo '<a href="/index">' . $lang['principal'] . '</a><br>';
+    echo '<a href="/index">' . $lang['main'] . '</a><br>';
 
     // Añadir enlaces de registro e inicio de sesión
-    echo '<a href="/login.php">' . $lang['iniciar_sesion'] . '</a><br>';
-    echo '<a href="/signup.php">' . $lang['registrarse'] . '</a>';
+    echo '<a href="/login.php">' . $lang['login'] . '</a><br>';
+    echo '<a href="/signup.php">' . $lang['sign_up'] . '</a>';
 }
 echo '</header>';

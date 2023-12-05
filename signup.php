@@ -74,7 +74,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?=$lang['registro']?> - MerchaShop</title>
+      <title><?=$lang['register']?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -82,20 +82,20 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="formulario">
-         <h2><?=$lang['registro']?></h2>
+         <h2><?=$lang['register']?></h2>
          <?php
             if (!empty($errorMsg)) {
                 echo '<p class="error-message">' . $errorMsg . '</p>';
             }
             ?>
          <form action="" method="post">
-            <label for="username"><?=$lang['usuario']?>:</label>
+            <label for="username"><?=$lang['user']?>:</label>
             <input type="text" id="username" name="username" >
-            <label for="email"><?=$lang['correo']?>:</label>
+            <label for="email"><?=$lang['email']?>:</label>
             <input type="email" id="email" name="email" >
-            <label for="password"><?=$lang['contraseña']?>:</label>
+            <label for="password"><?=$lang['password']?>:</label>
             <input type="password" id="password" name="password" >
-            <button type="submit"><?=$lang['registrarse']?></button>
+            <button type="submit"><?=$lang['sign_up']?></button>
          </form>
       </section>
    </body>

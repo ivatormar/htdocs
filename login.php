@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit();
    } else {
 
-      $_SESSION['error'] = $lang['incorrecto'];
+      $_SESSION['error'] = $lang['incorrect_credentials'];
       header('Location: /login.php');
       exit();
    }
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title><?php echo $lang['h2Login'] ?> - MerchaShop</title>
+   <title><?= $lang['login_heading'] ?> - MerchaShop</title>
    <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    include_once(__DIR__ . '/includes/header.inc.php');
    ?>
    <section class="formulario">
-      <h2><?php echo $lang['h2Login'] ?></h2>
+      <h2><?= $lang['login_heading'] ?></h2>
       <?php
       if (isset($_SESSION['error'])) {
          echo '<p>' . $_SESSION['error'] . '</p>';
@@ -86,15 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       ?>
       <form action="/login.php" method="post">
-         <label for="username"><?php echo $lang['usuario'] ?>:</label>
+         <label for="username"><?= $lang['user'] ?>:</label>
          <input type="text" id="username" name="username" >
-         <label for="password"><?php echo $lang['contraseña'] ?>:</label>
+         <label for="password"><?= $lang['password'] ?>:</label>
          <input type="password" id="password" name="password" >
-         <label for="remember"><?php echo $lang['conectado'] ?>:</label>
+         <label for="remember"><?= $lang['stay_connected'] ?>:</label>
          <input type="checkbox" id="remember" name="remember">
-         <button type="submit"><?php echo $lang['h2Login'] ?></button>
+         <button type="submit"><?= $lang['login_heading'] ?></button>
       </form>
-      <a href="/passwordRecovery.php"><?php echo $lang['recuperar'] ?></a>
+      <a href="/passwordRecovery.php"><?= $lang['forgot_password'] ?></a>
    </section>
 </body>
 

@@ -53,15 +53,15 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
       <!-- Mostrar formulario de registro para usuarios no logueados -->
       <section class="registro">
          <!-- Replace static content with translations -->
-         <h2><?php echo $lang['registro']; ?></h2>
-         <label for="username"><?php echo $lang['usuario']; ?>:</label>
+         <h2><?= $lang['register']; ?></h2>
+         <label for="username"><?= $lang['user']; ?>:</label>
          <input type="text" id="username" name="username">
-         <label for="email"><?php echo $lang['correo']; ?>:</label>
+         <label for="email"><?= $lang['email']; ?>:</label>
          <input type="text" id="email" name="email">
-         <label for="password"><?php echo $lang['contraseña']; ?>:</label>
+         <label for="password"><?= $lang['password']; ?>:</label>
          <input type="text" id="password" name="password">
-         <button type="submit"><?php echo $lang['registrarse']; ?></button>
-         <p><?php echo $lang['cuenta']; ?> <a href="/login.php"><?php echo $lang['iniciar_sesion']; ?></a>.</p>
+         <button type="submit"><?= $lang['sign_up']; ?></button>
+         <p><?= $lang['have_account']; ?> <a href="/login.php"><?= $lang['login']; ?></a>.</p>
 
       </section>
       <section class="sales-link">
@@ -78,13 +78,13 @@ if (isset($_GET['add']) || isset($_GET['subtract']) || isset($_GET['remove'])) {
          else
             $products = count($_SESSION['basket']);
          echo $products;
-         echo $lang['producto'];
+         echo $lang['product'];
          if ($products > 1)
             echo 's';
-            echo $lang['carrito'];
+            echo $lang['in_cart'];
          ?>
          
-         <a href="/basket" class="boton"><?php echo $lang['ver']?></a>
+         <a href="/basket" class="boton"><?= $lang['view_cart']?></a>
       </div>
       <section class="productos">
          <?php

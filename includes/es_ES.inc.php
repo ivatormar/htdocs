@@ -8,55 +8,61 @@
  *
  */
 
-
-$lang = array(
+ $lang = array(
     // INDEX
-    'registro' => 'Registro',
-    'usuario' => 'Usuario',
-    'correo' => 'Correo electrónico',
-    'contraseña' => 'Contraseña',
-    'registrarse' => 'Registrarse',
-    'cuenta' => '¿Ya tienes una cuenta?',
+    'register' => 'Registro',
+    'user' => 'Usuario',
+    'email' => 'Correo electrónico',
+    'password' => 'Contraseña',
+    'sign_up' => 'Registrarse',
+    'have_account' => '¿Ya tienes una cuenta?',
+    
     // HEADER
-    'iniciar_sesion' => 'Inicia sesión aquí',
-    'bienvenido' => 'Bienvenido',
-    'administrar_usuarios' => 'Administrar usuarios',
-    'cerrar_sesion' => 'Cerrar sesión',
-    'principal' => 'Principal',
+    'login' => 'Inicia sesión aquí',
+    'welcome' => 'Bienvenido',
+    'manage_users' => 'Administrar usuarios',
+    'logout' => 'Cerrar sesión',
+    'main' => 'Principal',
+    
     // LOGIN
-    'h2Login' => 'Iniciar Sesión',
-    'conectado' => 'Mantener conectado',
-    'recuperar' => '¿Olvidaste la contraseña?',
-    'incorrecto' => 'Usuario o password incorrecto',
-    //CARRITO
-    'producto' => ' producto',
-    'carrito' => ' en el carrito',
-    'ver' => 'Ver carrito',
-    'h2Carrito' => 'Carrito',
-    'volverCarrito' => 'Volver',
-    'tablaProducto' => 'Producto',
-    'unidades' => 'Unidades',
-    'precio' => 'Precio',
+    'login_heading' => 'Iniciar Sesión',
+    'stay_connected' => 'Mantener conectado',
+    'forgot_password' => '¿Olvidaste la contraseña?',
+    'incorrect_credentials' => 'Usuario o password incorrecto',
+    
+    // CART
+    'product' => ' producto',
+    'in_cart' => ' en el carrito',
+    'view_cart' => 'Ver carrito',
+    'cart_heading' => 'Carrito',
+    'return_cart' => 'Volver',
+    'product_table' => 'Producto',
+    'units' => 'Unidades',
+    'price' => 'Precio',
     'subtotal' => 'Subtotal',
-    'moneda' => '€',
-    'unidad' => 'Unidad',
-    // OFERTAS
-    'h2Ofertas' => 'Ofertas',
-    //ADMINISTRAR USUARIOS
-    'usuarios' => 'Usuarios',
-    'rol' => 'Rol',
-    //RESET PASSWORD    
-    'caracteresError' => 'La contraseña debe tener al menos 4 carácteres',
-    'contraseñaExito' => 'Contraseña actualizada correctamente.',
-    'updateError' => 'Error al actualizar la contraseña.',
-    'tokenError' => 'Token o correo electrónico inválido.',
-    'h2ResetPassword' => 'Restablecer contraseña',
-    'nuevaContraseña' => 'Nueva Contraseña',
-    'guardarContraseña' => 'Guardar contraseña',
-    //PASSWORD RECOVERY
-    'ingresaCorreo' => 'Por favor, ingresa tu dirección de correo electrónico',
-    'errorCuentaAsociada' => 'No se encontró ninguna cuenta asociada a ese correo electrónico.',
-    'h2RecoverPassword' => 'Recuperar Contraseña',
-    'enviarInstrucciones' => 'Enviar instrucciones',
-    'volverInicioSesion' => 'Volver al inicio de sesión',
+    'currency' => '€',
+    'unit' => 'Unidad',
+    
+    // OFFERS
+    'offers_heading' => 'Ofertas',
+    
+    // MANAGE USERS
+    'users' => 'Usuarios',
+    'role' => 'Rol',
+    
+    // RESET PASSWORD    
+    'password_length_error' => 'La contraseña debe tener al menos 4 carácteres',
+    'password_update_success' => 'Contraseña actualizada correctamente.',
+    'password_update_error' => 'Error al actualizar la contraseña.',
+    'token_email_error' => 'Token o correo electrónico inválido.',
+    'reset_password_heading' => 'Restablecer contraseña',
+    'new_password' => 'Nueva Contraseña',
+    'save_password' => 'Guardar contraseña',
+    
+    // PASSWORD RECOVERY
+    'enter_email' => 'Por favor, ingresa tu dirección de correo electrónico',
+    'no_account_error' => 'No se encontró ninguna cuenta asociada a ese correo electrónico.',
+    'recover_password_heading' => 'Recuperar Contraseña',
+    'send_instructions' => 'Enviar instrucciones',
+    'back_to_login' => 'Volver al inicio de sesión',
 );

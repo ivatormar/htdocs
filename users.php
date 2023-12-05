@@ -20,7 +20,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?=$lang['usuarios'];?> - MerchaShop</title>
+      <title><?=$lang['users'];?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -28,15 +28,15 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="usuarios">
-         <h2><?=$lang['usuarios'];?></h2>
+         <h2><?=$lang['users'];?></h2>
          <ul>
             <?php
                //Recorremos los usuarios que existan en nuestra DB, y mostramos su
                foreach ($users as $user) {
                    echo '<li>';
-                   echo '<strong>'.$lang['usuario'].':</strong> ' . $user->user . '<br>';
-                   echo '<strong>'.$lang['correo'].':</strong> ' . $user->email . '<br>';
-                   echo '<strong>'.$lang['rol'].':</strong> ' . $user->rol . '<br>';
+                   echo '<strong>'.$lang['user'].':</strong> ' . $user->user . '<br>';
+                   echo '<strong>'.$lang['email'].':</strong> ' . $user->email . '<br>';
+                   echo '<strong>'.$lang['role'].':</strong> ' . $user->rol . '<br>';
                    echo '</li><br>';
                }
                ?>

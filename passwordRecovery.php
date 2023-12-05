@@ -15,7 +15,7 @@
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        // Validar el campo
        if (empty( $_POST['email'])) {
-           $_SESSION['error'] = $lang['ingresaCorreo'];
+           $_SESSION['error'] = $lang['enter_email'];
            header('Location: /passwordRecovery.php');
            exit();
        }
@@ -55,7 +55,7 @@
            exit();
        } else {
            // Si el correo electrónico no está registrado, mostrar un mensaje de error
-           $_SESSION['error'] = $lang['errorCuentaAsociada'];
+           $_SESSION['error'] = $lang['no_account_error'];
            header('Location: /passwordRecovery.php');
            exit();
        }
@@ -67,7 +67,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?=$lang['h2RecoverPassword'] ?> - MerchaShop</title>
+      <title><?=$lang['recover_password_heading'] ?> - MerchaShop</title>
       <link rel="stylesheet" href="/css/style.css">
    </head>
    <body>
@@ -75,7 +75,7 @@
          include_once(__DIR__ . '/includes/header.inc.php');
          ?>
       <section class="formulario">
-         <h2><?=$lang['h2RecoverPassword'] ?></h2>
+         <h2><?=$lang['recover_password_heading'] ?></h2>
          <?php
             if (isset($_SESSION['error'])) {
                 echo '<p class="error-message">' . $_SESSION['error'] . '</p>';
@@ -87,11 +87,11 @@
             }
             ?>
          <form action="/passwordRecovery.php" method="post">
-            <label for="email"><?=$lang['correo'] ?>:</label>
+            <label for="email"><?=$lang['email'] ?>:</label>
             <input type="email" id="email" name="email" >
-            <button type="submit"><?=$lang['enviarInstrucciones']?></button>
+            <button type="submit"><?=$lang['send_instructions']?></button>
          </form>
-         <a href="/login.php"><?=$lang['volverInicioSesion'] ?></a>
+         <a href="/login.php"><?=$lang['back_to_login'] ?></a>
       </section>
    </body>
 </html>
