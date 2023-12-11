@@ -30,15 +30,21 @@ $character = json_decode($response, true);
 
 // Mostrar los detalles del personaje
 if (!empty($character)) {
-    $name = $character['name'];
-    $image = $character['image'];
-    $species = $character['species'];
-    $status = $character['status'];
-    
-    echo '<h2>' . $name . '</h2>';
-    echo '<img src="' . $image . '" alt="' . $name . '">';
-    echo '<p>Especie: ' . $species . '</p>';
-    echo '<p>Estado: ' . $status . '</p>';
+    echo '<h2>' . $character['name'] . '</h2>';
+    echo '<img src="' . $character['image'] . '" alt="' . $character['name'] . '">';
+    echo '<p>Especie: ' .$character['species'] . '</p>';
+    echo '<p>Estado: ' . $character['status'] . '</p>';
+    echo '<p>Género: ' . $character['gender'] . '</p>';
+    echo '<p>Origen: ' . $character['origin']['name'] . '</p>'; // Display the origin name
+    echo '<p>Ubicación: ' . $character['location']['name'] . '</p>';
+    echo '<p>Episodios:</p>';
+    echo '<ul>';
+    foreach ($character['episode'] as $episode) {
+        echo '<li><a href="' . $episode . '">' . $episode . '</a></li>';
+    }
+    echo '</ul>';
+    echo '<p>URL: <a href="' . $character['url'] . '">' . $character['url'] . '</a></p>';
+    echo '<p>Creado: ' . $character['created'] . '</p>';
 } else {
     echo '<p>No se encontró información para el personaje solicitado.</p>';
 }
