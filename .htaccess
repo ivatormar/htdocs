@@ -1,17 +1,9 @@
-#Para que no liste directorios sin index
-IndexIgnore *
-Options All -Indexes
+Options +FollowSymLinks
 
+RewriteEngine On
+RewriteBase /
 
-RewriteEngine on
-
-RewriteRule ^add/(.+)$ index.php?add=$1 [L]
-RewriteRule ^subtract/(.+)$ index.php?subtract=$1 [L]
-RewriteRule ^remove/(.+)$ index.php?remove=$1 [L]
-RewriteRule ^login/signup/(.+)$ login.php?signup=$1 [L]
-
-
-# Eliminar .php de las URL
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php
+RewriteRule ^api/pokemon/([^/]+)$ pokemonIvanTorres.php?/api/pokemon/id=$1 [L]
+RewriteRule ^api/pokemon$ pokemonIvanTorres.php?/api/pokemon [L]
+RewriteRule ^api/type$ pokemonIvanTorres.php?/api/type [L]
+RewriteRule ^api/type/([^/]+)$ pokemonIvanTorres.php?/api/type/id=$1 [L]
