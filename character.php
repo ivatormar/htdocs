@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Personaje</title>
 </head>
+
 <body>
     <header>
         <a href="index.php?name=rick">Ricky</a>
@@ -15,39 +19,47 @@
     </form>
 
     <?php
-// Función para hacer una solicitud a la API
-include_once(__DIR__."/includes/makeRequest.inc.php");
+    /**
+     * @author Ivan Torres Marcos
+     * @version 1.4
+     * @description Character.php el cual permite obtener los detalles de cada personaje buscado,
+     * o simplemente de Rick o Morty.
+     *
+     */
+    
+    include_once(__DIR__ . "/includes/makeRequest.inc.php");
 
-// Obtener el ID del personaje desde el parámetro de la URL
-$id = isset($_GET['id']) ? $_GET['id'] : '';
+    // Obtener el ID del personaje desde el parámetro de la URL
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// Construir la URL de la API para obtener los detalles del personaje
-$url = 'https://rickandmortyapi.com/api/character/' . $id;
+    // Construir la URL de la API para obtener los detalles del personaje
+    $url = 'https://rickandmortyapi.com/api/character/' . $id;
 
-// Hacer la solicitud a la API y obtener los detalles del personaje
-$response = makeRequest($url);
-$character = json_decode($response, true);
+    // Hacer la solicitud a la API y obtener los detalles del personaje
+    $response = makeRequest($url);
+    $character = json_decode($response, true);
 
-// Mostrar los detalles del personaje
-if (!empty($character)) {
-    echo '<h2>' . $character['name'] . '</h2>';
-    echo '<img src="' . $character['image'] . '" alt="' . $character['name'] . '">';
-    echo '<p>Especie: ' .$character['species'] . '</p>';
-    echo '<p>Estado: ' . $character['status'] . '</p>';
-    echo '<p>Género: ' . $character['gender'] . '</p>';
-    echo '<p>Origen: ' . $character['origin']['name'] . '</p>'; // Display the origin name
-    echo '<p>Ubicación: ' . $character['location']['name'] . '</p>';
-    echo '<p>Episodios:</p>';
-    echo '<ul>';
-    foreach ($character['episode'] as $episode) {
-        echo '<li><a href="' . $episode . '">' . $episode . '</a></li>';
+    // Mostrar los detalles del personaje
+    if (!empty($character)) {
+        echo '<h2>' . $character['name'] . '</h2>';
+        echo '<img src="' . $character['image'] . '" alt="' . $character['name'] . '">';
+        echo '<p>Especie: ' . $character['species'] . '</p>';
+        echo '<p>Estado: ' . $character['status'] . '</p>';
+        echo '<p>Género: ' . $character['gender'] . '</p>';
+        echo '<p>Origen: ' . $character['origin']['name'] . '</p>'; // Display the origin name
+        echo '<p>Ubicación: ' . $character['location']['name'] . '</p>';
+        echo '<p>Episodios:</p>';
+        echo '<ul>';
+        foreach ($character['episode'] as $episode) {
+            echo '<li><a href="' . $episode . '">' . $episode . '</a></li>';
+        }
+        echo '</ul>';
+        echo '<p>URL: <a href="' . $character['url'] . '">' . $character['url'] . '</a></p>';
+        echo '<p>Creado: ' . $character['created'] . '</p>';
+    } else {
+        echo '<p>No se encontró información para el personaje solicitado.</p>';
     }
-    echo '</ul>';
-    echo '<p>URL: <a href="' . $character['url'] . '">' . $character['url'] . '</a></p>';
-    echo '<p>Creado: ' . $character['created'] . '</p>';
-} else {
-    echo '<p>No se encontró información para el personaje solicitado.</p>';
-}
-?>
+    ?>
 </body>
+
 </html>
