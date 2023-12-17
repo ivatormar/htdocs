@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Personaje</title>
-</head>
-
-<body>
-    <header>
-        <a href="index.php?name=rick">Ricky</a>
-        <a href="index.php?name=morty">Morty</a>
-    </header>
-
-    <form method="GET" action="index.php">
-        <input type="text" name="search" placeholder="Buscar personaje">
-        <input type="submit" value="Buscar">
-    </form>
-
-    <?php
+<?php
     /**
      * @author Ivan Torres Marcos
      * @version 1.4
@@ -26,8 +6,8 @@
      * o simplemente de Rick o Morty.
      *
      */
-    
-    include_once(__DIR__ . "/includes/makeRequest.inc.php");
+    include_once(__DIR__."/INCLUDES/commonHTML.inc.php");
+    include_once(__DIR__ . "/INCLUDES/makeRequest.inc.php");
 
     // Obtener el ID del personaje desde el parámetro de la URL
     $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -41,21 +21,35 @@
 
     // Mostrar los detalles del personaje
     if (!empty($character)) {
+        echo'<div class="characterDiv">';
+        echo'<div class="nameImg">';
         echo '<h2>' . $character['name'] . '</h2>';
         echo '<img src="' . $character['image'] . '" alt="' . $character['name'] . '">';
+        echo '</div>';
+        echo '<div class="info">';
+        echo '<div class="infoPlus">';
         echo '<p>Especie: ' . $character['species'] . '</p>';
         echo '<p>Estado: ' . $character['status'] . '</p>';
         echo '<p>Género: ' . $character['gender'] . '</p>';
         echo '<p>Origen: ' . $character['origin']['name'] . '</p>'; // Display the origin name
         echo '<p>Ubicación: ' . $character['location']['name'] . '</p>';
+        echo '</div>';
+        echo '<div class="infoPlus">';
         echo '<p>Episodios:</p>';
+        echo '</div>';
+        echo '<div class="episodeList" id="scrollbar">';
         echo '<ul>';
         foreach ($character['episode'] as $episode) {
             echo '<li><a href="' . $episode . '">' . $episode . '</a></li>';
         }
         echo '</ul>';
+        echo '</div>';
+        echo '<div class="infoPlus">';
         echo '<p>URL: <a href="' . $character['url'] . '">' . $character['url'] . '</a></p>';
         echo '<p>Creado: ' . $character['created'] . '</p>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
     } else {
         echo '<p>No se encontró información para el personaje solicitado.</p>';
     }
